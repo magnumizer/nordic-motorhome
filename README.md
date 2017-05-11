@@ -14,4 +14,4 @@ Repository for 1. semester exam project
 
 ## Project implementation
 
-The report must be submitted electronically to WiseFlow by May 31 no later than 12:00 p.m.
+The report must be submitted electronically to [WiseFlow](https://europe.wiseflow.net/) by May 31 no later than 12:00 p.m.
