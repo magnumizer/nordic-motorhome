@@ -1,10 +1,9 @@
 # Nordic Motorhome Rental
-
-### Repository for 1. semester exam project - Nordic Motorhome Rental
-
+Repository for 1. semester exam project - Nordic Motorhome Rental
 
 
-## Group members:
+
+## Group members
 
 ```
 Alisia-Nadia Sarb
