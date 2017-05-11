@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SAController">
+   <children>
+      <TabPane layoutX="-43.0" prefHeight="362.0" prefWidth="527.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Register Customer">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="368.0" prefWidth="510.0">
+                     <children>
+                        <Label alignment="CENTER" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Name:" textAlignment="CENTER" />
+                        <TextField layoutX="120.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="CPR:" textAlignment="CENTER" />
+                        <TextField layoutX="120.0" layoutY="65.0" />
+                        <Label alignment="CENTER" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Date of birth:" textAlignment="CENTER" />
+                        <DatePicker layoutX="120.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Address:" textAlignment="CENTER" />
+                        <TextField layoutX="120.0" layoutY="155.0" />
+                        <Label alignment="CENTER" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="E-mail:" textAlignment="CENTER" />
+                        <TextField layoutX="120.0" layoutY="200.0" />
+                        <Label alignment="CENTER" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Tlf:" textAlignment="CENTER" />
+                        <TextField layoutX="120.0" layoutY="245.0" />
+                        <Button layoutX="165.0" layoutY="285.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Register Reservation">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="42.0" layoutY="26.0" text="Customer:" />
+                        <Label layoutX="13.0" layoutY="65.0" text="Reservation date:" />
+                        <Label layoutX="35.0" layoutY="115.0" text="Pick up date:" />
+                        <Label layoutX="32.0" layoutY="164.0" text="Drop off date:" />
+                        <Label layoutX="36.0" layoutY="205.0" text="Motorhome:" />
+                        <Label layoutX="18.0" layoutY="254.0" text="Extra accessory:" />
+                        <ComboBox layoutX="118.0" layoutY="22.0" prefWidth="150.0" />
+                        <DatePicker layoutX="118.0" layoutY="61.0" />
+                        <DatePicker layoutX="118.0" layoutY="111.0" />
+                        <DatePicker layoutX="118.0" layoutY="160.0" />
+                        <ComboBox layoutX="118.0" layoutY="201.0" prefWidth="150.0" />
+                        <CheckBox layoutX="132.0" layoutY="254.0" mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox layoutX="227.0" layoutY="254.0" mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox layoutX="132.0" layoutY="283.0" mnemonicParsing="false" text="CheckBox" />
+                        <TextField layoutX="332.0" layoutY="111.0" />
+                        <TextField layoutX="332.0" layoutY="160.0" />
+                        <Label layoutX="286.0" layoutY="205.0" text="Total:" />
+                        <TextField layoutX="332.0" layoutY="201.0" />
+                        <Button layoutX="421.0" layoutY="277.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Rental">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="19.0" prefWidth="49.0" text="Search:" />
+                        <TextField layoutX="63.0" layoutY="11.0" />
+                        <TableView layoutX="33.0" layoutY="53.0" prefHeight="266.0" prefWidth="461.0">
+                          <columns>
+                            <TableColumn prefWidth="96.0" text="Customer name" />
+                            <TableColumn prefWidth="83.0" text="Pick up date" />
+                              <TableColumn prefWidth="84.0" text="Drop off date" />
+                              <TableColumn prefWidth="37.0" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <Button layoutX="543.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="19.0" prefWidth="55.0" text="Log out" AnchorPane.bottomAnchor="381.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>
