@@ -24,7 +24,7 @@
          </padding>
       </Label>
       <Label alignment="CENTER" layoutX="75.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" text="Position:" textAlignment="CENTER" />
-      <ComboBox fx:id="positionBox" layoutX="225.0" layoutY="142.0" prefWidth="150.0" />
+      <ComboBox fx:id="positionBox" layoutX="225.0" layoutY="142.0" prefWidth="150.0" promptText="Select a position" />
       <Label alignment="CENTER" layoutX="75.0" layoutY="192.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" text="Name:" textAlignment="CENTER" />
       <TextField fx:id="nameField" layoutX="225.0" layoutY="192.0" />
       <Label alignment="CENTER" layoutX="75.0" layoutY="242.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" text="Password:" textAlignment="CENTER" />

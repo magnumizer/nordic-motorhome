@@ -115,13 +115,13 @@ public class StageHandler
     {
         Alert closeConfirmation = new Alert(
                 Alert.AlertType.CONFIRMATION,
-                "Exit Nordic Motorhome Rental System?"
+                "Confirm Exit"
         );
         Button exitButton = (Button) closeConfirmation.getDialogPane().lookupButton(
                 ButtonType.OK
         );
         exitButton.setText("Exit");
-        closeConfirmation.setHeaderText("Confirm Exit");
+        closeConfirmation.setHeaderText("Exit Nordic Motorhome Rental System?");
         closeConfirmation.initModality(Modality.APPLICATION_MODAL);
         closeConfirmation.initOwner(Main.primaryStage);
 
