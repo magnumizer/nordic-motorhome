@@ -6,10 +6,10 @@ Repository for 1. semester exam project
 ## Group members
 
 ```
-Alisia-Nadia Sarb
-Magnus Svendsen
-Minh Cao
-Oliver Christensen
+* Alisia-Nadia Sarb
+* Magnus Svendsen
+* Minh Cao
+* Oliver Christensen
 ```
 
 ## Project implementation
