@@ -55,23 +55,23 @@ public class LController implements Initializable
                         if (Main.primaryStage.isShowing())
                         {
                             passwordField.clear();
-                            stageHandler.displayAlert("Error logging in", "One or more fields are incorrect!", "Please try again.");
+                            stageHandler.displayAlert("Error logging in", "One or more fields are incorrect", "Please try again");
                         }
                     }
                 }
                 else
                 {
-                    stageHandler.displayAlert("Password not specified", "Password can't be blank!", "Please enter a valid password.");
+                    stageHandler.displayAlert("Password not specified", "Password can't be blank", "Please enter a valid password");
                 }
             }
             else
             {
-                stageHandler.displayAlert("Name not specified", "Name is missing!", "Please enter a username.");
+                stageHandler.displayAlert("Name not specified", "Name is missing", "Please enter a username");
             }
         }
         else
         {
-            stageHandler.displayAlert("Position not selected", "Position is missing!", "Please select a position.");
+            stageHandler.displayAlert("Position not selected", "Position is missing", "Please select a position");
         }
     }
 
