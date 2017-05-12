@@ -7,106 +7,57 @@ public class LoginHandler
 
     public boolean handleLogin(String position, String username, String password)
     {
-        boolean foundEmployee = false;
-
         switch (position)
         {
             case "Admin":
 
-                for (Employee employee : Employee.allEmployees)
-                {
-                    if (employee instanceof Admin)
-                    {
-                        if (employee.getUsername().equals(username))
-                        {
-                            if (employee.getPassword().equals(password))
-                            {
-                                StageHandler.currentUser = employee;
-                                foundEmployee = true;
-                                break;
-                            }
-                            else
-                            {
-                                return wrongPassword();
-                            }
-                        }
-                    }
-                }
-
-                if (foundEmployee)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return findUser(Admin.class, username, password);
 
             case "Sales Assistant":
 
-                for (Employee employee : Employee.allEmployees)
-                {
-                    if (employee instanceof SalesAssistant)
-                    {
-                        if (employee.getUsername().equals(username))
-                        {
-                            if (employee.getPassword().equals(password))
-                            {
-                                StageHandler.currentUser = employee;
-                                foundEmployee = true;
-                                break;
-                            }
-                            else
-                            {
-                                return wrongPassword();
-                            }
-                        }
-                    }
-                }
-
-                if (foundEmployee)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return findUser(SalesAssistant.class, username, password);
 
             case "Auto Mechanic":
 
-                for (Employee employee : Employee.allEmployees)
-                {
-                    if (employee instanceof AutoMechanic)
-                    {
-                        if (employee.getUsername().equals(username))
-                        {
-                            if (employee.getPassword().equals(password))
-                            {
-                                StageHandler.currentUser = employee;
-                                foundEmployee = true;
-                                break;
-                            }
-                            else
-                            {
-                                return wrongPassword();
-                            }
-                        }
-                    }
-                }
-
-                if (foundEmployee)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return findUser(AutoMechanic.class, username, password);
 
                 default:
                 System.out.println("Error in parsing Employee position. Check if there is a mistake in the reference.");
                 return false;
+        }
+    }
+
+    private boolean findUser(Class employeeType, String username, String password)
+    {
+        boolean foundEmployee = false;
+
+        for (Employee employee : Employee.allEmployees)
+        {
+            if (employeeType.isInstance(employee))
+            {
+                if (employee.getUsername().equals(username))
+                {
+                    if (employee.getPassword().equals(password))
+                    {
+                        StageHandler.currentUser = employee;
+                        foundEmployee = true;
+                        break;
+                    }
+                    else
+                    {
+                        return wrongPassword();
+                    }
+                }
+            }
+        }
+
+        if (foundEmployee)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
