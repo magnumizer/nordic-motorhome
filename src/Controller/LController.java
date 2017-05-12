@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 
 public class LController implements Initializable
 {
+
     ObservableList<String> positions =
             FXCollections.observableArrayList(
                     "Admin",
@@ -89,21 +90,12 @@ public class LController implements Initializable
 
         //get data from db later, for now add here
 
-        Admin admin = new Admin("ad", 2, new Date(1,1,1), "ad", 23, "ad");
+        Admin admin = new Admin("ad", "ad", new Date(1,1,1), "ad", 1, "ad");
         admin.setUsername("test0");
         admin.setPassword("123");
 
-        SalesAssistant salesAssistant = new SalesAssistant("ad", 2, new Date(1,1,1), "ad", 23, "ad");
-        salesAssistant.setUsername("test1");
-        salesAssistant.setPassword("123");
-
-        AutoMechanic autoMechanic = new AutoMechanic("ad", 2, new Date(1,1,1), "ad", 23, "ad");
-        autoMechanic.setUsername("test2");
-        autoMechanic.setPassword("123");
 
         Employee.allEmployees.add(admin);
-        Employee.allEmployees.add(salesAssistant);
-        Employee.allEmployees.add(autoMechanic);
 
     }
 }

@@ -7,11 +7,23 @@ public abstract class Employee extends Person
 {
     public static ArrayList<Employee> allEmployees = new ArrayList<>();
 
+    public static boolean checkIfUserExists(String username)
+    {
+        for (Employee employee : Employee.allEmployees)
+        {
+            if (employee.getUsername().equals(username))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private String username;
     private String password;
 
 
-    public Employee(String name, int cpr, Date dateOfBirth, String address, int phoneNumber, String email)
+    public Employee(String name, String cpr, Date dateOfBirth, String address, int phoneNumber, String email)
     {
         super(name, cpr, dateOfBirth, address, phoneNumber, email);
     }
@@ -36,6 +48,4 @@ public abstract class Employee extends Person
     {
         this.password = password;
     }
-
-
 }

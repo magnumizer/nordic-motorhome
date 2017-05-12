@@ -1,17 +1,18 @@
 package Model;//Magnus Svendsen DAT16i
 
+
 import java.sql.Date;
 
 public abstract class Person
 {
     private String name;
-    private int cpr;
+    private String cpr;
     private Date dateOfBirth;
     private String address;
     private int phoneNumber;
     private String email;
 
-    public Person(String name, int cpr, Date dateOfBirth, String address, int phoneNumber, String email)
+    public Person(String name, String cpr, Date dateOfBirth, String address, int phoneNumber, String email)
     {
         this.name = name;
         this.cpr = cpr;
@@ -29,11 +30,11 @@ public abstract class Person
         this.name = name;
     }
 
-    public int getCpr() {
+    public String getCpr() {
         return cpr;
     }
 
-    public void setCpr(int cpr) {
+    public void setCpr(String cpr) {
         this.cpr = cpr;
     }
 

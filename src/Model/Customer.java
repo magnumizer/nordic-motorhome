@@ -7,7 +7,7 @@ public class Customer extends Person
 
     private String customerID;
 
-    public Customer(String name, int cpr, Date dateOfBirth, String address, int phoneNumber, String email)
+    public Customer(String name, String cpr, Date dateOfBirth, String address, int phoneNumber, String email)
     {
         super(name, cpr, dateOfBirth, address, phoneNumber, email);
         this.customerID = generateID();
