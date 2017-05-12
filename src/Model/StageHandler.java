@@ -15,6 +15,8 @@ import static Model.Main.primaryStage;
 
 public class StageHandler
 {
+    public static Employee currentUser = null;
+
     public void closeProgram()
     {
         //save any data that needs to be saved here
@@ -37,17 +39,17 @@ public class StageHandler
         alert.showAndWait();
     }
 
-    public void handleSceneChange(String position)
+    public void handleSceneChange(String sceneTitle)
     {
         Parent root = null;
 
-        switch (position)
+        switch (sceneTitle)
         {
             case "Admin":
                 try
                 {
                     root = FXMLLoader.load(getClass().getResource("/GUI/Admin.fxml"));
-                    System.out.println("Loading admin screen...");
+                    System.out.println("Loading Admin screen...");
 
                 } catch (IOException e)
                 {
@@ -79,6 +81,18 @@ public class StageHandler
                     System.out.println("FXML file not found: Make sure path is correct.");
                 }
                 break;
+            case "Login":
+                try
+                {
+                    root = FXMLLoader.load(getClass().getResource("/GUI/Login.fxml"));
+                    System.out.println("Loading Login screen...");
+
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                    System.out.println("FXML file not found: Make sure path is correct.");
+                }
+                break;
             default:
                 System.out.println("Error changing scene. Make sure you are using a correct reference.");
                 break;
@@ -92,23 +106,8 @@ public class StageHandler
 
     public void logOut()
     {
-        Parent root = null;
-
-        try
-        {
-            root = FXMLLoader.load(getClass().getResource("/GUI/Login.fxml"));
-            System.out.println("Loading Login screen...");
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-            System.out.println("FXML file not found: Make sure path is correct.");
-        }
-
-        primaryStage.hide();
-        Scene scene = new Scene(root, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        StageHandler.currentUser = null;
+        handleSceneChange("Login");
     }
 
     public static EventHandler<WindowEvent> confirmCloseEventHandler = event ->

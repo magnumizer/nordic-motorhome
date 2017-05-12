@@ -5,59 +5,105 @@ public class LoginHandler
     private int passAttempts;
     private int maxAttempts = 5;
 
-    public boolean handlePassword(String position, String username, String password)
+    public boolean handleLogin(String position, String username, String password)
     {
-        //handle password logic here
+        boolean foundEmployee = false;
+
         switch (position)
         {
             case "Admin":
-                if (AccountHandler.adminAccounts.containsKey(username))
+
+                for (Employee employee : Employee.allEmployees)
                 {
-                    if (AccountHandler.adminAccounts.get(username).equals(password))
+                    if (employee instanceof Admin)
                     {
-                        return true;
+                        if (employee.getUsername().equals(username))
+                        {
+                            if (employee.getPassword().equals(password))
+                            {
+                                StageHandler.currentUser = employee;
+                                foundEmployee = true;
+                                break;
+                            }
+                            else
+                            {
+                                return wrongPassword();
+                            }
+                        }
                     }
-                    else
-                    {
-                        return wrongPassword();
-                    }
+                }
+
+                if (foundEmployee)
+                {
+                    return true;
                 }
                 else
                 {
                     return false;
                 }
+
             case "Sales Assistant":
-                if (AccountHandler.salesAssistantAccounts.containsKey(username))
+
+                for (Employee employee : Employee.allEmployees)
                 {
-                    if (AccountHandler.salesAssistantAccounts.get(username).equals(password))
+                    if (employee instanceof SalesAssistant)
                     {
-                        return true;
+                        if (employee.getUsername().equals(username))
+                        {
+                            if (employee.getPassword().equals(password))
+                            {
+                                StageHandler.currentUser = employee;
+                                foundEmployee = true;
+                                break;
+                            }
+                            else
+                            {
+                                return wrongPassword();
+                            }
+                        }
                     }
-                    else
-                    {
-                        return wrongPassword();
-                    }
+                }
+
+                if (foundEmployee)
+                {
+                    return true;
                 }
                 else
                 {
                     return false;
                 }
+
             case "Auto Mechanic":
-                if (AccountHandler.autoMechanicAccounts.containsKey(username))
+
+                for (Employee employee : Employee.allEmployees)
                 {
-                    if (AccountHandler.autoMechanicAccounts.get(username).equals(password))
+                    if (employee instanceof AutoMechanic)
                     {
-                        return true;
+                        if (employee.getUsername().equals(username))
+                        {
+                            if (employee.getPassword().equals(password))
+                            {
+                                StageHandler.currentUser = employee;
+                                foundEmployee = true;
+                                break;
+                            }
+                            else
+                            {
+                                return wrongPassword();
+                            }
+                        }
                     }
-                    else
-                    {
-                        return wrongPassword();
-                    }
+                }
+
+                if (foundEmployee)
+                {
+                    return true;
                 }
                 else
                 {
                     return false;
                 }
+
                 default:
                 System.out.println("Error in parsing Employee position. Check if there is a mistake in the reference.");
                 return false;

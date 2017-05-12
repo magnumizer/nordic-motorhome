@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 
@@ -43,7 +44,7 @@ public class LController implements Initializable
             {
                 if (!passwordField.getText().equals(""))
                 {
-                    if (loginHandler.handlePassword(positionBox.getValue(), nameField.getText(), passwordField.getText()))
+                    if (loginHandler.handleLogin(positionBox.getValue(), nameField.getText(), passwordField.getText()))
                     {
                         //if password is true/correct, move onto next screen based on position
                         System.out.println("Password accepted.");
@@ -51,7 +52,7 @@ public class LController implements Initializable
                     }
                     else
                     {
-                        //if password is false/incorrect, clear the password field
+                        //if password is false/incorrect, clear the password field, notify user
                         if (Main.primaryStage.isShowing())
                         {
                             passwordField.clear();
@@ -86,10 +87,24 @@ public class LController implements Initializable
     {
         positionBox.setItems(positions);
 
-        //get accounts data from db later, for now add them here
-        AccountHandler.adminAccounts.put("test", "123");
-        AccountHandler.salesAssistantAccounts.put("test", "123");
-        AccountHandler.autoMechanicAccounts.put("test", "123");
+        //get data from db later, for now add here
+
+        Admin admin = new Admin("ad", 2, new Date(1,1,1), "ad", 23, "ad");
+        admin.setUsername("test0");
+        admin.setPassword("123");
+
+        SalesAssistant salesAssistant = new SalesAssistant("ad", 2, new Date(1,1,1), "ad", 23, "ad");
+        salesAssistant.setUsername("test1");
+        salesAssistant.setPassword("123");
+
+        AutoMechanic autoMechanic = new AutoMechanic("ad", 2, new Date(1,1,1), "ad", 23, "ad");
+        autoMechanic.setUsername("test2");
+        autoMechanic.setPassword("123");
+
+        Employee.allEmployees.add(admin);
+        Employee.allEmployees.add(salesAssistant);
+        Employee.allEmployees.add(autoMechanic);
+
     }
 }
 
