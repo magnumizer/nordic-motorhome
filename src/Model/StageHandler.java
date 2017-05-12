@@ -48,8 +48,8 @@ public class StageHandler
             case "Admin":
                 try
                 {
-                    root = FXMLLoader.load(getClass().getResource("/GUI/Admin.fxml"));
                     System.out.println("Loading Admin screen...");
+                    root = FXMLLoader.load(getClass().getResource("/GUI/Admin.fxml"));
 
                 } catch (IOException e)
                 {
@@ -60,8 +60,8 @@ public class StageHandler
             case "Sales Assistant":
                 try
                 {
-                    root = FXMLLoader.load(getClass().getResource("/GUI/SalesAssistant.fxml"));
                     System.out.println("Loading Sales Assistant screen...");
+                    root = FXMLLoader.load(getClass().getResource("/GUI/SalesAssistant.fxml"));
 
                 } catch (IOException e)
                 {
@@ -72,8 +72,8 @@ public class StageHandler
             case "Auto Mechanic":
                 try
                 {
-                    root = FXMLLoader.load(getClass().getResource("/GUI/AutoMechanic.fxml"));
                     System.out.println("Loading Auto Mechanic screen...");
+                    root = FXMLLoader.load(getClass().getResource("/GUI/AutoMechanic.fxml"));
 
                 } catch (IOException e)
                 {
@@ -84,8 +84,8 @@ public class StageHandler
             case "Login":
                 try
                 {
-                    root = FXMLLoader.load(getClass().getResource("/GUI/Login.fxml"));
                     System.out.println("Loading Login screen...");
+                    root = FXMLLoader.load(getClass().getResource("/GUI/Login.fxml"));
 
                 } catch (IOException e)
                 {
@@ -98,10 +98,13 @@ public class StageHandler
                 break;
         }
 
-        primaryStage.hide();
-        Scene scene = new Scene(root, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        if (root != null)
+        {
+            primaryStage.hide();
+            Scene scene = new Scene(root, 600, 400);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
     }
 
     public void logOut()
