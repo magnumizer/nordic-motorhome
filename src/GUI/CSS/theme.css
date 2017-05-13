@@ -15,6 +15,10 @@ Label {
 
 }
 
+.table-cell{
+-fx-alignment: center;
+}
+
 ComboBox{
 -fx-font-family:  "Georgia", "Serif","Times New Roman";
 -fx-font-size: 12;

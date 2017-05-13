@@ -40,6 +40,20 @@ public class AController implements Initializable
     @FXML
     private TableColumn<Customer, String> customerEmailCol;
     @FXML
+    private TableView<Employee> staffTable;
+    @FXML
+    private TableColumn<Employee, String> staffNameCol;
+    @FXML
+    private TableColumn<Employee, String> staffCPRCol;
+    @FXML
+    private TableColumn<Employee, String> staffBirthdayCol;
+    @FXML
+    private TableColumn<Employee, String> staffAddressCol;
+    @FXML
+    private TableColumn<Employee, Integer> staffTlfCol;
+    @FXML
+    private TableColumn<Employee, String> staffEmailCol;
+    @FXML
     private TextField nameField;
     @FXML
     private TextField cprField;
@@ -128,6 +142,7 @@ public class AController implements Initializable
                                                                 break;
                                                         }
 
+                                                        staffTable.getItems().setAll(Employee.allEmployees);
                                                         clearFields();
                                                     }
                                                     else
@@ -219,16 +234,6 @@ public class AController implements Initializable
         confirmField.clear();
     }
 
-    private void centerAlignTables()
-    {
-        customerNameCol.setStyle("-fx-alignment: CENTER");
-        customerCPRCol.setStyle("-fx-alignment: CENTER");
-        customerBirthdayCol.setStyle("-fx-alignment: CENTER");
-        customerAddressCol.setStyle("-fx-alignment: CENTER");
-        customerTlfCol.setStyle("-fx-alignment: CENTER");
-        customerEmailCol.setStyle("-fx-alignment: CENTER");
-    }
-
     private void setupTableColumns()
     {
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -237,14 +242,24 @@ public class AController implements Initializable
         customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         customerTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         customerEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        staffNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        staffCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
+        staffBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        staffAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        staffTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        staffEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
     }
 
     private void forceNumericValues()
     {
-        tlfField.textProperty().addListener(new ChangeListener<String>() {
+        tlfField.textProperty().addListener(new ChangeListener<String>()
+        {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
                     tlfField.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             }
@@ -254,8 +269,8 @@ public class AController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        centerAlignTables();
         setupTableColumns();
+        staffTable.getItems().setAll(Employee.allEmployees);
         customerTable.getItems().setAll(Customer.allCustomers);
         positionBox.setItems(positions);
         forceNumericValues();
