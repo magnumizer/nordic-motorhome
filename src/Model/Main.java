@@ -1,6 +1,5 @@
 package Model;
 
-import Model.StageHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +20,7 @@ public class Main extends Application
 
         primaryStage.setTitle("Nordic Motorhome Rental");
         primaryStage.setScene(scene);
-        //scene.getStylesheets().add("/CSS/style.css");
+        scene.getStylesheets().add("/GUI/CSS/theme.css");
         primaryStage.setResizable(false);
         primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setOnCloseRequest(StageHandler.confirmCloseEventHandler);
