@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 
@@ -94,7 +95,8 @@ public class LController implements Initializable
 
         if (!Employee.checkIfUserExists("test0"))
         {
-            Admin admin = new Admin("ad", "ad", new Date(1,1,1), "ad", 1, "ad");
+            LocalDate localDate = LocalDate.now();
+            Admin admin = new Admin("ad", "ad", localDate, "ad", 1, "ad");
             admin.setUsername("test0");
             admin.setPassword("123");
 

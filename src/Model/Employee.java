@@ -1,6 +1,6 @@
 package Model;//Magnus Svendsen DAT16i
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class Employee extends Person
@@ -23,7 +23,7 @@ public abstract class Employee extends Person
     private String password;
 
 
-    public Employee(String name, String cpr, Date dateOfBirth, String address, int phoneNumber, String email)
+    public Employee(String name, String cpr, LocalDate dateOfBirth, String address, int phoneNumber, String email)
     {
         super(name, cpr, dateOfBirth, address, phoneNumber, email);
     }

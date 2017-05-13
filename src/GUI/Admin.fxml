@@ -86,14 +86,13 @@
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
-                                          <TableView fx:id="reservationsTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                          <TableView fx:id="reservationTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                              <columns>
-                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Name" />
-                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="CPR" />
-                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Date of birth" />
-                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Address" />
-                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Tlf" />
-                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="E-mail" />
+                                                <TableColumn fx:id="reservationCustomerCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Customer" />
+                                                <TableColumn fx:id="reservationMotorhomeCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Motorhome" />
+                                                <TableColumn fx:id="reservationDateCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Reservation date" />
+                                                <TableColumn fx:id="reservationPickupCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Pick up date" />
+                                                <TableColumn fx:id="reservationDropoffCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Drop off date" />
                                              </columns>
                                           </TableView>
                                        </children>

@@ -39,6 +39,7 @@ public class AController implements Initializable
     private TableColumn<Customer, Integer> customerTlfCol;
     @FXML
     private TableColumn<Customer, String> customerEmailCol;
+
     @FXML
     private TableView<Employee> staffTable;
     @FXML
@@ -53,6 +54,20 @@ public class AController implements Initializable
     private TableColumn<Employee, Integer> staffTlfCol;
     @FXML
     private TableColumn<Employee, String> staffEmailCol;
+
+    @FXML
+    private TableView<Reservation> reservationTable;
+    @FXML
+    private TableColumn<Reservation, Customer> reservationCustomerCol;
+    @FXML
+    private TableColumn<Reservation, Motorhome> reservationMotorhomeCol;
+    @FXML
+    private TableColumn<Reservation, String> reservationDateCol;
+    @FXML
+    private TableColumn<Reservation, String> reservationPickupCol;
+    @FXML
+    private TableColumn<Reservation, String> reservationDropoffCol;
+
     @FXML
     private TextField nameField;
     @FXML
@@ -111,27 +126,26 @@ public class AController implements Initializable
                                                     if (passwordField.getText().equals(confirmField.getText()))
                                                     {
                                                         confirmLabel.setStyle("-fx-text-fill: black");
-                                                        Date date = Date.valueOf(birthdayPicker.getValue());
                                                         int number = Integer.parseInt(tlfField.getText());
 
                                                         switch (positionBox.getValue())
                                                         {
                                                             case "Admin":
-                                                                Admin admin = new Admin(nameField.getText(), cprField.getText(), date, addressField.getText(), number, emailField.getText());
+                                                                Admin admin = new Admin(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
                                                                 admin.setUsername(usernameField.getText());
                                                                 admin.setPassword(passwordField.getText());
                                                                 Employee.allEmployees.add(admin);
                                                                 stageHandler.displayAlert("Success", "Admin successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             case "Sales Assistant":
-                                                                SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), date, addressField.getText(), number, emailField.getText());
+                                                                SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
                                                                 salesAssistant.setUsername(usernameField.getText());
                                                                 salesAssistant.setPassword(passwordField.getText());
                                                                 Employee.allEmployees.add(salesAssistant);
                                                                 stageHandler.displayAlert("Success", "Sales Assistant successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             case "Auto Mechanic":
-                                                                AutoMechanic autoMechanic = new AutoMechanic(nameField.getText(), cprField.getText(), date, addressField.getText(), number, emailField.getText());
+                                                                AutoMechanic autoMechanic = new AutoMechanic(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
                                                                 autoMechanic.setUsername(usernameField.getText());
                                                                 autoMechanic.setPassword(passwordField.getText());
                                                                 Employee.allEmployees.add(autoMechanic);
@@ -249,6 +263,12 @@ public class AController implements Initializable
         staffAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         staffTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         staffEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        reservationCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        reservationMotorhomeCol.setCellValueFactory(new PropertyValueFactory<>("motorhome"));
+        reservationDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
+        reservationPickupCol.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
+        reservationDropoffCol.setCellValueFactory(new PropertyValueFactory<>("dropoffDate"));
     }
 
     private void forceNumericValues()
@@ -272,6 +292,7 @@ public class AController implements Initializable
         setupTableColumns();
         staffTable.getItems().setAll(Employee.allEmployees);
         customerTable.getItems().setAll(Customer.allCustomers);
+        reservationTable.getItems().setAll(Reservation.allReservations);
         positionBox.setItems(positions);
         forceNumericValues();
     }

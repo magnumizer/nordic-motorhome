@@ -1,18 +1,17 @@
 package Model;//Magnus Svendsen DAT16i
 
-
-import java.sql.Date;
+import java.time.LocalDate;
 
 public abstract class Person
 {
     private String name;
     private String cpr;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String address;
     private int phoneNumber;
     private String email;
 
-    public Person(String name, String cpr, Date dateOfBirth, String address, int phoneNumber, String email)
+    public Person(String name, String cpr, LocalDate dateOfBirth, String address, int phoneNumber, String email)
     {
         this.name = name;
         this.cpr = cpr;
@@ -38,11 +37,11 @@ public abstract class Person
         this.cpr = cpr;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

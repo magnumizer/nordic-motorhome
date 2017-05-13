@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -44,25 +45,51 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="42.0" layoutY="26.0" text="Customer:" />
-                        <Label layoutX="13.0" layoutY="65.0" text="Reservation date:" />
-                        <Label layoutX="35.0" layoutY="115.0" text="Pick up date:" />
-                        <Label layoutX="32.0" layoutY="164.0" text="Drop off date:" />
-                        <Label layoutX="36.0" layoutY="205.0" text="Motorhome:" />
-                        <Label layoutX="18.0" layoutY="254.0" text="Extra accessory:" />
-                        <ComboBox layoutX="118.0" layoutY="22.0" prefWidth="150.0" />
-                        <DatePicker layoutX="118.0" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <DatePicker layoutX="118.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <DatePicker layoutX="118.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <ComboBox layoutX="118.0" layoutY="201.0" prefWidth="150.0" />
-                        <CheckBox layoutX="132.0" layoutY="254.0" mnemonicParsing="false" text="CheckBox" />
-                        <CheckBox layoutX="227.0" layoutY="254.0" mnemonicParsing="false" text="CheckBox" />
-                        <CheckBox layoutX="132.0" layoutY="283.0" mnemonicParsing="false" text="CheckBox" />
-                        <TextField layoutX="332.0" layoutY="111.0" />
-                        <TextField layoutX="332.0" layoutY="160.0" />
-                        <Label layoutX="286.0" layoutY="205.0" text="Total:" />
-                        <TextField layoutX="332.0" layoutY="201.0" />
-                        <Button layoutX="421.0" layoutY="277.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save" />
+                        <Label alignment="CENTER" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Customer:" textAlignment="CENTER" />
+                        <ComboBox fx:id="customerBox" layoutX="120.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label layoutX="280.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="269.0" text="Make sure the customer has been registered first." textAlignment="CENTER">
+                           <font>
+                              <Font name="System Italic" size="10.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Motorhome:" textAlignment="CENTER" />
+                        <ComboBox fx:id="motorhomeBox" layoutX="120.0" layoutY="65.0" prefWidth="150.0" />
+                        <Label layoutX="280.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="269.0" text="Only available motorhomes are shown in the list." textAlignment="CENTER">
+                           <font>
+                              <Font name="System Italic" size="10.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Reservation date:" textAlignment="CENTER" />
+                        <DatePicker fx:id="reservationDate" layoutX="120.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Pick up date:" textAlignment="CENTER" />
+                        <DatePicker fx:id="pickupDate" layoutX="120.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off date:" textAlignment="CENTER" />
+                        <DatePicker fx:id="dropoffDate" layoutX="120.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Extra accessories:" textAlignment="CENTER" />
+                        <CheckBox fx:id="bikeRackCheck" layoutX="120.0" layoutY="250.0" mnemonicParsing="false" text="Bike rack (100kr)" />
+                        <CheckBox fx:id="bedLinenCheck" layoutX="120.0" layoutY="270.0" mnemonicParsing="false" text="Bed linen (10kr)" />
+                        <CheckBox fx:id="childSeatCheck" layoutX="120.0" layoutY="290.0" mnemonicParsing="false" text="Child seat (50kr)" />
+                        <CheckBox fx:id="picnicTableCheck" layoutX="120.0" layoutY="310.0" mnemonicParsing="false" text="Picnic table (150kr)" />
+                        <CheckBox fx:id="chairsCheck" layoutX="120.0" layoutY="330.0" mnemonicParsing="false" text="4xChairs (50kr)" />
+                        <Label alignment="CENTER" layoutX="300.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off point:" textAlignment="CENTER" />
+                        <ComboBox fx:id="dropoffBox" layoutX="420.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutX="300.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off address:" textAlignment="CENTER" />
+                        <TextField fx:id="dropoffAddressField" disable="true" layoutX="420.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" text="Nordic Motorhome Office">
+                           <font>
+                              <Font name="System Italic" size="11.0" />
+                           </font>
+                        </TextField>
+                        <Label alignment="CENTER" layoutX="300.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Current season:" textAlignment="CENTER" />
+                        <CheckBox fx:id="lowSeasonCheck" alignment="CENTER_RIGHT" layoutX="420.0" layoutY="205.0" mnemonicParsing="false" onAction="#onLowSeasonSelected" text="Low" textAlignment="CENTER" />
+                        <CheckBox fx:id="midSeasonCheck" alignment="CENTER_RIGHT" layoutX="470.0" layoutY="205.0" mnemonicParsing="false" onAction="#onMidSeasonSelected" text="Mid" textAlignment="CENTER" />
+                        <CheckBox fx:id="highSeasonCheck" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="205.0" mnemonicParsing="false" onAction="#onHighSeasonSelected" text="High" textAlignment="CENTER" />
+                        <Label alignment="CENTER" layoutX="300.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Total price:" textAlignment="CENTER" />
+                        <TextField fx:id="priceField" alignment="CENTER" editable="false" layoutX="420.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" text="0.0 kr">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </TextField>
+                        <Button layoutX="351.0" layoutY="301.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRegisterBtnPressed" prefHeight="35.0" prefWidth="140.0" text="Register Reservation" />
                      </children>
                   </AnchorPane>
                </content>
@@ -89,6 +116,6 @@
             </Tab>
          </tabs>
       </TabPane>
-      <Button layoutX="543.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="19.0" prefWidth="55.0" text="Log out" AnchorPane.bottomAnchor="381.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="543.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="19.0" prefWidth="55.0" text="Log out" AnchorPane.bottomAnchor="382.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
