@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 <?import java.lang.*?>
@@ -19,26 +20,94 @@
       <TabPane layoutY="6.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
             <Tab closable="false" text="Overview">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <content>
+                <AnchorPane prefHeight="244.0" prefWidth="419.0">
                      <children>
-                        <Label layoutX="239.0" layoutY="14.0" text="List of Customers">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <TableView fx:id="customerTable" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
-                          <columns>
-                            <TableColumn fx:id="customerNameCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Name" />
-                              <TableColumn fx:id="customerCPRCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="CPR" />
-                              <TableColumn fx:id="customerBirthdayCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Date of birth" />
-                              <TableColumn fx:id="customerAddressCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Address" />
-                              <TableColumn fx:id="customerTlfCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Tlf" />
-                              <TableColumn fx:id="customerEmailCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="E-mail" />
-                          </columns>
-                        </TableView>
-                     </children></AnchorPane>
-              </content>
+                        <TabPane prefHeight="371.0" prefWidth="600.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="20.0" tabMinHeight="85.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <tabs>
+                            <Tab closable="false">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER" layoutX="215.0" layoutY="20.0" prefHeight="62.0" prefWidth="508.0" text="List of Staff" textAlignment="CENTER" AnchorPane.bottomAnchor="309.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="staffTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                            <columns>
+                                              <TableColumn fx:id="staffNameCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Name" />
+                                                <TableColumn fx:id="staffCPRCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="CPR" />
+                                                <TableColumn fx:id="staffBirthdayCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Date of birth" />
+                                                <TableColumn fx:id="staffAddressCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Address" />
+                                                <TableColumn fx:id="staffTlfCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Tlf" />
+                                                <TableColumn fx:id="staffEmailCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="E-mail" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                                 <graphic>
+                                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Staff" textAlignment="CENTER" />
+                                 </graphic>
+                            </Tab>
+                              <Tab closable="false">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER" prefHeight="62.0" prefWidth="508.0" text="List of Customers" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="customerTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                             <columns>
+                                                <TableColumn fx:id="customerNameCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Name" />
+                                                <TableColumn fx:id="customerCPRCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="CPR" />
+                                                <TableColumn fx:id="customerBirthdayCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Date of birth" />
+                                                <TableColumn fx:id="customerAddressCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Address" />
+                                                <TableColumn fx:id="customerTlfCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Tlf" />
+                                                <TableColumn fx:id="customerEmailCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="E-mail" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                                 <graphic>
+                                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Customers" textAlignment="CENTER" />
+                                 </graphic>
+                              </Tab>
+                              <Tab closable="false">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER" prefHeight="62.0" prefWidth="508.0" text="List of Reservations" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="reservationsTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                             <columns>
+                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Name" />
+                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="CPR" />
+                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Date of birth" />
+                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Address" />
+                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Tlf" />
+                                                <TableColumn maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="E-mail" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                                 <graphic>
+                                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Reservations" textAlignment="CENTER" />
+                                 </graphic>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
             </Tab>
             <Tab closable="false" text="Register staff">
                <content>
