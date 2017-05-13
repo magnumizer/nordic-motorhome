@@ -233,7 +233,7 @@ public class SAController implements Initializable
         lowSeasonCheck.setSelected(false);
         midSeasonCheck.setSelected(false);
         highSeasonCheck.setSelected(false);
-        priceField.setText("0.0 kr");
+        priceField.setText("0,00");
     }
 
     private void handleDropoffAddressField(boolean custom)
@@ -315,7 +315,7 @@ public class SAController implements Initializable
 
     public void recalculatePrice(ActionEvent actionEvent)
     {
-        double price = 0;
+        float price = 0;
 
         if (bikeRackCheck.isSelected())
             price += 100;
@@ -338,7 +338,7 @@ public class SAController implements Initializable
             }
         }
 
-        String priceText = new DecimalFormat("#.##").format(price);
+        String priceText = new DecimalFormat("#0.00").format(price);
         updatePrice(priceText);
     }
 
