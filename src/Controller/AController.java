@@ -1,6 +1,8 @@
 package Controller;//Magnus Svendsen DAT16i
 
 import Model.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -189,9 +191,22 @@ public class AController implements Initializable
         confirmField.clear();
     }
 
+    private void forceNumericValues()
+    {
+        tlfField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tlfField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         positionBox.setItems(positions);
+        forceNumericValues();
     }
 }
