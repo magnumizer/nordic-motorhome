@@ -62,15 +62,15 @@
                         <Label alignment="CENTER" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Reservation date:" textAlignment="CENTER" />
                         <DatePicker fx:id="reservationDate" layoutX="120.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Pick up date:" textAlignment="CENTER" />
-                        <DatePicker fx:id="pickupDate" layoutX="120.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <DatePicker fx:id="pickupDate" layoutX="120.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off date:" textAlignment="CENTER" />
-                        <DatePicker fx:id="dropoffDate" layoutX="120.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <DatePicker fx:id="dropoffDate" layoutX="120.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Extra accessories:" textAlignment="CENTER" />
-                        <CheckBox fx:id="bikeRackCheck" layoutX="120.0" layoutY="250.0" mnemonicParsing="false" text="Bike rack (100kr)" />
-                        <CheckBox fx:id="bedLinenCheck" layoutX="120.0" layoutY="270.0" mnemonicParsing="false" text="Bed linen (10kr)" />
-                        <CheckBox fx:id="childSeatCheck" layoutX="120.0" layoutY="290.0" mnemonicParsing="false" text="Child seat (50kr)" />
-                        <CheckBox fx:id="picnicTableCheck" layoutX="120.0" layoutY="310.0" mnemonicParsing="false" text="Picnic table (150kr)" />
-                        <CheckBox fx:id="chairsCheck" layoutX="120.0" layoutY="330.0" mnemonicParsing="false" text="4xChairs (50kr)" />
+                        <CheckBox fx:id="bikeRackCheck" layoutX="120.0" layoutY="250.0" mnemonicParsing="false" onAction="#recalculatePrice" text="Bike rack (100kr)" />
+                        <CheckBox fx:id="bedLinenCheck" layoutX="120.0" layoutY="270.0" mnemonicParsing="false" onAction="#recalculatePrice" text="Bed linen (10kr)" />
+                        <CheckBox fx:id="childSeatCheck" layoutX="120.0" layoutY="290.0" mnemonicParsing="false" onAction="#recalculatePrice" text="Child seat (50kr)" />
+                        <CheckBox fx:id="picnicTableCheck" layoutX="120.0" layoutY="310.0" mnemonicParsing="false" onAction="#recalculatePrice" text="Picnic table (150kr)" />
+                        <CheckBox fx:id="chairsCheck" layoutX="120.0" layoutY="330.0" mnemonicParsing="false" onAction="#recalculatePrice" text="4xChairs (50kr)" />
                         <Label alignment="CENTER" layoutX="300.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off point:" textAlignment="CENTER" />
                         <ComboBox fx:id="dropoffBox" layoutX="420.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutX="300.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off address:" textAlignment="CENTER" />
@@ -84,35 +84,16 @@
                         <CheckBox fx:id="midSeasonCheck" alignment="CENTER_RIGHT" layoutX="470.0" layoutY="205.0" mnemonicParsing="false" onAction="#onMidSeasonSelected" text="Mid" textAlignment="CENTER" />
                         <CheckBox fx:id="highSeasonCheck" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="205.0" mnemonicParsing="false" onAction="#onHighSeasonSelected" text="High" textAlignment="CENTER" />
                         <Label alignment="CENTER" layoutX="300.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Total price:" textAlignment="CENTER" />
-                        <TextField fx:id="priceField" alignment="CENTER" editable="false" layoutX="420.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" text="0.0 kr">
+                        <TextField fx:id="priceField" alignment="CENTER" editable="false" layoutX="420.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="92.0" text="0.0">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
                         </TextField>
+                        <Label layoutX="517.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="40.0" text="kr." />
                         <Button layoutX="351.0" layoutY="301.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRegisterBtnPressed" prefHeight="35.0" prefWidth="140.0" text="Register Reservation" />
                      </children>
                   </AnchorPane>
                </content>
-            </Tab>
-            <Tab text="Rental">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="19.0" prefWidth="49.0" text="Search:" />
-                        <TextField layoutX="63.0" layoutY="11.0" />
-                        <TableView layoutX="33.0" layoutY="53.0" prefHeight="266.0" prefWidth="461.0">
-                          <columns>
-                            <TableColumn prefWidth="96.0" text="Customer name" />
-                            <TableColumn prefWidth="83.0" text="Pick up date" />
-                              <TableColumn prefWidth="84.0" text="Drop off date" />
-                              <TableColumn prefWidth="37.0" />
-                              <TableColumn prefWidth="75.0" text="Column X" />
-                              <TableColumn prefWidth="75.0" text="Column X" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-              </content>
             </Tab>
          </tabs>
       </TabPane>

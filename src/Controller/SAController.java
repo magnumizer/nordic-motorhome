@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 
 import java.net.URL;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class SAController implements Initializable
@@ -229,6 +230,9 @@ public class SAController implements Initializable
         picnicTableCheck.setSelected(false);
         chairsCheck.setSelected(false);
         dropoffBox.getSelectionModel().selectFirst();
+        lowSeasonCheck.setSelected(false);
+        midSeasonCheck.setSelected(false);
+        highSeasonCheck.setSelected(false);
         priceField.setText("0.0 kr");
     }
 
@@ -286,6 +290,7 @@ public class SAController implements Initializable
             midSeasonCheck.setSelected(false);
             highSeasonCheck.setSelected(false);
         }
+        recalculatePrice(null);
     }
 
     public void onMidSeasonSelected(ActionEvent actionEvent)
@@ -295,6 +300,7 @@ public class SAController implements Initializable
             lowSeasonCheck.setSelected(false);
             highSeasonCheck.setSelected(false);
         }
+        recalculatePrice(null);
     }
 
     public void onHighSeasonSelected(ActionEvent actionEvent)
@@ -304,6 +310,41 @@ public class SAController implements Initializable
             lowSeasonCheck.setSelected(false);
             midSeasonCheck.setSelected(false);
         }
+        recalculatePrice(null);
+    }
+
+    public void recalculatePrice(ActionEvent actionEvent)
+    {
+        double price = 0;
+
+        if (bikeRackCheck.isSelected())
+            price += 100;
+        if (bedLinenCheck.isSelected())
+            price += 10;
+        if (childSeatCheck.isSelected())
+            price += 50;
+        if (picnicTableCheck.isSelected())
+            price += 150;
+        if (chairsCheck.isSelected())
+            price += 50;
+
+        if (!motorhomeBox.getSelectionModel().isEmpty() && pickupDate.getValue() != null && dropoffDate.getValue() != null && isSeasonSelected())
+        {
+            price += CalculationHandler.calculateBasePrice(dropoffDate.getValue(), pickupDate.getValue(), motorhomeBox.getValue().getPricePerDay(), getSeasonValue());
+
+            if (dropoffBox.getSelectionModel().getSelectedIndex() == 1) //if custom drop off point
+            {
+                price += CalculationHandler.calculateDropoffPrice(dropoffAddressField.getText());
+            }
+        }
+
+        String priceText = new DecimalFormat("#.##").format(price);
+        updatePrice(priceText);
+    }
+
+    private void updatePrice(String price)
+    {
+        priceField.setText(price);
     }
 
     private void addListenerHandler()
@@ -333,6 +374,20 @@ public class SAController implements Initializable
                 {
                     handleDropoffAddressField(false);
                 }
+
+                recalculatePrice(null);
+            }
+        });
+
+        dropoffAddressField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (dropoffBox.getSelectionModel().getSelectedIndex() == 1) //if custom address is selected
+                {
+                    recalculatePrice(null);
+                }
             }
         });
     }
@@ -341,7 +396,7 @@ public class SAController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         //add example motorhome for now
-        Motorhome motorhome = new Motorhome("example", "ad", "ad", true, true, 4f);
+        Motorhome motorhome = new Motorhome("example", "ad", "ad", true, true, 500f);
         Motorhome.allMotorhomes.add(motorhome);
         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList(Motorhome.allMotorhomes);
         motorhomeBox.setItems(motorhomes);

@@ -8,8 +8,9 @@ public abstract class CalculationHandler
 {
     public static float calculateBasePrice(LocalDate dropoffDate, LocalDate pickupDate, float pricePerDay, int currentSeason)
     {
-        Period daysbetween = Period.between(dropoffDate, pickupDate);
+        Period daysbetween = Period.between(pickupDate, dropoffDate);
         int days = daysbetween.getDays();
+        days = CalculationHandler.clamp(days, 1, 365);
 
         float multiplier;
 
@@ -33,7 +34,7 @@ public abstract class CalculationHandler
     {
         //how are we supposed to calculate this? just gonna add random value for now
 
-        return dropoffAddress.length() * Reservation.getTransferCost();
+        return dropoffAddress.length() * 100 * Reservation.getTransferCost();
     }
 
     public static float calculateItemsPrice(HashMap<String, Float> priceMap)
@@ -44,5 +45,15 @@ public abstract class CalculationHandler
             price += value;
         }
         return price;
+    }
+
+    public static float clamp(float val, float min, float max)
+    {
+        return Math.max(min, Math.min(max, val));
+    }
+
+    public static int clamp(int val, int min, int max)
+    {
+        return Math.max(min, Math.min(max, val));
     }
 }
