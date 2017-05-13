@@ -92,13 +92,15 @@ public class LController implements Initializable
 
         //get data from db later, for now add here
 
-        Admin admin = new Admin("ad", "ad", new Date(1,1,1), "ad", 1, "ad");
-        admin.setUsername("test0");
-        admin.setPassword("123");
+        if (!Employee.checkIfUserExists("test0"))
+        {
+            Admin admin = new Admin("ad", "ad", new Date(1,1,1), "ad", 1, "ad");
+            admin.setUsername("test0");
+            admin.setPassword("123");
 
+            Employee.allEmployees.add(admin);
 
-        Employee.allEmployees.add(admin);
-
+        }
     }
 }
 
