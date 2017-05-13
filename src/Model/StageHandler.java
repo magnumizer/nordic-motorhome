@@ -102,6 +102,7 @@ public class StageHandler
         {
             primaryStage.hide();
             Scene scene = new Scene(root, 600, 400);
+            scene.getStylesheets().add("/CSS/theme.css");
             primaryStage.setScene(scene);
             primaryStage.show();
         }

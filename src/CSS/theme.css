@@ -1,0 +1,44 @@
+Button {
+-fx-background-color: floralwhite  ;
+-fx-font-family:  "Georgia", "Serif","Times New Roman";
+-fx-font-size: 12;
+-fx-color:  #da8282;
+}
+AnchorPane {
+-fx-background-image: url(stock-vector-summer-or-winter-vintage-camp-travel-poster-background-vintage-rv-motorhome-badge-and-logo-281250344.jpg);
+-fx-background-size: 100%;
+-fx-background-image-opacity: 30%;
+}
+Label {
+-fx-font-family: "Georgia", "Serif","Times New Roman";
+-fx-font-size: 12;
+
+}
+
+ComboBox{
+-fx-font-family:  "Georgia", "Serif","Times New Roman";
+-fx-font-size: 12;
+-fx-background-color: floralwhite;
+-fx-background-blend-mode: lighten;
+}
+
+TextField{
+-fx-font-family:  "Georgia", "Serif","Times New Roman";
+-fx-font-size: 12;
+-fx-background-color: floralwhite;
+-fx-background-blend-mode: lighten;
+}
+
+PasswordField{
+-fx-font-family:  "Georgia", "Serif","Times New Roman";
+-fx-font-size: 12;
+-fx-background-color: floralwhite;
+-fx-background-blend-mode: lighten;
+
+}
+.tab-content-area
+{
+-fx-background-color: -fx-control-inner-background;
+-fx-padding: 0.0em; /* 0 */
+
+}
