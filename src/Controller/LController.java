@@ -64,11 +64,13 @@ public class LController implements Initializable
                 else
                 {
                     stageHandler.displayAlert("Password not specified", "Password can't be blank", "Please enter a valid password");
+                    passwordField.requestFocus();
                 }
             }
             else
             {
                 stageHandler.displayAlert("Name not specified", "Name is missing", "Please enter a username");
+                nameField.requestFocus();
             }
         }
         else

@@ -134,61 +134,74 @@ public class AController implements Initializable
                                                     {
                                                         stageHandler.displayAlert("Password not confirmed", "Ensure password confirmation is identical to password", "Please confirm password");
                                                         confirmLabel.setStyle("-fx-text-fill: red");
+                                                        confirmField.requestFocus();
+                                                        confirmField.selectAll();
                                                     }
                                                 }
                                                 else
                                                 {
                                                     stageHandler.displayAlert("Error creating staff member", "User already exists", "Please enter a different username");
+                                                    usernameField.requestFocus();
                                                 }
                                             }
                                             else
                                             {
                                                 stageHandler.displayAlert("Password not confirmed", "Confirm Password field is blank", "Please confirm password");
+                                                confirmField.requestFocus();
                                             }
                                         }
                                         else
                                         {
                                             stageHandler.displayAlert("Password not specified", "Password can't be blank", "Please enter a password");
+                                            passwordField.requestFocus();
                                         }
                                     }
                                     else
                                     {
                                         stageHandler.displayAlert("Username not specified", "Username is missing", "Please enter a username");
+                                        usernameField.requestFocus();
                                     }
                                 }
                                 else
                                 {
                                     stageHandler.displayAlert("Position not specified", "Position is missing", "Please select a position");
+                                    positionBox.show();
                                 }
                             }
                             else
                             {
                                 stageHandler.displayAlert("Phone number not specified", "Phone number is missing", "Please enter a phone number");
+                                tlfField.requestFocus();
                             }
                         }
                         else
                         {
                             stageHandler.displayAlert("E-mail not specified", "E-mail is missing", "Please enter an e-mail address");
+                            emailField.requestFocus();
                         }
                     }
                     else
                     {
                         stageHandler.displayAlert("Address not specified", "Address is missing", "Please enter an address");
+                        addressField.requestFocus();
                     }
                 }
                 else
                 {
                     stageHandler.displayAlert("Date of birth not specified", "Date of birth is missing", "Please enter a date of birth");
+                    birthdayPicker.show();
                 }
             }
             else
             {
                 stageHandler.displayAlert("CPR not specified", "CPR is missing", "Please enter a CPR number");
+                cprField.requestFocus();
             }
         }
         else
         {
             stageHandler.displayAlert("Name not specified", "Name is missing", "Please enter a name");
+            nameField.requestFocus();
         }
     }
 

@@ -63,31 +63,37 @@ public class SAController implements Initializable
                             else
                             {
                                 stageHandler.displayAlert("Phone number not specified", "Phone number is missing", "Please enter a phone number");
+                                tlfField.requestFocus();
                             }
                         }
                         else
                         {
                             stageHandler.displayAlert("E-mail not specified", "E-mail is missing", "Please enter an e-mail address");
+                            emailField.requestFocus();
                         }
                     }
                     else
                     {
                         stageHandler.displayAlert("Address not specified", "Address is missing", "Please enter an address");
+                        addressField.requestFocus();
                     }
                 }
                 else
                 {
                     stageHandler.displayAlert("Date of birth not specified", "Date of birth is missing", "Please enter a date of birth");
+                    birthdayPicker.show();
                 }
             }
             else
             {
                 stageHandler.displayAlert("CPR not specified", "CPR is missing", "Please enter a CPR number");
+                cprField.requestFocus();
             }
         }
         else
         {
             stageHandler.displayAlert("Name not specified", "Name is missing", "Please enter a name");
+            nameField.requestFocus();
         }
     }
 
