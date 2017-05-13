@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -19,7 +20,24 @@
          <tabs>
             <Tab closable="false" text="Overview">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="239.0" layoutY="14.0" text="List of Customers">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="customerTable" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+                          <columns>
+                            <TableColumn fx:id="customerNameCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Name" />
+                              <TableColumn fx:id="customerCPRCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="CPR" />
+                              <TableColumn fx:id="customerBirthdayCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Date of birth" />
+                              <TableColumn fx:id="customerAddressCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Address" />
+                              <TableColumn fx:id="customerTlfCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Tlf" />
+                              <TableColumn fx:id="customerEmailCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="E-mail" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab closable="false" text="Register staff">

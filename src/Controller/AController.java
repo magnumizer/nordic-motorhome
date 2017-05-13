@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.Date;
@@ -24,6 +25,20 @@ public class AController implements Initializable
             );
 
     //region FXML
+    @FXML
+    private TableView<Customer> customerTable;
+    @FXML
+    private TableColumn<Customer, String> customerNameCol;
+    @FXML
+    private TableColumn<Customer, String> customerCPRCol;
+    @FXML
+    private TableColumn<Customer, String> customerBirthdayCol;
+    @FXML
+    private TableColumn<Customer, String> customerAddressCol;
+    @FXML
+    private TableColumn<Customer, Integer> customerTlfCol;
+    @FXML
+    private TableColumn<Customer, String> customerEmailCol;
     @FXML
     private TextField nameField;
     @FXML
@@ -191,6 +206,26 @@ public class AController implements Initializable
         confirmField.clear();
     }
 
+    private void centerAlignTables()
+    {
+        customerNameCol.setStyle("-fx-alignment: CENTER");
+        customerCPRCol.setStyle("-fx-alignment: CENTER");
+        customerBirthdayCol.setStyle("-fx-alignment: CENTER");
+        customerAddressCol.setStyle("-fx-alignment: CENTER");
+        customerTlfCol.setStyle("-fx-alignment: CENTER");
+        customerEmailCol.setStyle("-fx-alignment: CENTER");
+    }
+
+    private void setupTableColumns()
+    {
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        customerCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
+        customerBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        customerTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        customerEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+    }
+
     private void forceNumericValues()
     {
         tlfField.textProperty().addListener(new ChangeListener<String>() {
@@ -206,6 +241,9 @@ public class AController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        centerAlignTables();
+        setupTableColumns();
+        customerTable.getItems().setAll(Customer.allCustomers);
         positionBox.setItems(positions);
         forceNumericValues();
     }

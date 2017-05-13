@@ -24,18 +24,18 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="368.0" prefWidth="510.0">
                      <children>
                         <Label alignment="CENTER" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Name:" textAlignment="CENTER" />
-                        <TextField layoutX="120.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <TextField fx:id="nameField" layoutX="120.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="CPR:" textAlignment="CENTER" />
-                        <TextField layoutX="120.0" layoutY="65.0" />
+                        <TextField fx:id="cprField" layoutX="120.0" layoutY="65.0" />
                         <Label alignment="CENTER" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Date of birth:" textAlignment="CENTER" />
-                        <DatePicker layoutX="120.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <DatePicker fx:id="birthdayPicker" layoutX="120.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Address:" textAlignment="CENTER" />
-                        <TextField layoutX="120.0" layoutY="155.0" />
+                        <TextField fx:id="addressField" layoutX="120.0" layoutY="155.0" />
                         <Label alignment="CENTER" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="E-mail:" textAlignment="CENTER" />
-                        <TextField layoutX="120.0" layoutY="200.0" />
+                        <TextField fx:id="emailField" layoutX="120.0" layoutY="200.0" />
                         <Label alignment="CENTER" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Tlf:" textAlignment="CENTER" />
-                        <TextField layoutX="120.0" layoutY="245.0" />
-                        <Button layoutX="165.0" layoutY="285.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save" />
+                        <TextField fx:id="tlfField" layoutX="120.0" layoutY="245.0" />
+                        <Button layoutX="165.0" layoutY="285.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveBtnPressed" prefHeight="30.0" prefWidth="60.0" text="Save" />
                      </children>
                   </AnchorPane>
                </content>
@@ -51,9 +51,9 @@
                         <Label layoutX="36.0" layoutY="205.0" text="Motorhome:" />
                         <Label layoutX="18.0" layoutY="254.0" text="Extra accessory:" />
                         <ComboBox layoutX="118.0" layoutY="22.0" prefWidth="150.0" />
-                        <DatePicker layoutX="118.0" layoutY="61.0" />
-                        <DatePicker layoutX="118.0" layoutY="111.0" />
-                        <DatePicker layoutX="118.0" layoutY="160.0" />
+                        <DatePicker layoutX="118.0" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <DatePicker layoutX="118.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <DatePicker layoutX="118.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <ComboBox layoutX="118.0" layoutY="201.0" prefWidth="150.0" />
                         <CheckBox layoutX="132.0" layoutY="254.0" mnemonicParsing="false" text="CheckBox" />
                         <CheckBox layoutX="227.0" layoutY="254.0" mnemonicParsing="false" text="CheckBox" />
