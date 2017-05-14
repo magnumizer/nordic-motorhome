@@ -10,17 +10,18 @@ public class Motorhome
     String model;
     String brand;
     String size;
+    String status;
     boolean rentedStatus;
-    boolean conditionStatus;
+    boolean serviceStatus;
     float pricePerDay;
 
-    public Motorhome(String model, String brand, String size, boolean rentedStatus, boolean conditionStatus, float pricePerDay)
+    public Motorhome(String model, String brand, String size, boolean rentedStatus, boolean serviceStatus, float pricePerDay)
     {
         this.model = model;
         this.brand = brand;
         this.size = size;
         this.rentedStatus = rentedStatus;
-        this.conditionStatus = conditionStatus;
+        this.serviceStatus = serviceStatus;
         this.pricePerDay = pricePerDay;
         this.motorhomeID = generateID();
     }
@@ -28,7 +29,8 @@ public class Motorhome
     private String generateID()
     {
         //logic for generating unique id goes here
-        return "";
+        int val = Motorhome.allMotorhomes.size();
+        return val + "";
     }
 
     public String getMotorhomeID()
@@ -81,14 +83,29 @@ public class Motorhome
         this.rentedStatus = rentedStatus;
     }
 
-    public boolean isConditionStatus()
+    public boolean isServiceStatus()
     {
-        return conditionStatus;
+        return serviceStatus;
     }
 
-    public void setConditionStatus(boolean conditionStatus)
+    public void setServiceStatus(boolean serviceStatus)
     {
-        this.conditionStatus = conditionStatus;
+        this.serviceStatus = serviceStatus;
+    }
+
+    public String getStatus()
+    {
+        if (this.isServiceStatus())
+            return "Out of service";
+        else if (this.isRentedStatus())
+            return "Rented";
+        else
+            return "Available";
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
     }
 
     public float getPricePerDay()

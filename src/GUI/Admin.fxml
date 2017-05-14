@@ -17,7 +17,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AController">
    <children>
-      <TabPane layoutY="6.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane layoutY="6.0" prefHeight="400.0" prefWidth="600.0" tabMinHeight="40.0" tabMinWidth="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
             <Tab closable="false" text="Overview">
                <content>
@@ -102,13 +102,39 @@
                                     <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Reservations" textAlignment="CENTER" />
                                  </graphic>
                               </Tab>
+                              <Tab closable="false">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER" prefHeight="62.0" prefWidth="508.0" text="List of Motorhomes" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="motorhomeTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                             <columns>
+                                                <TableColumn fx:id="motorhomeIDCol" maxWidth="200.0" minWidth="65.0" prefWidth="65.0" text="ID" />
+                                                <TableColumn fx:id="motorhomeModelCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Model" />
+                                                <TableColumn fx:id="motorhomeBrandCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Brand" />
+                                                <TableColumn fx:id="motorhomeSizeCol" maxWidth="200.0" minWidth="65.0" prefWidth="65.0" text="Size" />
+                                                <TableColumn fx:id="motorhomePriceCol" maxWidth="200.0" minWidth="65.0" prefWidth="65.0" text="Kr./day" />
+                                                <TableColumn fx:id="motorhomeStatusCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Status" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                                 <graphic>
+                                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Motorhomes" textAlignment="CENTER" />
+                                 </graphic>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab closable="false" text="Register staff">
+            <Tab closable="false" text="Register Staff">
                <content>
                   <AnchorPane>
                      <children>
@@ -133,6 +159,28 @@
                         <Label fx:id="confirmLabel" alignment="CENTER" layoutX="300.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Confirm Password:" textAlignment="CENTER" />
                         <PasswordField fx:id="confirmField" layoutX="412.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Button layoutX="422.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddStaffBtnPressed" prefHeight="30.0" prefWidth="130.0" text="Add staff member" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab closable="false" text="Register Motorhome">
+               <content>
+                  <AnchorPane>
+                     <children>
+                        <Label alignment="CENTER" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Model:" textAlignment="CENTER" />
+                        <TextField fx:id="modelField" layoutX="112.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Brand:" textAlignment="CENTER" />
+                        <TextField fx:id="brandField" layoutX="112.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Size:" textAlignment="CENTER" />
+                        <ComboBox fx:id="sizeBox" layoutX="112.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label alignment="CENTER" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Price per day:" textAlignment="CENTER" />
+                        <TextField fx:id="priceField" layoutX="112.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                        <Label layoutX="260.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="kr." textAlignment="CENTER">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Button layoutX="122.0" layoutY="231.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddMotorhomeBtnPressed" prefHeight="30.0" prefWidth="130.0" text="Add Motorhome" />
                      </children>
                   </AnchorPane>
                </content>

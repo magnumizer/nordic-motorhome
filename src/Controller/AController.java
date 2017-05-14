@@ -23,6 +23,13 @@ public class AController implements Initializable
                     "Auto Mechanic"
             );
 
+    ObservableList<String> sizes =
+            FXCollections.observableArrayList(
+                    "Small",
+                    "Medium",
+                    "Large"
+            );
+
     //region FXML
     @FXML
     private TableView<Customer> customerTable;
@@ -68,6 +75,21 @@ public class AController implements Initializable
     private TableColumn<Reservation, String> reservationDropoffCol;
 
     @FXML
+    private TableView<Motorhome> motorhomeTable;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeIDCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeModelCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeBrandCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeSizeCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomePriceCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeStatusCol;
+
+    @FXML
     private TextField nameField;
     @FXML
     private TextField cprField;
@@ -89,6 +111,14 @@ public class AController implements Initializable
     private PasswordField passwordField;
     @FXML
     private PasswordField confirmField;
+    @FXML
+    private TextField modelField;
+    @FXML
+    private TextField brandField;
+    @FXML
+    private ComboBox<String> sizeBox;
+    @FXML
+    private TextField priceField;
     //endregion
 
     private StageHandler stageHandler = new StageHandler();
@@ -156,7 +186,7 @@ public class AController implements Initializable
                                                         }
 
                                                         staffTable.getItems().setAll(Employee.allEmployees);
-                                                        clearFields();
+                                                        clearStaffFields();
                                                     }
                                                     else
                                                     {
@@ -233,7 +263,7 @@ public class AController implements Initializable
         }
     }
 
-    private void clearFields()
+    private void clearStaffFields()
     {
         nameField.clear();
         cprField.clear();
@@ -245,6 +275,59 @@ public class AController implements Initializable
         usernameField.clear();
         passwordField.clear();
         confirmField.clear();
+    }
+
+    public void onAddMotorhomeBtnPressed(ActionEvent actionEvent)
+    {
+        if (!modelField.getText().equals(""))
+        {
+            if (!brandField.getText().equals(""))
+            {
+                if (!sizeBox.getSelectionModel().isEmpty())
+                {
+                    if (!priceField.getText().equals(""))
+                    {
+                        float number = Float.parseFloat(priceField.getText());
+                        number = CalculationHandler.clamp(number, 0, 999999);
+
+                        Motorhome motorhome = new Motorhome(modelField.getText(), brandField.getText(), sizeBox.getValue(), false, false, number);
+                        Motorhome.allMotorhomes.add(motorhome);
+
+                        stageHandler.displayInfo("Success", "Motorhome successfully added to the system", "Press OK to continue");
+                        motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
+                        clearMotorhomeFields();
+                    }
+                    else
+                    {
+                        stageHandler.displayError("Price not specified", "Price per day is missing", "Please enter a price");
+                        priceField.requestFocus();
+                    }
+                }
+                else
+                {
+                    stageHandler.displayError("Size not specified", "Size is missing", "Please select a size");
+                    sizeBox.show();
+                }
+            }
+            else
+            {
+                stageHandler.displayError("Brand not specified", "Brand name is missing", "Please enter a Brand name");
+                brandField.requestFocus();
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Model not specified", "Model name is missing", "Please enter a Model name");
+            modelField.requestFocus();
+        }
+    }
+
+    private void clearMotorhomeFields()
+    {
+        modelField.clear();
+        brandField.clear();
+        sizeBox.getSelectionModel().clearSelection();
+        priceField.clear();
     }
 
     private void setupTableColumns()
@@ -268,6 +351,13 @@ public class AController implements Initializable
         reservationDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
         reservationPickupCol.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
         reservationDropoffCol.setCellValueFactory(new PropertyValueFactory<>("dropoffDate"));
+
+        motorhomeIDCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeID"));
+        motorhomeModelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
+        motorhomeBrandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        motorhomeSizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+        motorhomePriceCol.setCellValueFactory(new PropertyValueFactory<>("pricePerDay"));
+        motorhomeStatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
     private void forceNumericValues()
@@ -283,6 +373,18 @@ public class AController implements Initializable
                 }
             }
         });
+
+        priceField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    priceField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     @Override
@@ -292,7 +394,9 @@ public class AController implements Initializable
         staffTable.getItems().setAll(Employee.allEmployees);
         customerTable.getItems().setAll(Customer.allCustomers);
         reservationTable.getItems().setAll(Reservation.allReservations);
+        motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
         positionBox.setItems(positions);
+        sizeBox.setItems(sizes);
         forceNumericValues();
     }
 }
