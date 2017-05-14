@@ -72,6 +72,9 @@ public class LoginHandler
             System.out.println("Too many login attempts. Contacting administrator. Closing program.");
             //Set up logic for contacting admin here (or call method from other class?)
 
+            StageHandler stageHandler = new StageHandler();
+            stageHandler.displayError("Breach suspected", "Too many login attempts. Contacting administrator.", "Closing program.");
+
             Main.primaryStage.hide();
             Main.primaryStage.close();
             //System.exit(0);

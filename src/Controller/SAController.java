@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
@@ -98,43 +97,43 @@ public class SAController implements Initializable
                                 Customer customer = new Customer(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
                                 Customer.allCustomers.add(customer);
 
-                                stageHandler.displayAlert("Success", "Customer successfully added to the system", "Press OK to continue");
+                                stageHandler.displayInfo("Success", "Customer successfully added to the system", "Press OK to continue");
                                 updateCustomerList();
                                 clearCustomerFields();
                             }
                             else
                             {
-                                stageHandler.displayAlert("Phone number not specified", "Phone number is missing", "Please enter a phone number");
+                                stageHandler.displayError("Phone number not specified", "Phone number is missing", "Please enter a phone number");
                                 tlfField.requestFocus();
                             }
                         }
                         else
                         {
-                            stageHandler.displayAlert("E-mail not specified", "E-mail is missing", "Please enter an e-mail address");
+                            stageHandler.displayError("E-mail not specified", "E-mail is missing", "Please enter an e-mail address");
                             emailField.requestFocus();
                         }
                     }
                     else
                     {
-                        stageHandler.displayAlert("Address not specified", "Address is missing", "Please enter an address");
+                        stageHandler.displayError("Address not specified", "Address is missing", "Please enter an address");
                         addressField.requestFocus();
                     }
                 }
                 else
                 {
-                    stageHandler.displayAlert("Date of birth not specified", "Date of birth is missing", "Please enter a date of birth");
+                    stageHandler.displayError("Date of birth not specified", "Date of birth is missing", "Please enter a date of birth");
                     birthdayPicker.show();
                 }
             }
             else
             {
-                stageHandler.displayAlert("CPR not specified", "CPR is missing", "Please enter a CPR number");
+                stageHandler.displayError("CPR not specified", "CPR is missing", "Please enter a CPR number");
                 cprField.requestFocus();
             }
         }
         else
         {
-            stageHandler.displayAlert("Name not specified", "Name is missing", "Please enter a name");
+            stageHandler.displayError("Name not specified", "Name is missing", "Please enter a name");
             nameField.requestFocus();
         }
     }
@@ -173,46 +172,46 @@ public class SAController implements Initializable
                                 {
                                     Reservation reservation = new Reservation(customerBox.getValue(), motorhomeBox.getValue(), reservationDate.getValue(), pickupDate.getValue(), dropoffDate.getValue(), dropoffAddressField.getText(), getSeasonValue());
                                     Reservation.allReservations.add(reservation);
-                                    stageHandler.displayAlert("Success", "Reservation successfully added to the system", "Press OK to continue");
+                                    stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
                                     clearReservationFields();
                                 }
                                 else
                                 {
-                                    stageHandler.displayAlert("Season not specified", "Current season has not been selected", "Please select the current season");
+                                    stageHandler.displayError("Season not specified", "Current season has not been selected", "Please select the current season");
                                 }
                             }
                             else
                             {
-                                stageHandler.displayAlert("Drop off address not specified", "Drop off address is missing", "Please enter a Drop off address");
+                                stageHandler.displayError("Drop off address not specified", "Drop off address is missing", "Please enter a Drop off address");
                             }
                         }
                         else
                         {
-                            stageHandler.displayAlert("Drop off date not specified", "Drop off date is missing", "Please enter a Drop off date");
+                            stageHandler.displayError("Drop off date not specified", "Drop off date is missing", "Please enter a Drop off date");
                             dropoffDate.show();
                         }
                     }
                     else
                     {
-                        stageHandler.displayAlert("Pick up date not specified", "Pick up date is missing", "Please enter a Pick up date");
+                        stageHandler.displayError("Pick up date not specified", "Pick up date is missing", "Please enter a Pick up date");
                         pickupDate.show();
                     }
                 }
                 else
                 {
-                    stageHandler.displayAlert("Reservation date not specified", "Reservation date is missing", "Please enter a Reservation date");
+                    stageHandler.displayError("Reservation date not specified", "Reservation date is missing", "Please enter a Reservation date");
                     reservationDate.show();
                 }
             }
             else
             {
-                stageHandler.displayAlert("Motorhome not specified", "Motorhome is missing", "Please select a Motorhome");
+                stageHandler.displayError("Motorhome not specified", "Motorhome is missing", "Please select a Motorhome");
                 motorhomeBox.show();
             }
         }
         else
         {
-            stageHandler.displayAlert("Customer not specified", "Customer is missing", "Please select a Customer");
+            stageHandler.displayError("Customer not specified", "Customer is missing", "Please select a Customer");
             customerBox.show();
         }
     }

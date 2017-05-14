@@ -29,9 +29,19 @@ public class StageHandler
                 ));
     }
 
-    public void displayAlert(String title, String header, String content)
+    public void displayError(String title, String header, String content)
     {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(Main.primaryStage);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public void displayInfo(String title, String header, String content)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initOwner(Main.primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(header);
