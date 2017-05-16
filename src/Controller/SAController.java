@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SAController implements Initializable
@@ -223,7 +224,7 @@ public class SAController implements Initializable
     {
         customerBox.getSelectionModel().clearSelection();
         motorhomeBox.getSelectionModel().clearSelection();
-        reservationDate.setValue(null);
+        reservationDate.setValue(LocalDate.now());
         pickupDate.setValue(null);
         dropoffDate.setValue(null);
         bikeRackCheck.setSelected(false);
