@@ -95,13 +95,39 @@ public class LController implements Initializable
         if (!Employee.checkIfUserExists("test0"))
         {
             LocalDate localDate = LocalDate.now();
-            Admin admin = new Admin("ad", "ad", localDate, "ad", 1, "ad");
-            admin.setUsername("test0");
-            admin.setPassword("123");
+            Admin admin = new Admin("ad", "ad", localDate, "ad", 1, "ad", "test0", "123");
 
             Employee.allEmployees.add(admin);
 
         }
+
+        if (!Employee.checkIfUserExists("sa"))
+        {
+            SalesAssistant salesAssistant = new SalesAssistant("sa", "sa", LocalDate.now(), "sa", 0, "sa", "sa", "sa");
+            Employee.allEmployees.add(salesAssistant);
+        }
+
+        //add example customer for now
+        Customer customer = new Customer("name", "asd", LocalDate.now(), "cxz", 345, "zxc");
+        Customer.allCustomers.add(customer);
+
+        //add example motorhome for now
+        Motorhome motorhome = new Motorhome("example", "ad", "ad", 500f);
+        Motorhome.allMotorhomes.add(motorhome);
+
+        //add accessories here for now, get from db later (crud in admin?)
+        Accessory bikeRack = new Accessory("Bike Rack", 100, 1);
+        Accessory bedLinen = new Accessory("Bed Linen", 10, 1);
+        Accessory childSeat = new Accessory("Child Seat", 50, 1);
+        Accessory picnicTable = new Accessory("Picnic Table", 150, 1);
+        Accessory chair = new Accessory("Chair", 50, 4);
+
+        Accessory.allAccessories.put(bikeRack.getType(), bikeRack);
+        Accessory.allAccessories.put(bedLinen.getType(), bedLinen);
+        Accessory.allAccessories.put(childSeat.getType(), childSeat);
+        Accessory.allAccessories.put(picnicTable.getType(), picnicTable);
+        Accessory.allAccessories.put(chair.getType(), chair);
+
     }
 }
 

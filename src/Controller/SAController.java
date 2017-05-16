@@ -1,6 +1,7 @@
 package Controller;//Magnus Svendsen DAT16i
 
 import Model.*;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -166,11 +167,12 @@ public class SAController implements Initializable
                     {
                         if (dropoffDate.getValue() != null)
                         {
-                            if (dropoffBox.getSelectionModel().getSelectedIndex() == 0 || (dropoffBox.getSelectionModel().getSelectedIndex() == 1 && !dropoffAddressField.getText().equals("")))
+                            if (dropoffBox.getSelectionModel().getSelectedIndex() == 0 || !dropoffAddressField.getText().equals(""))
                             {
                                 if (isSeasonSelected())
                                 {
                                     Reservation reservation = new Reservation(customerBox.getValue(), motorhomeBox.getValue(), reservationDate.getValue(), pickupDate.getValue(), dropoffDate.getValue(), dropoffAddressField.getText(), getSeasonValue());
+                                    addAccessoriesToReservation(reservation);
                                     Reservation.allReservations.add(reservation);
                                     stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
                                     clearReservationFields();
@@ -183,6 +185,7 @@ public class SAController implements Initializable
                             else
                             {
                                 stageHandler.displayError("Drop off address not specified", "Drop off address is missing", "Please enter a Drop off address");
+                                dropoffAddressField.requestFocus();
                             }
                         }
                         else
@@ -235,6 +238,20 @@ public class SAController implements Initializable
         priceField.setText("0,00");
     }
 
+    private void addAccessoriesToReservation(Reservation reservation)
+    {
+        if (bikeRackCheck.isSelected())
+            reservation.addAccessory(Accessory.allAccessories.get("Bike Rack"));
+        if (bedLinenCheck.isSelected())
+            reservation.addAccessory(Accessory.allAccessories.get("Bed Linen"));
+        if (childSeatCheck.isSelected())
+            reservation.addAccessory(Accessory.allAccessories.get("Child Seat"));
+        if (picnicTableCheck.isSelected())
+            reservation.addAccessory(Accessory.allAccessories.get("Picnic Table"));
+        if (chairsCheck.isSelected())
+            reservation.addAccessory(Accessory.allAccessories.get("Chair"));
+    }
+
     private void handleDropoffAddressField(boolean custom)
     {
         if (custom)
@@ -252,11 +269,7 @@ public class SAController implements Initializable
 
     private int getSeasonValue()
     {
-        if (lowSeasonCheck.isSelected())
-        {
-            return 0;
-        }
-        else if (midSeasonCheck.isSelected())
+        if (midSeasonCheck.isSelected())
         {
             return 1;
         }
@@ -266,7 +279,7 @@ public class SAController implements Initializable
         }
         else
         {
-            return -1;
+            return 0;
         }
     }
 
@@ -289,7 +302,7 @@ public class SAController implements Initializable
             midSeasonCheck.setSelected(false);
             highSeasonCheck.setSelected(false);
         }
-        recalculatePrice(null);
+        recalculatePrice(actionEvent);
     }
 
     public void onMidSeasonSelected(ActionEvent actionEvent)
@@ -299,7 +312,7 @@ public class SAController implements Initializable
             lowSeasonCheck.setSelected(false);
             highSeasonCheck.setSelected(false);
         }
-        recalculatePrice(null);
+        recalculatePrice(actionEvent);
     }
 
     public void onHighSeasonSelected(ActionEvent actionEvent)
@@ -309,7 +322,45 @@ public class SAController implements Initializable
             lowSeasonCheck.setSelected(false);
             midSeasonCheck.setSelected(false);
         }
-        recalculatePrice(null);
+        recalculatePrice(actionEvent);
+    }
+
+    public void onPickupDateSelected(ActionEvent actionEvent)
+    {
+        if (pickupDate.getValue() != null && dropoffDate.getValue() != null)
+        {
+            if (!pickupDate.getValue().isBefore(dropoffDate.getValue()))
+            {
+                pickupDate.setValue(null);
+                stageHandler.displayError("Invalid date", "Pick up date must be BEFORE drop off date", "Please select a valid date");
+                Platform.runLater(() -> {
+                    pickupDate.show();
+                });
+            }
+            else
+            {
+                recalculatePrice(actionEvent);
+            }
+        }
+    }
+
+    public void onDropoffDateSelected(ActionEvent actionEvent)
+    {
+        if (pickupDate.getValue() != null && dropoffDate.getValue() != null)
+        {
+            if (!dropoffDate.getValue().isAfter(pickupDate.getValue()))
+            {
+                dropoffDate.setValue(null);
+                stageHandler.displayError("Invalid date", "Drop off date must be AFTER pick up date", "Please select a valid date");
+                Platform.runLater(() -> {
+                    dropoffDate.show();
+                });
+            }
+            else
+            {
+                recalculatePrice(actionEvent);
+            }
+        }
     }
 
     public void recalculatePrice(ActionEvent actionEvent)
@@ -317,19 +368,19 @@ public class SAController implements Initializable
         float price = 0;
 
         if (bikeRackCheck.isSelected())
-            price += 100;
+            price += Accessory.allAccessories.get("Bike Rack").getPrice();
         if (bedLinenCheck.isSelected())
-            price += 10;
+            price += Accessory.allAccessories.get("Bed Linen").getPrice();
         if (childSeatCheck.isSelected())
-            price += 50;
+            price += Accessory.allAccessories.get("Child Seat").getPrice();
         if (picnicTableCheck.isSelected())
-            price += 150;
+            price += Accessory.allAccessories.get("Picnic Table").getPrice();
         if (chairsCheck.isSelected())
-            price += 50;
+            price += Accessory.allAccessories.get("Chair").getPrice();
 
-        if (!motorhomeBox.getSelectionModel().isEmpty() && pickupDate.getValue() != null && dropoffDate.getValue() != null && isSeasonSelected())
+        if (!motorhomeBox.getSelectionModel().isEmpty() && pickupDate.getValue() != null && dropoffDate.getValue() != null)
         {
-            price += CalculationHandler.calculateBasePrice(dropoffDate.getValue(), pickupDate.getValue(), motorhomeBox.getValue().getPricePerDay(), getSeasonValue());
+            price += CalculationHandler.calculateBasePrice(pickupDate.getValue(), dropoffDate.getValue(), motorhomeBox.getValue().getPricePerDay(), getSeasonValue());
 
             if (dropoffBox.getSelectionModel().getSelectedIndex() == 1) //if custom drop off point
             {
@@ -344,6 +395,12 @@ public class SAController implements Initializable
     private void updatePrice(String price)
     {
         priceField.setText(price);
+    }
+
+    private void updateMotorhomeList()
+    {
+        ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList(Motorhome.allMotorhomes);
+        motorhomeBox.setItems(motorhomes);
     }
 
     private void addListenerHandler()
@@ -377,30 +434,13 @@ public class SAController implements Initializable
                 recalculatePrice(null);
             }
         });
-
-        dropoffAddressField.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-            {
-                if (dropoffBox.getSelectionModel().getSelectedIndex() == 1) //if custom address is selected
-                {
-                    recalculatePrice(null);
-                }
-            }
-        });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        //add example motorhome for now
-        Motorhome motorhome = new Motorhome("example", "ad", "ad", true, true, 500f);
-        Motorhome.allMotorhomes.add(motorhome);
-        ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList(Motorhome.allMotorhomes);
-        motorhomeBox.setItems(motorhomes);
-
         updateCustomerList();
+        updateMotorhomeList();
         dropoffBox.setItems(points);
         clearCustomerFields();
         clearReservationFields();

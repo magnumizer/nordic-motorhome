@@ -10,18 +10,15 @@ public class Motorhome
     String model;
     String brand;
     String size;
-    String status;
-    boolean rentedStatus;
-    boolean serviceStatus;
+    boolean rentedStatus = false;
+    boolean serviceStatus = false;
     float pricePerDay;
 
-    public Motorhome(String model, String brand, String size, boolean rentedStatus, boolean serviceStatus, float pricePerDay)
+    public Motorhome(String model, String brand, String size, float pricePerDay)
     {
         this.model = model;
         this.brand = brand;
         this.size = size;
-        this.rentedStatus = rentedStatus;
-        this.serviceStatus = serviceStatus;
         this.pricePerDay = pricePerDay;
         this.motorhomeID = generateID();
     }
@@ -101,11 +98,6 @@ public class Motorhome
             return "Rented";
         else
             return "Available";
-    }
-
-    public void setStatus(String status)
-    {
-        this.status = status;
     }
 
     public float getPricePerDay()

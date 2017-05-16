@@ -1,16 +1,14 @@
 package Model;//Magnus Svendsen DAT16i
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.HashMap;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 public abstract class CalculationHandler
 {
-    public static float calculateBasePrice(LocalDate dropoffDate, LocalDate pickupDate, float pricePerDay, int currentSeason)
+    public static float calculateBasePrice(LocalDate pickupDate, LocalDate dropoffDate, float pricePerDay, int currentSeason)
     {
-        Period daysbetween = Period.between(pickupDate, dropoffDate);
-        int days = daysbetween.getDays();
-        days = CalculationHandler.clamp(days, 1, 365);
+        int days = (int)ChronoUnit.DAYS.between(pickupDate, dropoffDate);
 
         float multiplier;
 
@@ -34,16 +32,18 @@ public abstract class CalculationHandler
     {
         //how are we supposed to calculate this? just gonna add random value for now
 
-        return dropoffAddress.length() * 100 * Reservation.getTransferCost();
+        return 100 * Reservation.getTransferCost();
     }
 
-    public static float calculateItemsPrice(HashMap<String, Float> priceMap)
+    public static float calculateAccessorySum(ArrayList<Accessory> accessories)
     {
         float price = 0;
-        for (Float value : priceMap.values())
+
+        for (Accessory accessory : accessories)
         {
-            price += value;
+            price += accessory.getPrice(); // * accessory.getQuantity(); //multiply by quantity (need gui option to set first)
         }
+
         return price;
     }
 

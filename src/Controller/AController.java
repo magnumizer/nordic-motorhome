@@ -90,6 +90,15 @@ public class AController implements Initializable
     private TableColumn<Motorhome, String> motorhomeStatusCol;
 
     @FXML
+    private TableView<Accessory> accessoryTable;
+    @FXML
+    private TableColumn<Accessory, String> accessoryTypeCol;
+    @FXML
+    private TableColumn<Accessory, Float> accessoryPriceCol;
+    @FXML
+    private TableColumn<Accessory, Integer> accessoryQuantityCol;
+
+    @FXML
     private TextField nameField;
     @FXML
     private TextField cprField;
@@ -154,29 +163,22 @@ public class AController implements Initializable
                                                 {
                                                     if (passwordField.getText().equals(confirmField.getText()))
                                                     {
-                                                        confirmLabel.setStyle("-fx-text-fill: black");
                                                         int number = Integer.parseInt(tlfField.getText());
 
                                                         switch (positionBox.getValue())
                                                         {
                                                             case "Admin":
-                                                                Admin admin = new Admin(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
-                                                                admin.setUsername(usernameField.getText());
-                                                                admin.setPassword(passwordField.getText());
+                                                                Admin admin = new Admin(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
                                                                 Employee.allEmployees.add(admin);
                                                                 stageHandler.displayInfo("Success", "Admin successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             case "Sales Assistant":
-                                                                SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
-                                                                salesAssistant.setUsername(usernameField.getText());
-                                                                salesAssistant.setPassword(passwordField.getText());
+                                                                SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
                                                                 Employee.allEmployees.add(salesAssistant);
                                                                 stageHandler.displayInfo("Success", "Sales Assistant successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             case "Auto Mechanic":
-                                                                AutoMechanic autoMechanic = new AutoMechanic(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
-                                                                autoMechanic.setUsername(usernameField.getText());
-                                                                autoMechanic.setPassword(passwordField.getText());
+                                                                AutoMechanic autoMechanic = new AutoMechanic(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
                                                                 Employee.allEmployees.add(autoMechanic);
                                                                 stageHandler.displayInfo("Success", "Auto Mechanic successfully added to the system", "Press OK to continue");
                                                                 break;
@@ -290,7 +292,7 @@ public class AController implements Initializable
                         float number = Float.parseFloat(priceField.getText());
                         number = CalculationHandler.clamp(number, 0, 999999);
 
-                        Motorhome motorhome = new Motorhome(modelField.getText(), brandField.getText(), sizeBox.getValue(), false, false, number);
+                        Motorhome motorhome = new Motorhome(modelField.getText(), brandField.getText(), sizeBox.getValue(), number);
                         Motorhome.allMotorhomes.add(motorhome);
 
                         stageHandler.displayInfo("Success", "Motorhome successfully added to the system", "Press OK to continue");
@@ -358,6 +360,10 @@ public class AController implements Initializable
         motorhomeSizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
         motorhomePriceCol.setCellValueFactory(new PropertyValueFactory<>("pricePerDay"));
         motorhomeStatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        accessoryTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        accessoryPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        accessoryQuantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));//change this please
     }
 
     private void forceNumericValues()
@@ -385,7 +391,24 @@ public class AController implements Initializable
                 }
             }
         });
+
+        confirmField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(passwordField.getText()))
+                {
+                    confirmLabel.setStyle("-fx-text-fill: green");
+                }
+                else
+                {
+                    confirmLabel.setStyle("-fx-text-fill: black");
+                }
+            }
+        });
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -395,6 +418,7 @@ public class AController implements Initializable
         customerTable.getItems().setAll(Customer.allCustomers);
         reservationTable.getItems().setAll(Reservation.allReservations);
         motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
+        accessoryTable.getItems().setAll(Accessory.allAccessories.values());
         positionBox.setItems(positions);
         sizeBox.setItems(sizes);
         forceNumericValues();

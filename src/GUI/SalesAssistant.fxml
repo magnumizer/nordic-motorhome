@@ -27,15 +27,15 @@
                         <Label alignment="CENTER" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Name:" textAlignment="CENTER" />
                         <TextField fx:id="nameField" layoutX="120.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="CPR:" textAlignment="CENTER" />
-                        <TextField fx:id="cprField" layoutX="120.0" layoutY="65.0" />
+                        <TextField fx:id="cprField" layoutX="120.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Date of birth:" textAlignment="CENTER" />
                         <DatePicker fx:id="birthdayPicker" layoutX="120.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Address:" textAlignment="CENTER" />
-                        <TextField fx:id="addressField" layoutX="120.0" layoutY="155.0" />
+                        <TextField fx:id="addressField" layoutX="120.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="E-mail:" textAlignment="CENTER" />
-                        <TextField fx:id="emailField" layoutX="120.0" layoutY="200.0" />
+                        <TextField fx:id="emailField" layoutX="120.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Tlf:" textAlignment="CENTER" />
-                        <TextField fx:id="tlfField" layoutX="120.0" layoutY="245.0" />
+                        <TextField fx:id="tlfField" layoutX="120.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Button layoutX="165.0" layoutY="285.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveBtnPressed" prefHeight="30.0" prefWidth="60.0" text="Save" />
                      </children>
                   </AnchorPane>
@@ -62,9 +62,9 @@
                         <Label alignment="CENTER" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Reservation date:" textAlignment="CENTER" />
                         <DatePicker fx:id="reservationDate" layoutX="120.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Pick up date:" textAlignment="CENTER" />
-                        <DatePicker fx:id="pickupDate" layoutX="120.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="149.0" />
+                        <DatePicker fx:id="pickupDate" layoutX="120.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPickupDateSelected" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off date:" textAlignment="CENTER" />
-                        <DatePicker fx:id="dropoffDate" layoutX="120.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="149.0" />
+                        <DatePicker fx:id="dropoffDate" layoutX="120.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onDropoffDateSelected" prefHeight="25.0" prefWidth="149.0" />
                         <Label alignment="CENTER" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Extra accessories:" textAlignment="CENTER" />
                         <CheckBox fx:id="bikeRackCheck" layoutX="120.0" layoutY="250.0" mnemonicParsing="false" onAction="#recalculatePrice" text="Bike rack (100kr)" />
                         <CheckBox fx:id="bedLinenCheck" layoutX="120.0" layoutY="270.0" mnemonicParsing="false" onAction="#recalculatePrice" text="Bed linen (10kr)" />
@@ -97,6 +97,6 @@
             </Tab>
          </tabs>
       </TabPane>
-      <Button layoutX="543.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="19.0" prefWidth="55.0" text="Log out" AnchorPane.bottomAnchor="382.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="543.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="19.0" prefWidth="55.0" text="Log out" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

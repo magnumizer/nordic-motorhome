@@ -2,7 +2,6 @@ package Model;//Magnus Svendsen DAT16i
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Reservation
 {
@@ -13,8 +12,6 @@ public class Reservation
         return transferCost;
     }
 
-    private HashMap<String, Float> prices = new HashMap<>();
-
     private String reservationID;
     private Customer customer;
     private Motorhome motorhome;
@@ -22,6 +19,7 @@ public class Reservation
     private LocalDate pickupDate;
     private LocalDate dropoffDate;
     private String dropoffAddress = "Nordic Motorhome Office";
+    private ArrayList<Accessory> accessories = new ArrayList<>();
     private int currentSeason;
     private static final float transferCost = 0.70f;
 
@@ -42,11 +40,6 @@ public class Reservation
     {
         //logic for generating unique id goes here
         return "";
-    }
-
-    public void addPrice(String itemName, float price)
-    {
-        prices.put(itemName, price);
     }
 
     public Customer getCustomer()
@@ -109,6 +102,21 @@ public class Reservation
         this.dropoffAddress = dropoffAddress;
     }
 
+    public ArrayList<Accessory> getAccessories()
+    {
+        return this.accessories;
+    }
+
+    public void addAccessory(Accessory accessory)
+    {
+        this.accessories.add(accessory);
+    }
+
+    public void setAccessories(ArrayList<Accessory> accessories)
+    {
+        this.accessories = accessories;
+    }
+
     public int getCurrentSeason()
     {
         return this.currentSeason;
@@ -116,6 +124,8 @@ public class Reservation
 
     public float getTotalPrice()
     {
-        return CalculationHandler.calculateBasePrice(getDropoffDate(), getPickupDate(), getMotorhome().getPricePerDay(), getCurrentSeason()) + CalculationHandler.calculateDropoffPrice(getDropoffAddress()) + CalculationHandler.calculateItemsPrice(prices);
+        return CalculationHandler.calculateBasePrice(getPickupDate(), getDropoffDate(), getMotorhome().getPricePerDay(), getCurrentSeason())
+                + CalculationHandler.calculateAccessorySum(getAccessories())
+                + ((this.getDropoffAddress().equals("Nordic Motorhome Office")) ? 0 : CalculationHandler.calculateDropoffPrice(getDropoffAddress()));
     }
 }

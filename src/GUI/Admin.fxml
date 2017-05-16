@@ -128,6 +128,29 @@
                                     <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Motorhomes" textAlignment="CENTER" />
                                  </graphic>
                               </Tab>
+                              <Tab closable="false">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER" prefHeight="62.0" prefWidth="508.0" text="List of Accessories" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="accessoryTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                             <columns>
+                                                <TableColumn fx:id="accessoryTypeCol" maxWidth="200.0" minWidth="200.0" prefWidth="65.0" text="Accessory type" />
+                                                <TableColumn fx:id="accessoryPriceCol" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" text="Price" />
+                                                <TableColumn fx:id="accessoryQuantityCol" maxWidth="200.0" minWidth="145.0" prefWidth="145.0" text="Items available" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                                 <graphic>
+                                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Accessories" textAlignment="CENTER" />
+                                 </graphic>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>
