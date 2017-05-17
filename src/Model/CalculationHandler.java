@@ -8,7 +8,7 @@ public abstract class CalculationHandler
 {
     public static float calculateBasePrice(LocalDate pickupDate, LocalDate dropoffDate, float pricePerDay, int currentSeason)
     {
-        int days = (int)ChronoUnit.DAYS.between(pickupDate, dropoffDate);
+        int days = calculateDaysBetweenDates(pickupDate, dropoffDate);
 
         float multiplier;
 
@@ -26,6 +26,11 @@ public abstract class CalculationHandler
         }
 
         return (days * (pricePerDay * multiplier));
+    }
+
+    public static int calculateDaysBetweenDates(LocalDate date1, LocalDate date2)
+    {
+        return (int)ChronoUnit.DAYS.between(date1, date2);
     }
 
     public static float calculateDropoffPrice(String dropoffAddress)
