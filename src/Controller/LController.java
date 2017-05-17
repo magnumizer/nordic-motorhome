@@ -107,13 +107,32 @@ public class LController implements Initializable
             Employee.allEmployees.add(salesAssistant);
         }
 
+        if (!Employee.checkIfUserExists("am"))
+        {
+            AutoMechanic autoMechanic = new AutoMechanic("am", "am", LocalDate.now(), "am", 0, "am", "am", "am");
+            Employee.allEmployees.add(autoMechanic);
+        }
+
+
         //add example customer for now
-        Customer customer = new Customer("name", "asd", LocalDate.now(), "cxz", 345, "zxc");
+        Customer customer = new Customer("alfred", "asd", LocalDate.now(), "cxz", 345, "zxc");
         Customer.allCustomers.add(customer);
 
+        Customer customer1 = new Customer("tom", "asd", LocalDate.now(), "cxz", 345, "zxc");
+        Customer.allCustomers.add(customer1);
+
+        Customer customer2 = new Customer("sofia", "asd", LocalDate.now(), "cxz", 345, "zxc");
+        Customer.allCustomers.add(customer2);
+
         //add example motorhome for now
-        Motorhome motorhome = new Motorhome("example", "ad", "ad", 500f);
-        Motorhome.allMotorhomes.add(motorhome);
+        Motorhome motorhome1 = new Motorhome("example1", "ad", "ad", 500f);
+        Motorhome.allMotorhomes.add(motorhome1);
+
+        Motorhome motorhome2 = new Motorhome("example2", "ad", "ad", 500f);
+        Motorhome.allMotorhomes.add(motorhome2);
+
+        Motorhome motorhome3 = new Motorhome("example3", "ad", "ad", 500f);
+        Motorhome.allMotorhomes.add(motorhome3);
 
         //add accessories here for now, get from db later (crud in admin?)
         Accessory bikeRack = new Accessory("Bike Rack", 100, 1);
