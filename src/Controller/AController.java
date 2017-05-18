@@ -1,6 +1,7 @@
 package Controller;//Magnus Svendsen DAT16i
 
 import Model.*;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -10,8 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AController implements Initializable
@@ -32,19 +36,12 @@ public class AController implements Initializable
 
     //region FXML
     @FXML
-    private TableView<Customer> customerTable;
+    private TextField searchField;
+
     @FXML
-    private TableColumn<Customer, String> customerNameCol;
+    private TabPane mainTabPane;
     @FXML
-    private TableColumn<Customer, String> customerCPRCol;
-    @FXML
-    private TableColumn<Customer, String> customerBirthdayCol;
-    @FXML
-    private TableColumn<Customer, String> customerAddressCol;
-    @FXML
-    private TableColumn<Customer, Integer> customerTlfCol;
-    @FXML
-    private TableColumn<Customer, String> customerEmailCol;
+    private TabPane overviewTabs;
 
     @FXML
     private TableView<Employee> staffTable;
@@ -60,9 +57,30 @@ public class AController implements Initializable
     private TableColumn<Employee, Integer> staffTlfCol;
     @FXML
     private TableColumn<Employee, String> staffEmailCol;
+    @FXML
+    private TableColumn<Employee, String> staffUserCol;
+
+    @FXML
+    private TableView<Customer> customerTable;
+    @FXML
+    private TableColumn<Customer, String> customerIDCol;
+    @FXML
+    private TableColumn<Customer, String> customerNameCol;
+    @FXML
+    private TableColumn<Customer, String> customerCPRCol;
+    @FXML
+    private TableColumn<Customer, String> customerBirthdayCol;
+    @FXML
+    private TableColumn<Customer, String> customerAddressCol;
+    @FXML
+    private TableColumn<Customer, Integer> customerTlfCol;
+    @FXML
+    private TableColumn<Customer, String> customerEmailCol;
 
     @FXML
     private TableView<Reservation> reservationTable;
+    @FXML
+    private TableColumn<Reservation, String> reservationIDCol;
     @FXML
     private TableColumn<Reservation, Customer> reservationCustomerCol;
     @FXML
@@ -73,6 +91,8 @@ public class AController implements Initializable
     private TableColumn<Reservation, String> reservationPickupCol;
     @FXML
     private TableColumn<Reservation, String> reservationDropoffCol;
+    @FXML
+    private TableColumn<Reservation, Float> reservationPriceCol;
 
     @FXML
     private TableView<Motorhome> motorhomeTable;
@@ -98,6 +118,7 @@ public class AController implements Initializable
     @FXML
     private TableColumn<Accessory, Integer> accessoryQuantityCol;
 
+    //staff
     @FXML
     private TextField nameField;
     @FXML
@@ -120,6 +141,8 @@ public class AController implements Initializable
     private PasswordField passwordField;
     @FXML
     private PasswordField confirmField;
+
+    //motorhome
     @FXML
     private TextField modelField;
     @FXML
@@ -128,9 +151,96 @@ public class AController implements Initializable
     private ComboBox<String> sizeBox;
     @FXML
     private TextField priceField;
+
+    //edit
+    @FXML
+    private AnchorPane editCustomerPane;
+    @FXML
+    private TextField editCustomerNameField;
+    @FXML
+    private TextField editCustomerCPRField;
+    @FXML
+    private DatePicker editCustomerBirthdayPicker;
+    @FXML
+    private TextField editCustomerAddressField;
+    @FXML
+    private TextField editCustomerTlfField;
+    @FXML
+    private TextField editCustomerEmailField;
+
+    @FXML
+    private AnchorPane editStaffPane;
+    @FXML
+    private TextField editStaffNameField;
+    @FXML
+    private TextField editStaffCPRField;
+    @FXML
+    private DatePicker editStaffBirthdayPicker;
+    @FXML
+    private TextField editStaffAddressField;
+    @FXML
+    private TextField editStaffTlfField;
+    @FXML
+    private TextField editStaffEmailField;
+    @FXML
+    private TextField editStaffUserField;
+    @FXML
+    private TextField editStaffPasswordField;
+    @FXML
+    private TextField editStaffConfirmField;
+
+    @FXML
+    private AnchorPane editReservationPane;
+    @FXML
+    private ComboBox<Motorhome> editReservationMotorhomeBox;
+    @FXML
+    private ComboBox<Customer> editReservationCustomerBox;
+    @FXML
+    private DatePicker editReservationPickup;
+    @FXML
+    private DatePicker editReservationDropoff;
+    @FXML
+    private TextField editReservationAddress;
+    @FXML
+    private CheckBox bikeRackCheck;
+    @FXML
+    private CheckBox bedLinenCheck;
+    @FXML
+    private CheckBox childSeatCheck;
+    @FXML
+    private CheckBox picnicTableCheck;
+    @FXML
+    private CheckBox chairsCheck;
+
+    @FXML
+    private AnchorPane editMotorhomePane;
+    @FXML
+    private TextField editMotorhomeModel;
+    @FXML
+    private TextField editMotorhomeBrand;
+    @FXML
+    private ComboBox<String> editMotorhomeSizeBox;
+    @FXML
+    private TextField editMotorhomePrice;
+    @FXML
+    private ComboBox<String> editMotorhomeStatusBox;
+
+    @FXML
+    private AnchorPane editAccessoryPane;
+    @FXML
+    private TextField editAccessoryType;
+    @FXML
+    private TextField editAccessoryPrice;
+    @FXML
+    private TextField editAccessoryAmount;
     //endregion
 
     private StageHandler stageHandler = new StageHandler();
+
+    public void onOptionsBtnPressed(ActionEvent actionEvent)
+    {
+
+    }
 
     public void onLogOutBtnPressed(ActionEvent actionEvent)
     {
@@ -332,8 +442,573 @@ public class AController implements Initializable
         priceField.clear();
     }
 
+    public void onSearchEnter(ActionEvent actionEvent)
+    {
+
+    }
+
+    public void onEditBtnPressed(ActionEvent actionEvent)
+    {
+        int selectedTabIndex = overviewTabs.getSelectionModel().getSelectedIndex();
+
+        switch (selectedTabIndex)
+        {
+            case 0:
+                //open staff edit panel
+                if (!staffTable.getSelectionModel().isEmpty())
+                {
+                    mainTabPane.setDisable(true);
+
+                    if (!editStaffPane.isVisible())
+                    {
+                        int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
+                        Employee employee = Employee.allEmployees.get(selectedIndex);
+
+                        editStaffNameField.setText(employee.getName());
+                        editStaffCPRField.setText(employee.getCpr());
+                        editStaffBirthdayPicker.setValue(employee.getDateOfBirth());
+                        editStaffAddressField.setText(employee.getAddress());
+                        editStaffTlfField.setText(employee.getPhoneNumber() + "");
+                        editStaffEmailField.setText(employee.getEmail());
+                        editStaffUserField.setText(employee.getUsername());
+                        editStaffPasswordField.setText(employee.getPassword());
+                        editStaffConfirmField.setText(employee.getPassword());
+
+                        editStaffPane.setDisable(false);
+                        editStaffPane.setVisible(true);
+                    }
+                }
+                else
+                {
+                    stageHandler.displayError("Selection error", "Employee not selected", "Please select an Employee you want to edit");
+                }
+                break;
+            case 1:
+                //open customer edit panel
+                if (!customerTable.getSelectionModel().isEmpty())
+                {
+                    mainTabPane.setDisable(true);
+
+                    if (!editCustomerPane.isVisible())
+                    {
+                        int selectedIndex = customerTable.getSelectionModel().getSelectedIndex();
+                        Customer customer = Customer.allCustomers.get(selectedIndex);
+
+                        editCustomerNameField.setText(customer.getName());
+                        editCustomerCPRField.setText(customer.getCpr());
+                        editCustomerBirthdayPicker.setValue(customer.getDateOfBirth());
+                        editCustomerAddressField.setText(customer.getAddress());
+                        editCustomerTlfField.setText(customer.getPhoneNumber() + "");
+                        editCustomerEmailField.setText(customer.getEmail());
+
+                        editCustomerPane.setDisable(false);
+                        editCustomerPane.setVisible(true);
+                    }
+                }
+                else
+                {
+                    stageHandler.displayError("Selection error", "Customer not selected", "Please select a Customer you want to edit");
+                }
+                break;
+            case 2:
+                //open reservation edit panel
+                if (!reservationTable.getSelectionModel().isEmpty())
+                {
+                    mainTabPane.setDisable(true);
+
+                    if (!editReservationPane.isVisible())
+                    {
+                        int selectedIndex = reservationTable.getSelectionModel().getSelectedIndex();
+                        Reservation reservation = Reservation.allReservations.get(selectedIndex);
+
+                        ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList(Motorhome.allMotorhomes);
+                        editReservationMotorhomeBox.setItems(motorhomes);
+
+                        ObservableList<Customer> customers = FXCollections.observableArrayList(Customer.allCustomers);
+                        editReservationCustomerBox.setItems(customers);
+
+                        int motorhomeIndex = 0;
+
+                        for (int i = 0; i < Motorhome.allMotorhomes.size(); i++)
+                        {
+                            if (reservation.getMotorhome() == Motorhome.allMotorhomes.get(i))
+                            {
+                                motorhomeIndex = i;
+                            }
+                        }
+
+                        int customerIndex = 0;
+
+                        for (int i = 0; i < Customer.allCustomers.size(); i++)
+                        {
+                            if (reservation.getCustomer() == Customer.allCustomers.get(i))
+                            {
+                                customerIndex = i;
+                            }
+                        }
+
+                        editReservationMotorhomeBox.getSelectionModel().select(motorhomeIndex);
+                        editReservationCustomerBox.getSelectionModel().select(customerIndex);
+                        editReservationPickup.setValue(reservation.getPickupDate());
+                        editReservationDropoff.setValue(reservation.getDropoffDate());
+                        editReservationAddress.setText(reservation.getDropoffAddress());
+
+                        for (Accessory accessory : reservation.getAccessories())
+                        {
+                            if (accessory.getType().equals("Bike Rack"))
+                                bikeRackCheck.setSelected(true);
+                            if (accessory.getType().equals("Bed Linen"))
+                                bedLinenCheck.setSelected(true);
+                            if (accessory.getType().equals("Child Seat"))
+                                childSeatCheck.setSelected(true);
+                            if (accessory.getType().equals("Picnic Table"))
+                                picnicTableCheck.setSelected(true);
+                            if (accessory.getType().equals("Chairs"))
+                                chairsCheck.setSelected(true);
+                        }
+
+                        editReservationPane.setDisable(false);
+                        editReservationPane.setVisible(true);
+                    }
+                }
+                else
+                {
+                    stageHandler.displayError("Selection error", "Reservation not selected", "Please select a Reservation you want to edit");
+                }
+                break;
+            case 3:
+                //open motorhome edit panel
+                if (!motorhomeTable.getSelectionModel().isEmpty())
+                {
+                    mainTabPane.setDisable(true);
+
+                    if (!editMotorhomePane.isVisible())
+                    {
+                        int selectedIndex = motorhomeTable.getSelectionModel().getSelectedIndex();
+                        Motorhome motorhome = Motorhome.allMotorhomes.get(selectedIndex);
+
+                        editMotorhomeModel.setText(motorhome.getModel());
+                        editMotorhomeBrand.setText(motorhome.getBrand());
+                        editMotorhomeSizeBox.setItems(sizes);
+                        editMotorhomeSizeBox.getSelectionModel().select(motorhome.getSize());
+                        editMotorhomePrice.setText(motorhome.getPricePerDay() + "");
+
+                        ObservableList<String> statusOptions =
+                                FXCollections.observableArrayList(
+                                        "Available",
+                                        "Rented",
+                                        "Out of service"
+                                );
+                        editMotorhomeStatusBox.setItems(statusOptions);
+                        editMotorhomeStatusBox.getSelectionModel().select(motorhome.getStatus());
+
+                        editMotorhomePane.setDisable(false);
+                        editMotorhomePane.setVisible(true);
+                    }
+                }
+                else
+                {
+                    stageHandler.displayError("Selection error", "Motorhome not selected", "Please select a Motorhome you want to edit");
+                }
+                break;
+            case 4:
+                //open accessory edit panel
+                if (!accessoryTable.getSelectionModel().isEmpty())
+                {
+                    mainTabPane.setDisable(true);
+
+                    if (!editAccessoryPane.isVisible())
+                    {
+                        int selectedIndex = accessoryTable.getSelectionModel().getSelectedIndex();
+                        String selectedAccessory = accessoryTable.getItems().get(selectedIndex).getType();
+                        Accessory accessory = Accessory.allAccessories.get(selectedAccessory);
+
+                        editAccessoryType.setText(accessory.getType());
+                        editAccessoryPrice.setText(accessory.getPrice() + "");
+                        editAccessoryAmount.setText(accessory.getQuantity() + "");
+
+                        editAccessoryPane.setDisable(false);
+                        editAccessoryPane.setVisible(true);
+                    }
+                }
+                else
+                {
+                    stageHandler.displayError("Selection error", "Accessory not selected", "Please select an Accessory you want to edit");
+                }
+                break;
+            default:
+                System.out.println("Weird error. Tab not found. Fix please.");
+                break;
+        }
+    }
+
+    public void onEditSaveBtnPressed(ActionEvent actionEvent)
+    {
+        int selectedIndex = overviewTabs.getSelectionModel().getSelectedIndex();
+
+        switch (selectedIndex)
+        {
+            case 0:
+                editStaff();
+                break;
+            case 1:
+                editCustomer();
+                break;
+            case 2:
+                editReservation();
+                break;
+            case 3:
+                editMotorhome();
+                break;
+            case 4:
+                editAccessory();
+                break;
+            default:
+                System.out.println("Weird error. Tab not found. Fix please.");
+                break;
+        }
+    }
+
+    private void editStaff()
+    {
+        if (!editStaffNameField.getText().equals(""))
+        {
+            if (!editStaffCPRField.getText().equals(""))
+            {
+                if (editStaffBirthdayPicker.getValue() != null)
+                {
+                    if (!editStaffAddressField.getText().equals(""))
+                    {
+                        if (!editStaffTlfField.getText().equals(""))
+                        {
+                            if (!editStaffEmailField.getText().equals(""))
+                            {
+                                if (!editStaffUserField.getText().equals(""))
+                                {
+                                    if (!editStaffPasswordField.getText().equals(""))
+                                    {
+                                        if (editStaffPasswordField.getText().equals(editStaffConfirmField.getText()))
+                                        {
+                                            int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
+                                            int number = Integer.parseInt(editStaffTlfField.getText());
+
+                                            Employee employee = Employee.allEmployees.get(selectedIndex);
+                                            employee.setName(editStaffNameField.getText());
+                                            employee.setCpr(editStaffCPRField.getText());
+                                            employee.setDateOfBirth(editStaffBirthdayPicker.getValue());
+                                            employee.setAddress(editStaffAddressField.getText());
+                                            employee.setPhoneNumber(number);
+                                            employee.setEmail(editStaffEmailField.getText());
+                                            employee.setUsername(editStaffUserField.getText());
+                                            employee.setPassword(editStaffPasswordField.getText());
+
+                                            stageHandler.displayInfo("Success", "Staff details have been changed", "Press OK to continue");
+                                            staffTable.getItems().setAll(Employee.allEmployees);
+                                            closeEditPanel();
+                                        }
+                                        else
+                                        {
+                                            stageHandler.displayError("Password not confirmed", "Ensure password confirmation is identical to password", "Please confirm password");
+                                            editStaffConfirmField.requestFocus();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        stageHandler.displayError("Password error", "Password is missing", "Please enter a password");
+                                        editStaffPasswordField.requestFocus();
+                                    }
+                                }
+                                else
+                                {
+                                    stageHandler.displayError("Username not specified", "Username is missing", "Please enter a username");
+                                    editStaffUserField.requestFocus();
+                                }
+                            }
+                            else
+                            {
+                                stageHandler.displayError("E-mail not specified", "E-mail is missing", "Please enter an e-mail address");
+                                editStaffEmailField.requestFocus();
+                            }
+                        }
+                        else
+                        {
+                            stageHandler.displayError("Phone number not specified", "Phone number is missing", "Please enter a phone number");
+                            editStaffTlfField.requestFocus();
+                        }
+                    }
+                    else
+                    {
+                        stageHandler.displayError("Address not specified", "Address is missing", "Please enter an address");
+                        editStaffAddressField.requestFocus();
+                    }
+                }
+                else
+                {
+                    stageHandler.displayError("Date of birth not specified", "Date of birth is missing", "Please enter a date of birth");
+                    editStaffBirthdayPicker.show();
+                }
+            }
+            else
+            {
+                stageHandler.displayError("CPR not specified", "CPR is missing", "Please enter a CPR number");
+                editStaffCPRField.requestFocus();
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Name not specified", "Name is missing", "Please enter a name");
+            editStaffNameField.requestFocus();
+        }
+    }
+
+    private void editCustomer()
+    {
+        if (!editCustomerNameField.getText().equals(""))
+        {
+            if (!editCustomerCPRField.getText().equals(""))
+            {
+                if (editCustomerBirthdayPicker.getValue() != null)
+                {
+                    if (!editCustomerAddressField.getText().equals(""))
+                    {
+                        if (!editCustomerTlfField.getText().equals(""))
+                        {
+                            if (!editCustomerEmailField.getText().equals(""))
+                            {
+                                int selectedIndex = customerTable.getSelectionModel().getSelectedIndex();
+                                int number = Integer.parseInt(editCustomerTlfField.getText());
+
+                                Customer customer = Customer.allCustomers.get(selectedIndex);
+                                customer.setName(editCustomerNameField.getText());
+                                customer.setCpr(editCustomerCPRField.getText());
+                                customer.setDateOfBirth(editCustomerBirthdayPicker.getValue());
+                                customer.setAddress(editCustomerAddressField.getText());
+                                customer.setPhoneNumber(number);
+                                customer.setEmail(editCustomerEmailField.getText());
+
+                                stageHandler.displayInfo("Success", "Customer details have been changed", "Press OK to continue");
+                                customerTable.getItems().setAll(Customer.allCustomers);
+                                closeEditPanel();
+                            }
+                            else
+                            {
+                                stageHandler.displayError("E-mail not specified", "E-mail is missing", "Please enter an e-mail address");
+                                editCustomerEmailField.requestFocus();
+                            }
+                        }
+                        else
+                        {
+                            stageHandler.displayError("Phone number not specified", "Phone number is missing", "Please enter a phone number");
+                            editCustomerTlfField.requestFocus();
+                        }
+                    }
+                    else
+                    {
+                        stageHandler.displayError("Address not specified", "Address is missing", "Please enter an address");
+                        editCustomerAddressField.requestFocus();
+                    }
+                }
+                else
+                {
+                    stageHandler.displayError("Date of birth not specified", "Date of birth is missing", "Please enter a date of birth");
+                    editCustomerBirthdayPicker.show();
+                }
+            }
+            else
+            {
+                stageHandler.displayError("CPR not specified", "CPR is missing", "Please enter a CPR number");
+                editCustomerCPRField.requestFocus();
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Name not specified", "Name is missing", "Please enter a name");
+            editCustomerNameField.requestFocus();
+        }
+    }
+
+    private void editReservation()
+    {
+        if (editReservationPickup.getValue() != null)
+        {
+            if (editReservationDropoff.getValue() != null)
+            {
+                int selectedIndex = reservationTable.getSelectionModel().getSelectedIndex();
+
+                Reservation reservation = Reservation.allReservations.get(selectedIndex);
+                reservation.setMotorhome(editReservationMotorhomeBox.getValue());
+                reservation.setCustomer(editReservationCustomerBox.getValue());
+                reservation.setPickupDate(editReservationPickup.getValue());
+                reservation.setDropoffDate(editReservationDropoff.getValue());
+                reservation.setDropoffAddress(editReservationAddress.getText());
+
+                ArrayList<Accessory> accessories = new ArrayList<>();
+
+                if (bikeRackCheck.isSelected())
+                    accessories.add(Accessory.allAccessories.get("Bike Rack"));
+                if (bedLinenCheck.isSelected())
+                    accessories.add(Accessory.allAccessories.get("Bed Linen"));
+                if (childSeatCheck.isSelected())
+                    accessories.add(Accessory.allAccessories.get("Child Seat"));
+                if (picnicTableCheck.isSelected())
+                    accessories.add(Accessory.allAccessories.get("Picnic Table"));
+                if (chairsCheck.isSelected())
+                    accessories.add(Accessory.allAccessories.get("Chair"));
+
+                reservation.setAccessories(accessories);
+
+                stageHandler.displayInfo("Success", "Reservation details have been changed", "Press OK to continue");
+                reservationTable.getItems().setAll(Reservation.allReservations);
+                closeEditPanel();
+            }
+            else
+            {
+                stageHandler.displayError("Drop off date not specified", "Drop off date is missing", "Please enter a drop off date");
+                editReservationDropoff.show();
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Pick up date not specified", "Pick up date is missing", "Please enter a pick up date");
+            editReservationPickup.show();
+        }
+    }
+
+    private void editMotorhome()
+    {
+        if (!editMotorhomeModel.getText().equals(""))
+        {
+            if (!editMotorhomeBrand.getText().equals(""))
+            {
+                if (!editMotorhomePrice.getText().equals(""))
+                {
+                    int selectedIndex = motorhomeTable.getSelectionModel().getSelectedIndex();
+                    float number = Float.parseFloat(editMotorhomePrice.getText());
+
+                    Motorhome motorhome = Motorhome.allMotorhomes.get(selectedIndex);
+                    motorhome.setModel(editMotorhomeModel.getText());
+                    motorhome.setBrand(editMotorhomeBrand.getText());
+                    motorhome.setSize(editMotorhomeSizeBox.getValue());
+                    motorhome.setPricePerDay(number);
+
+                    if (editMotorhomeStatusBox.getValue().equals("Rented"))
+                    {
+                        motorhome.setRentedStatus(true);
+                        motorhome.setServiceStatus(false);
+                    }
+                    else if (editMotorhomeStatusBox.getValue().equals("Out of service"))
+                    {
+                        motorhome.setRentedStatus(false);
+                        motorhome.setServiceStatus(true);
+                    }
+                    else
+                    {
+                        motorhome.setRentedStatus(false);
+                        motorhome.setServiceStatus(false);
+                    }
+
+                    stageHandler.displayInfo("Success", "Motorhome details have been changed", "Press OK to continue");
+                    motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
+                    closeEditPanel();
+                }
+                else
+                {
+                    stageHandler.displayError("Price not specified", "Price is missing", "Please enter a price per day in kroner");
+                    editMotorhomePrice.requestFocus();
+                }
+            }
+            else
+            {
+                stageHandler.displayError("Brand not specified", "Brand is missing", "Please enter a Brand");
+                editMotorhomeBrand.requestFocus();
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Model not specified", "Model is missing", "Please enter a Model");
+            editMotorhomeModel.requestFocus();
+        }
+    }
+
+    private void editAccessory()
+    {
+        if (!editAccessoryPrice.getText().equals(""))
+        {
+            if (!editAccessoryAmount.getText().equals(""))
+            {
+                int selectedIndex = accessoryTable.getSelectionModel().getSelectedIndex();
+                String selectedAccessory = accessoryTable.getItems().get(selectedIndex).getType();
+                float price = Float.parseFloat(editAccessoryPrice.getText());
+                int amount = Integer.parseInt(editAccessoryAmount.getText());
+
+                Accessory accessory = Accessory.allAccessories.get(selectedAccessory);
+                accessory.setPrice(price);
+                accessory.setQuantity(amount);
+
+                stageHandler.displayInfo("Success", "Accessory details have been changed", "Press OK to continue");
+                accessoryTable.getItems().setAll(Accessory.allAccessories.values());
+                closeEditPanel();
+            }
+            else
+            {
+                stageHandler.displayError("Item amount not specified", "Item amount is missing", "Please enter an Item amount");
+                editAccessoryAmount.requestFocus();
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Price not specified", "Price is missing", "Please enter a Price");
+            editAccessoryPrice.requestFocus();
+        }
+    }
+
+    public void onEditCancelBtnPressed(ActionEvent actionEvent)
+    {
+        closeEditPanel();
+    }
+
+    private void closeEditPanel()
+    {
+        mainTabPane.setDisable(false);
+
+        if (editCustomerPane.isVisible())
+        {
+            editCustomerPane.setVisible(false);
+            editCustomerPane.setDisable(true);
+        }
+        else if (editStaffPane.isVisible())
+        {
+            editStaffPane.setVisible(false);
+            editStaffPane.setDisable(true);
+        }
+        else if (editReservationPane.isVisible())
+        {
+            editReservationPane.setVisible(false);
+            editReservationPane.setDisable(true);
+        }
+        else if (editMotorhomePane.isVisible())
+        {
+            editMotorhomePane.setVisible(false);
+            editMotorhomePane.setDisable(true);
+        }
+        else if (editAccessoryPane.isVisible())
+        {
+            editAccessoryPane.setVisible(false);
+            editAccessoryPane.setDisable(true);
+        }
+    }
+
     private void setupTableColumns()
     {
+        staffNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        staffCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
+        staffBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        staffAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        staffTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        staffEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        staffUserCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+
+        customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         customerCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
         customerBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
@@ -341,18 +1016,13 @@ public class AController implements Initializable
         customerTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         customerEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        staffNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        staffCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
-        staffBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
-        staffAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-        staffTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        staffEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-
+        reservationIDCol.setCellValueFactory(new PropertyValueFactory<>("reservationID"));
         reservationCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customer"));
         reservationMotorhomeCol.setCellValueFactory(new PropertyValueFactory<>("motorhome"));
         reservationDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
         reservationPickupCol.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
         reservationDropoffCol.setCellValueFactory(new PropertyValueFactory<>("dropoffDate"));
+        reservationPriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
 
         motorhomeIDCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeID"));
         motorhomeModelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
@@ -364,6 +1034,36 @@ public class AController implements Initializable
         accessoryTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         accessoryPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         accessoryQuantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));//change this please
+    }
+
+    public void onPickupDateSelected(ActionEvent actionEvent)
+    {
+        if (editReservationPickup.getValue() != null && editReservationDropoff.getValue() != null)
+        {
+            if (!editReservationPickup.getValue().isBefore(editReservationDropoff.getValue()))
+            {
+                editReservationPickup.setValue(null);
+                stageHandler.displayError("Invalid date", "Pick up date must be BEFORE drop off date", "Please select a valid date");
+                Platform.runLater(() -> {
+                    editReservationPickup.show();
+                });
+            }
+        }
+    }
+
+    public void onDropoffDateSelected(ActionEvent actionEvent)
+    {
+        if (editReservationPickup.getValue() != null && editReservationDropoff.getValue() != null)
+        {
+            if (!editReservationDropoff.getValue().isAfter(editReservationPickup.getValue()))
+            {
+                editReservationDropoff.setValue(null);
+                stageHandler.displayError("Invalid date", "Drop off date must be AFTER pick up date", "Please select a valid date");
+                Platform.runLater(() -> {
+                    editReservationDropoff.show();
+                });
+            }
+        }
     }
 
     private void forceNumericValues()
@@ -404,6 +1104,66 @@ public class AController implements Initializable
                 else
                 {
                     confirmLabel.setStyle("-fx-text-fill: black");
+                }
+            }
+        });
+
+        editCustomerTlfField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    editCustomerTlfField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        editStaffTlfField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    editStaffTlfField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        editMotorhomePrice.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    editMotorhomePrice.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        editAccessoryPrice.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    editAccessoryPrice.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        editAccessoryAmount.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    editAccessoryAmount.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             }
         });
