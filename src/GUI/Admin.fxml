@@ -15,33 +15,34 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AController">
    <children>
-      <TabPane layoutY="6.0" prefHeight="400.0" prefWidth="600.0" tabMinHeight="40.0" tabMinWidth="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="mainTabPane" layoutY="6.0" tabMinHeight="40.0" tabMinWidth="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
             <Tab closable="false" text="Overview">
                <content>
                 <AnchorPane prefHeight="244.0" prefWidth="419.0">
                      <children>
-                        <TabPane prefHeight="371.0" prefWidth="600.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="20.0" tabMinHeight="85.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TabPane fx:id="overviewTabs" prefHeight="371.0" prefWidth="600.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="20.0" tabMinHeight="85.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <tabs>
                             <Tab closable="false">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER" layoutX="215.0" layoutY="20.0" prefHeight="62.0" prefWidth="508.0" text="List of Staff" textAlignment="CENTER" AnchorPane.bottomAnchor="309.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <Label alignment="CENTER" prefHeight="553.0" prefWidth="932.0" text="List of Staff" textAlignment="CENTER" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
                                           <TableView fx:id="staffTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                             <columns>
-                                              <TableColumn fx:id="staffNameCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Name" />
-                                                <TableColumn fx:id="staffCPRCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="CPR" />
-                                                <TableColumn fx:id="staffBirthdayCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Date of birth" />
-                                                <TableColumn fx:id="staffAddressCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Address" />
-                                                <TableColumn fx:id="staffTlfCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Tlf" />
-                                                <TableColumn fx:id="staffEmailCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="E-mail" />
+                                              <TableColumn fx:id="staffNameCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Name" />
+                                                <TableColumn fx:id="staffCPRCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="CPR" />
+                                                <TableColumn fx:id="staffBirthdayCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Date of birth" />
+                                                <TableColumn fx:id="staffAddressCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Address" />
+                                                <TableColumn fx:id="staffTlfCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Tlf" />
+                                                <TableColumn fx:id="staffEmailCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="E-mail" />
+                                                <TableColumn fx:id="staffUserCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Username" />
                                             </columns>
                                           </TableView>
                                        </children>
@@ -55,19 +56,20 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER" prefHeight="62.0" prefWidth="508.0" text="List of Customers" textAlignment="CENTER">
+                                          <Label alignment="CENTER" prefHeight="553.0" prefWidth="932.0" text="List of Customers" textAlignment="CENTER" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
                                           <TableView fx:id="customerTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                              <columns>
-                                                <TableColumn fx:id="customerNameCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Name" />
-                                                <TableColumn fx:id="customerCPRCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="CPR" />
-                                                <TableColumn fx:id="customerBirthdayCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Date of birth" />
-                                                <TableColumn fx:id="customerAddressCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Address" />
-                                                <TableColumn fx:id="customerTlfCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="Tlf" />
-                                                <TableColumn fx:id="customerEmailCol" maxWidth="200.0" minWidth="85.0" prefWidth="85.0" text="E-mail" />
+                                                <TableColumn fx:id="customerIDCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Customer ID" />
+                                                <TableColumn fx:id="customerNameCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Name" />
+                                                <TableColumn fx:id="customerCPRCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="CPR" />
+                                                <TableColumn fx:id="customerBirthdayCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Date of birth" />
+                                                <TableColumn fx:id="customerAddressCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Address" />
+                                                <TableColumn fx:id="customerTlfCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Tlf" />
+                                                <TableColumn fx:id="customerEmailCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="E-mail" />
                                              </columns>
                                           </TableView>
                                        </children>
@@ -81,18 +83,20 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER" prefHeight="62.0" prefWidth="508.0" text="List of Reservations" textAlignment="CENTER">
+                                          <Label alignment="CENTER" prefHeight="553.0" prefWidth="932.0" text="List of Reservations" textAlignment="CENTER" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
                                           <TableView fx:id="reservationTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                              <columns>
-                                                <TableColumn fx:id="reservationCustomerCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Customer" />
-                                                <TableColumn fx:id="reservationMotorhomeCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Motorhome" />
-                                                <TableColumn fx:id="reservationDateCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Reservation date" />
-                                                <TableColumn fx:id="reservationPickupCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Pick up date" />
-                                                <TableColumn fx:id="reservationDropoffCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Drop off date" />
+                                                <TableColumn fx:id="reservationIDCol" maxWidth="200.0" minWidth="131.0" prefWidth="100.0" text="Reservation ID" />
+                                                <TableColumn fx:id="reservationMotorhomeCol" maxWidth="200.0" minWidth="131.0" prefWidth="100.0" text="Motorhome" />
+                                                <TableColumn fx:id="reservationCustomerCol" maxWidth="200.0" minWidth="131.0" prefWidth="100.0" text="Customer" />
+                                                <TableColumn fx:id="reservationDateCol" maxWidth="200.0" minWidth="131.0" prefWidth="100.0" text="Reservation date" />
+                                                <TableColumn fx:id="reservationPickupCol" maxWidth="200.0" minWidth="131.0" prefWidth="100.0" text="Pick up date" />
+                                                <TableColumn fx:id="reservationDropoffCol" maxWidth="200.0" minWidth="131.0" prefWidth="100.0" text="Drop off date" />
+                                                <TableColumn fx:id="reservationPriceCol" maxWidth="200.0" minWidth="131.0" prefWidth="100.0" text="Price" />
                                              </columns>
                                           </TableView>
                                        </children>
@@ -106,19 +110,19 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER" prefHeight="62.0" prefWidth="508.0" text="List of Motorhomes" textAlignment="CENTER">
+                                          <Label alignment="CENTER" prefHeight="553.0" prefWidth="932.0" text="List of Motorhomes" textAlignment="CENTER" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
                                           <TableView fx:id="motorhomeTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                              <columns>
-                                                <TableColumn fx:id="motorhomeIDCol" maxWidth="200.0" minWidth="65.0" prefWidth="65.0" text="ID" />
-                                                <TableColumn fx:id="motorhomeModelCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Model" />
-                                                <TableColumn fx:id="motorhomeBrandCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Brand" />
-                                                <TableColumn fx:id="motorhomeSizeCol" maxWidth="200.0" minWidth="65.0" prefWidth="65.0" text="Size" />
-                                                <TableColumn fx:id="motorhomePriceCol" maxWidth="200.0" minWidth="65.0" prefWidth="65.0" text="Kr./day" />
-                                                <TableColumn fx:id="motorhomeStatusCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Status" />
+                                                <TableColumn fx:id="motorhomeIDCol" maxWidth="200.0" minWidth="152.0" prefWidth="65.0" text="Motorhome ID" />
+                                                <TableColumn fx:id="motorhomeModelCol" maxWidth="200.0" minWidth="152.0" prefWidth="100.0" text="Model" />
+                                                <TableColumn fx:id="motorhomeBrandCol" maxWidth="200.0" minWidth="152.0" prefWidth="100.0" text="Brand" />
+                                                <TableColumn fx:id="motorhomeSizeCol" maxWidth="200.0" minWidth="152.0" prefWidth="65.0" text="Size" />
+                                                <TableColumn fx:id="motorhomePriceCol" maxWidth="200.0" minWidth="152.0" prefWidth="65.0" text="Kr./day" />
+                                                <TableColumn fx:id="motorhomeStatusCol" maxWidth="200.0" minWidth="152.0" prefWidth="100.0" text="Status" />
                                              </columns>
                                           </TableView>
                                        </children>
@@ -132,16 +136,16 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER" prefHeight="62.0" prefWidth="508.0" text="List of Accessories" textAlignment="CENTER">
+                                          <Label alignment="CENTER" prefHeight="553.0" prefWidth="932.0" text="List of Accessories" textAlignment="CENTER" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
                                           <TableView fx:id="accessoryTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                              <columns>
-                                                <TableColumn fx:id="accessoryTypeCol" maxWidth="200.0" minWidth="200.0" prefWidth="65.0" text="Accessory type" />
-                                                <TableColumn fx:id="accessoryPriceCol" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" text="Price" />
-                                                <TableColumn fx:id="accessoryQuantityCol" maxWidth="200.0" minWidth="145.0" prefWidth="145.0" text="Items available" />
+                                                <TableColumn fx:id="accessoryTypeCol" maxWidth="200.0" minWidth="305.0" prefWidth="65.0" text="Accessory type" />
+                                                <TableColumn fx:id="accessoryPriceCol" maxWidth="200.0" minWidth="305.0" prefWidth="150.0" text="Price" />
+                                                <TableColumn fx:id="accessoryQuantityCol" maxWidth="200.0" minWidth="305.0" prefWidth="145.0" text="Items available" />
                                              </columns>
                                           </TableView>
                                        </children>
@@ -153,6 +157,9 @@
                               </Tab>
                           </tabs>
                         </TabPane>
+                        <Label layoutX="114.0" prefHeight="17.0" prefWidth="44.0" text="Search:" AnchorPane.bottomAnchor="513.0" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="866.0" AnchorPane.topAnchor="23.0" />
+                        <TextField fx:id="searchField" layoutX="160.0" layoutY="19.0" onAction="#onSearchEnter" prefHeight="25.0" prefWidth="119.0" AnchorPane.bottomAnchor="509.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="745.0" AnchorPane.topAnchor="19.0" />
+                        <Button layoutX="110.0" layoutY="490.0" mnemonicParsing="false" onAction="#onEditBtnPressed" prefHeight="25.0" prefWidth="71.0" text="Edit" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="843.0" AnchorPane.topAnchor="490.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -161,27 +168,32 @@
                <content>
                   <AnchorPane>
                      <children>
-                        <Label alignment="CENTER" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Name:" textAlignment="CENTER" />
-                        <TextField fx:id="nameField" layoutX="112.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="CPR:" textAlignment="CENTER" />
-                        <TextField fx:id="cprField" layoutX="112.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Date of birth:" textAlignment="CENTER" />
-                        <DatePicker fx:id="birthdayPicker" layoutX="112.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Address:" textAlignment="CENTER" />
-                        <TextField fx:id="addressField" layoutX="112.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Tlf:" textAlignment="CENTER" />
-                        <TextField fx:id="tlfField" layoutX="112.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="E-mail:" textAlignment="CENTER" />
-                        <TextField fx:id="emailField" layoutX="112.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="280.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Position:" textAlignment="CENTER" />
-                        <ComboBox fx:id="positionBox" layoutX="112.0" layoutY="280.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" />
-                        <Label alignment="CENTER" layoutX="300.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Username:" textAlignment="CENTER" />
-                        <TextField fx:id="usernameField" layoutX="412.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutX="300.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Password:" textAlignment="CENTER" />
-                        <PasswordField fx:id="passwordField" layoutX="412.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label fx:id="confirmLabel" alignment="CENTER" layoutX="300.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Confirm Password:" textAlignment="CENTER" />
-                        <PasswordField fx:id="confirmField" layoutX="412.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Button layoutX="422.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddStaffBtnPressed" prefHeight="30.0" prefWidth="130.0" text="Add staff member" />
+                        <Label alignment="CENTER" prefHeight="553.0" prefWidth="1024.0" text="Create a new staff member" AnchorPane.bottomAnchor="420.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="193.0" layoutY="144.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Name:" textAlignment="CENTER" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="719.0" AnchorPane.topAnchor="144.0" />
+                        <TextField fx:id="nameField" layoutX="305.0" layoutY="144.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="570.0" AnchorPane.topAnchor="144.0" />
+                        <Label alignment="CENTER" layoutX="193.0" layoutY="184.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="CPR:" textAlignment="CENTER" AnchorPane.bottomAnchor="344.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="719.0" AnchorPane.topAnchor="184.0" />
+                        <TextField fx:id="cprField" layoutX="305.0" layoutY="184.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="344.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="570.0" AnchorPane.topAnchor="184.0" />
+                        <Label alignment="CENTER" layoutX="193.0" layoutY="224.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Date of birth:" textAlignment="CENTER" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="719.0" AnchorPane.topAnchor="224.0" />
+                        <DatePicker fx:id="birthdayPicker" layoutX="305.0" layoutY="224.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="570.0" AnchorPane.topAnchor="224.0" />
+                        <Label alignment="CENTER" layoutX="193.0" layoutY="264.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Address:" textAlignment="CENTER" AnchorPane.bottomAnchor="264.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="719.0" AnchorPane.topAnchor="264.0" />
+                        <TextField fx:id="addressField" layoutX="305.0" layoutY="264.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="264.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="570.0" AnchorPane.topAnchor="264.0" />
+                        <Label alignment="CENTER" layoutX="193.0" layoutY="304.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Tlf:" textAlignment="CENTER" AnchorPane.bottomAnchor="224.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="719.0" AnchorPane.topAnchor="304.0" />
+                        <TextField fx:id="tlfField" layoutX="305.0" layoutY="304.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="224.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="570.0" AnchorPane.topAnchor="304.0" />
+                        <Label alignment="CENTER" layoutX="193.0" layoutY="344.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="E-mail:" textAlignment="CENTER" AnchorPane.bottomAnchor="184.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="719.0" AnchorPane.topAnchor="344.0" />
+                        <TextField fx:id="emailField" layoutX="305.0" layoutY="344.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="184.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="570.0" AnchorPane.topAnchor="344.0" />
+                        <Label alignment="CENTER" layoutX="193.0" layoutY="384.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Position:" textAlignment="CENTER" AnchorPane.bottomAnchor="144.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="719.0" AnchorPane.topAnchor="384.0" />
+                        <ComboBox fx:id="positionBox" layoutX="305.0" layoutY="384.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="144.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="569.0" AnchorPane.topAnchor="384.0" />
+                        <Label alignment="CENTER" layoutX="493.0" layoutY="144.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Username:" textAlignment="CENTER" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="493.0" AnchorPane.rightAnchor="419.0" AnchorPane.topAnchor="144.0" />
+                        <TextField fx:id="usernameField" layoutX="605.0" layoutY="144.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="605.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="144.0" />
+                        <Label alignment="CENTER" layoutX="493.0" layoutY="184.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Password:" textAlignment="CENTER" AnchorPane.bottomAnchor="344.0" AnchorPane.leftAnchor="493.0" AnchorPane.rightAnchor="419.0" AnchorPane.topAnchor="184.0" />
+                        <PasswordField fx:id="passwordField" layoutX="605.0" layoutY="184.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="344.0" AnchorPane.leftAnchor="605.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="184.0" />
+                        <Label fx:id="confirmLabel" alignment="CENTER" layoutX="493.0" layoutY="224.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Confirm Password:" textAlignment="CENTER" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="493.0" AnchorPane.rightAnchor="419.0" AnchorPane.topAnchor="224.0" />
+                        <PasswordField fx:id="confirmField" layoutX="605.0" layoutY="224.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="605.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="224.0" />
+                        <Button layoutX="615.0" layoutY="289.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddStaffBtnPressed" prefHeight="30.0" prefWidth="130.0" text="Add staff member" AnchorPane.bottomAnchor="234.0" AnchorPane.leftAnchor="615.0" AnchorPane.rightAnchor="279.0" AnchorPane.topAnchor="289.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -190,26 +202,265 @@
                <content>
                   <AnchorPane>
                      <children>
-                        <Label alignment="CENTER" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Model:" textAlignment="CENTER" />
-                        <TextField fx:id="modelField" layoutX="112.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Brand:" textAlignment="CENTER" />
-                        <TextField fx:id="brandField" layoutX="112.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Size:" textAlignment="CENTER" />
-                        <ComboBox fx:id="sizeBox" layoutX="112.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label alignment="CENTER" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Price per day:" textAlignment="CENTER" />
-                        <TextField fx:id="priceField" layoutX="112.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
-                        <Label layoutX="260.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="kr." textAlignment="CENTER">
+                        <Label alignment="CENTER" prefHeight="553.0" prefWidth="1024.0" text="Create a new Motorhome" AnchorPane.bottomAnchor="420.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="326.0" layoutY="166.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Model:" textAlignment="CENTER" AnchorPane.bottomAnchor="362.0" AnchorPane.leftAnchor="326.0" AnchorPane.rightAnchor="586.0" AnchorPane.topAnchor="166.0" />
+                        <TextField fx:id="modelField" layoutX="438.0" layoutY="166.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="362.0" AnchorPane.leftAnchor="438.0" AnchorPane.rightAnchor="437.0" AnchorPane.topAnchor="166.0" />
+                        <Label alignment="CENTER" layoutX="326.0" layoutY="206.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Brand:" textAlignment="CENTER" AnchorPane.bottomAnchor="322.0" AnchorPane.leftAnchor="326.0" AnchorPane.rightAnchor="586.0" AnchorPane.topAnchor="206.0" />
+                        <TextField fx:id="brandField" layoutX="438.0" layoutY="206.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="322.0" AnchorPane.leftAnchor="438.0" AnchorPane.rightAnchor="437.0" AnchorPane.topAnchor="206.0" />
+                        <Label alignment="CENTER" layoutX="326.0" layoutY="246.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Size:" textAlignment="CENTER" AnchorPane.bottomAnchor="282.0" AnchorPane.leftAnchor="326.0" AnchorPane.rightAnchor="586.0" AnchorPane.topAnchor="246.0" />
+                        <ComboBox fx:id="sizeBox" layoutX="438.0" layoutY="246.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="282.0" AnchorPane.leftAnchor="438.0" AnchorPane.rightAnchor="437.0" AnchorPane.topAnchor="246.0" />
+                        <Label alignment="CENTER" layoutX="326.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Price per day:" textAlignment="CENTER" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="326.0" AnchorPane.rightAnchor="586.0" AnchorPane.topAnchor="286.0" />
+                        <TextField fx:id="priceField" layoutX="438.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="438.0" AnchorPane.rightAnchor="437.0" AnchorPane.topAnchor="286.0" />
+                        <Label layoutX="586.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="kr." textAlignment="CENTER" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="586.0" AnchorPane.rightAnchor="326.0" AnchorPane.topAnchor="286.0">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Button layoutX="122.0" layoutY="231.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddMotorhomeBtnPressed" prefHeight="30.0" prefWidth="130.0" text="Add Motorhome" />
+                        <Button layoutX="448.0" layoutY="357.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddMotorhomeBtnPressed" prefHeight="30.0" prefWidth="130.0" text="Add Motorhome" AnchorPane.bottomAnchor="166.0" AnchorPane.leftAnchor="448.0" AnchorPane.rightAnchor="446.0" AnchorPane.topAnchor="357.0" />
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
          </tabs>
       </TabPane>
-      <Button layoutX="543.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="19.0" prefWidth="55.0" text="Log out" AnchorPane.bottomAnchor="381.0" AnchorPane.leftAnchor="543.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="838.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onOptionsBtnPressed" prefHeight="44.0" prefWidth="94.0" text="Options" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="930.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="44.0" prefWidth="94.0" text="Log out" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="editCustomerPane" disable="true" layoutX="114.0" layoutY="212.0" prefHeight="201.0" prefWidth="886.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="212.0">
+         <children>
+            <Label alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="39.0" prefWidth="884.0" text="Edit selected Customer" AnchorPane.bottomAnchor="161.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Name">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editCustomerNameField" layoutX="15.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="162.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="CPR">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editCustomerCPRField" layoutX="177.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="324.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Date of birth">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="editCustomerBirthdayPicker" layoutX="339.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="486.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Address">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editCustomerAddressField" layoutX="501.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="648.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Phone">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editCustomerTlfField" layoutX="663.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="810.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="E-mail">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editCustomerEmailField" layoutX="825.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Button layoutX="396.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditSaveBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Save" />
+            <Button layoutX="500.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditCancelBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="editStaffPane" disable="true" layoutX="24.0" layoutY="150.0" prefHeight="343.0" prefWidth="974.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="5.0" layoutY="5.0" prefHeight="44.0" prefWidth="966.0" text="Edit selected Employee" AnchorPane.bottomAnchor="295.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="113.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Name">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editStaffNameField" layoutX="128.0" layoutY="119.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="275.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="CPR">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editStaffCPRField" layoutX="290.0" layoutY="119.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="437.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Date of birth">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="editStaffBirthdayPicker" layoutX="452.0" layoutY="119.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="116.0" layoutY="199.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Address">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editStaffAddressField" layoutX="131.0" layoutY="239.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="278.0" layoutY="199.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Phone">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editStaffTlfField" layoutX="293.0" layoutY="239.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="440.0" layoutY="199.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="E-mail">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editStaffEmailField" layoutX="455.0" layoutY="239.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="683.0" layoutY="47.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Username">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editStaffUserField" layoutX="698.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="683.0" layoutY="117.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Password">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editStaffPasswordField" layoutX="698.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="683.0" layoutY="187.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Confirm Password">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editStaffConfirmField" layoutX="697.0" layoutY="220.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Button layoutX="670.0" layoutY="284.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditSaveBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Save" />
+            <Button layoutX="778.0" layoutY="284.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditCancelBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="editReservationPane" disable="true" layoutX="24.0" layoutY="212.0" prefHeight="201.0" prefWidth="886.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="39.0" prefWidth="884.0" text="Edit selected Reservation" AnchorPane.bottomAnchor="161.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Motorhome">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="editReservationMotorhomeBox" layoutX="15.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="162.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Customer">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="editReservationCustomerBox" layoutX="177.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="324.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Pick up date">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="editReservationPickup" layoutX="339.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPickupDateSelected" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="486.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Drop off date">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="editReservationDropoff" layoutX="501.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onDropoffDateSelected" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="648.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Drop off address">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editReservationAddress" layoutX="663.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="810.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Accessories">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="bikeRackCheck" layoutX="837.0" layoutY="67.0" mnemonicParsing="false" text="Bike rack (100kr)" />
+            <CheckBox fx:id="bedLinenCheck" layoutX="837.0" layoutY="87.0" mnemonicParsing="false" text="Bed linen (10kr)" />
+            <CheckBox fx:id="childSeatCheck" layoutX="837.0" layoutY="107.0" mnemonicParsing="false" text="Child seat (50kr)" />
+            <CheckBox fx:id="picnicTableCheck" layoutX="837.0" layoutY="127.0" mnemonicParsing="false" text="Picnic Table (150kr)" />
+            <CheckBox fx:id="chairsCheck" layoutX="837.0" layoutY="147.0" mnemonicParsing="false" text="4xChairs (50kr)" />
+            <Button layoutX="396.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditSaveBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Save" />
+            <Button layoutX="500.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditCancelBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="editMotorhomePane" disable="true" layoutX="64.0" layoutY="212.0" prefHeight="201.0" prefWidth="886.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="39.0" prefWidth="884.0" text="Edit selected Motorhome" AnchorPane.bottomAnchor="161.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="31.0" layoutY="58.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Model">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editMotorhomeModel" layoutX="46.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="193.0" layoutY="58.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Brand">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editMotorhomeBrand" layoutX="208.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="355.0" layoutY="58.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Size">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="editMotorhomeSizeBox" layoutX="370.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="517.0" layoutY="58.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Price per day (kr)">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editMotorhomePrice" layoutX="532.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="679.0" layoutY="58.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Status">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="editMotorhomeStatusBox" layoutX="694.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Button layoutX="351.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditSaveBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Save" />
+            <Button layoutX="455.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditCancelBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="editAccessoryPane" disable="true" layoutX="268.0" layoutY="222.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="201.0" prefWidth="525.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="39.0" prefWidth="884.0" text="Edit selected Accessory" AnchorPane.bottomAnchor="161.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="17.0" layoutY="62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Accessory type">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editAccessoryType" editable="false" layoutX="32.0" layoutY="102.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="179.0" layoutY="62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Price (kr)">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editAccessoryPrice" layoutX="194.0" layoutY="102.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="341.0" layoutY="62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Items available">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editAccessoryAmount" layoutX="356.0" layoutY="102.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Button layoutX="171.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditSaveBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Save" />
+            <Button layoutX="275.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditCancelBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

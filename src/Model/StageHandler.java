@@ -111,7 +111,7 @@ public class StageHandler
         if (root != null)
         {
             primaryStage.hide();
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root);
             scene.getStylesheets().add("/GUI/CSS/theme.css");
             primaryStage.setScene(scene);
             primaryStage.show();
