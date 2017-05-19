@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AMController implements Initializable
+public class SController implements Initializable
 {
     //region FXML
     @FXML

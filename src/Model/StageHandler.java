@@ -49,63 +49,65 @@ public class StageHandler
         alert.showAndWait();
     }
 
-    public void handleSceneChange(String sceneTitle)
+    public void handleSceneChange()
     {
         Parent root = null;
 
-        switch (sceneTitle)
+        if (StageHandler.currentUser instanceof Admin)
         {
-            case "Admin":
-                try
-                {
-                    System.out.println("Loading Admin screen...");
-                    root = FXMLLoader.load(getClass().getResource("/GUI/Admin.fxml"));
+            try
+            {
+                System.out.println("Loading Admin screen...");
+                root = FXMLLoader.load(getClass().getResource("/GUI/Admin.fxml"));
 
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                    System.out.println("FXML file not found: Make sure path is correct.");
-                }
-                break;
-            case "Sales Assistant":
-                try
-                {
-                    System.out.println("Loading Sales Assistant screen...");
-                    root = FXMLLoader.load(getClass().getResource("/GUI/SalesAssistant.fxml"));
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+                System.out.println("FXML file not found: Make sure path is correct.");
+            }
+        }
+        else if (StageHandler.currentUser instanceof SalesAssistant)
+        {
+            try
+            {
+                System.out.println("Loading Sales Assistant screen...");
+                root = FXMLLoader.load(getClass().getResource("/GUI/SalesAssistant.fxml"));
 
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                    System.out.println("FXML file not found: Make sure path is correct.");
-                }
-                break;
-            case "Auto Mechanic":
-                try
-                {
-                    System.out.println("Loading Auto Mechanic screen...");
-                    root = FXMLLoader.load(getClass().getResource("/GUI/AutoMechanic.fxml"));
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+                System.out.println("FXML file not found: Make sure path is correct.");
+            }
+        }
+        else if (StageHandler.currentUser instanceof AutoMechanic || StageHandler.currentUser instanceof CleaningPersonnel)
+        {
+            try
+            {
+                System.out.println("Loading Service screen...");
+                root = FXMLLoader.load(getClass().getResource("/GUI/Service.fxml"));
 
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                    System.out.println("FXML file not found: Make sure path is correct.");
-                }
-                break;
-            case "Login":
-                try
-                {
-                    System.out.println("Loading Login screen...");
-                    root = FXMLLoader.load(getClass().getResource("/GUI/Login.fxml"));
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+                System.out.println("FXML file not found: Make sure path is correct.");
+            }
+        }
+        else if (StageHandler.currentUser == null)
+        {
+            try
+            {
+                System.out.println("Loading Login screen...");
+                root = FXMLLoader.load(getClass().getResource("/GUI/Login.fxml"));
 
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                    System.out.println("FXML file not found: Make sure path is correct.");
-                }
-                break;
-            default:
-                System.out.println("Error changing scene. Make sure you are using a correct reference.");
-                break;
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+                System.out.println("FXML file not found: Make sure path is correct.");
+            }
+        }
+        else
+        {
+            System.out.println("Error changing scene. Make sure you are using a correct reference.");
         }
 
         if (root != null)
@@ -121,7 +123,7 @@ public class StageHandler
     public void logOut()
     {
         StageHandler.currentUser = null;
-        handleSceneChange("Login");
+        handleSceneChange();
     }
 
     public static EventHandler<WindowEvent> confirmCloseEventHandler = event ->
