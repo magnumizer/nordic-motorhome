@@ -26,7 +26,7 @@
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <TextField fx:id="searchField" layoutX="117.0" layoutY="22.0" onAction="#onSearchEnter" />
+                        <TextField fx:id="searchField" layoutX="117.0" layoutY="22.0" />
                         <TableView fx:id="rentalTable" layoutX="45.0" layoutY="72.0" prefHeight="147.0" prefWidth="532.0">
                           <columns>
                             <TableColumn fx:id="rentalIDCol" prefWidth="109.0" text="Rental ID" />
