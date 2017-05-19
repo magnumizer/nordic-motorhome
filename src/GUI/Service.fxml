@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -11,73 +14,50 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SController">
    <children>
-      <TabPane prefHeight="600.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Service record">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="558.0" prefWidth="1027.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" layoutX="111.0" layoutY="72.0" prefHeight="17.0" prefWidth="87.0" text="Search:">
+                        <Label alignment="CENTER_RIGHT" layoutX="31.0" layoutY="26.0" prefHeight="17.0" prefWidth="87.0" text="Search:">
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <TextField fx:id="searchField" layoutX="224.0" layoutY="67.0" />
-                        <TableView fx:id="rentalTable" layoutX="147.0" layoutY="120.0" prefHeight="196.0" prefWidth="790.0">
+                        <TextField fx:id="searchField" layoutX="117.0" layoutY="22.0" onAction="#onSearchEnter" />
+                        <TableView fx:id="rentalTable" layoutX="45.0" layoutY="72.0" prefHeight="147.0" prefWidth="532.0">
                           <columns>
                             <TableColumn fx:id="rentalIDCol" prefWidth="109.0" text="Rental ID" />
-                            <TableColumn fx:id="customerCol" prefWidth="177.0" text="Customer" />
-                              <TableColumn fx:id="motorhomeCol" prefWidth="107.0" text="Motorhome" />
-                              <TableColumn fx:id="serviceCol" minWidth="0.0" prefWidth="142.0" text="Service" />
-                              <TableColumn prefWidth="111.0" text="Service date" />
-                              <TableColumn fx:id="priceCol" prefWidth="143.0" text="Price" />
+                            <TableColumn fx:id="customerCol" prefWidth="91.0" text="Customer" />
+                              <TableColumn fx:id="motorhomeCol" prefWidth="109.0" text="Motorhome" />
+                              <TableColumn fx:id="serviceCol" minWidth="0.0" prefWidth="113.0" text="Service" />
+                              <TableColumn fx:id="priceCol" prefWidth="110.0" text="Price" />
                           </columns>
                         </TableView>
-                        <Label alignment="CENTER_RIGHT" layoutX="147.0" layoutY="371.0" prefHeight="19.0" prefWidth="72.0" text="Service:">
+                        <Label alignment="CENTER_RIGHT" layoutX="45.0" layoutY="258.0" prefHeight="19.0" prefWidth="72.0" text="Service:">
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <TextField fx:id="serviceField" layoutX="268.0" layoutY="366.0" />
-                        <Label alignment="CENTER_RIGHT" layoutX="482.0" layoutY="369.0" prefHeight="17.0" prefWidth="42.0" text="Price:">
+                        <TextField fx:id="serviceField" layoutX="117.0" layoutY="256.0" />
+                        <Label alignment="CENTER_RIGHT" layoutX="331.0" layoutY="258.0" prefHeight="17.0" prefWidth="42.0" text="Price:">
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <TextField fx:id="priceField" layoutX="524.0" layoutY="364.0" prefHeight="25.0" prefWidth="70.0" />
-                        <Label alignment="CENTER_RIGHT" layoutX="137.0" layoutY="427.0" prefHeight="21.0" prefWidth="109.0" text="Description:">
+                        <TextField fx:id="priceField" layoutX="372.0" layoutY="256.0" prefHeight="25.0" prefWidth="70.0" />
+                        <Label alignment="CENTER_RIGHT" layoutX="35.0" layoutY="292.0" prefHeight="17.0" prefWidth="83.0" text="Description:">
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <TextArea fx:id="descriptionField" layoutX="268.0" layoutY="416.0" prefHeight="65.0" prefWidth="325.0" />
-                        <Button layoutX="839.0" layoutY="481.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSubmitBtnPressed" prefHeight="31.0" prefWidth="91.0" text="Submit" />
+                        <TextArea fx:id="descriptionField" layoutX="117.0" layoutY="292.0" prefHeight="65.0" prefWidth="325.0" />
+                        <Button layoutX="517.0" layoutY="325.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSubmitBtnPressed" prefHeight="30.0" prefWidth="60.0" text="Submit" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Motorhome">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label layoutX="311.0" layoutY="94.0" text="Search:" />
-                        <TextField layoutX="419.0" layoutY="89.0" />
-                        <TableView fx:id="motorhomeTable" layoutX="122.0" layoutY="145.0" prefHeight="158.0" prefWidth="781.0">
-                           <columns>
-                              <TableColumn fx:id="motorhomeIDCol" maxWidth="200.0" minWidth="109.0" prefWidth="121.0" text="Motorhome ID" />
-                              <TableColumn fx:id="motorhomeModelCol" maxWidth="200.0" minWidth="94.0" prefWidth="94.0" text="Model" />
-                              <TableColumn fx:id="motorhomeBrandCol" maxWidth="241.0" minWidth="122.0" prefWidth="122.0" text="Brand" />
-                              <TableColumn fx:id="motorhomeSizeCol" maxWidth="206.0" minWidth="60.0" prefWidth="84.0" text="Size" />
-                              <TableColumn fx:id="motorhomePriceCol" maxWidth="258.0" minWidth="101.0" prefWidth="136.0" text="Kr./day" />
-                              <TableColumn fx:id="motorhomeStatusCol" maxWidth="254.0" minWidth="0.0" prefWidth="69.0" text="Status" />
-                              <TableColumn prefWidth="153.0" text="Date of Check" />
-                           </columns>
-                        </TableView>
-                        <Button layoutX="456.0" layoutY="350.0" mnemonicParsing="false" text="Check status" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="948.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="20.0" prefWidth="80.0" text="Log out" AnchorPane.bottomAnchor="563.0" AnchorPane.leftAnchor="948.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="543.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="19.0" prefWidth="55.0" text="Log out" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="543.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
