@@ -54,7 +54,7 @@ public class SController implements Initializable
     {
         if (!searchField.getText().equals(""))
         {
-            updateTable(SearchHandler.searchRentals(searchField.getText()));
+            updateTable(SearchHandler.findRental(searchField.getText()));
         }
         else
         {
