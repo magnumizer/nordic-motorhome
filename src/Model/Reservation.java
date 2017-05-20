@@ -46,6 +46,11 @@ public class Reservation
         return "";
     }
 
+    public String getReservationID()
+    {
+        return reservationID;
+    }
+
     public Customer getCustomer()
     {
         return customer;

@@ -14,7 +14,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AMController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SController">
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -26,7 +26,7 @@
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <TextField fx:id="searchField" layoutX="117.0" layoutY="22.0" onAction="#onSearchEnter" />
+                        <TextField fx:id="searchField" layoutX="117.0" layoutY="22.0" />
                         <TableView fx:id="rentalTable" layoutX="45.0" layoutY="72.0" prefHeight="147.0" prefWidth="532.0">
                           <columns>
                             <TableColumn fx:id="rentalIDCol" prefWidth="109.0" text="Rental ID" />

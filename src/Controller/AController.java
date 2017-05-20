@@ -1036,6 +1036,11 @@ public class AController implements Initializable
         accessoryQuantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));//change this please
     }
 
+    private void updateTable(TableView table, ArrayList list)
+    {
+        table.getItems().setAll(list);
+    }
+
     public void onPickupDateSelected(ActionEvent actionEvent)
     {
         if (editReservationPickup.getValue() != null && editReservationDropoff.getValue() != null)
@@ -1169,6 +1174,77 @@ public class AController implements Initializable
         });
     }
 
+    private void addSearchListener()
+    {
+        searchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                int currentTab = overviewTabs.getSelectionModel().getSelectedIndex();
+
+                switch (currentTab)
+                {
+                    case 0:
+                        if (newValue.matches(""))
+                        {
+                            updateTable(staffTable, Employee.allEmployees);
+                        }
+                        else
+                        {
+                            updateTable(staffTable, SearchHandler.findEmployee(searchField.getText()));
+                        }
+                        break;
+                    case 1:
+                        if (newValue.matches(""))
+                        {
+                            updateTable(customerTable, Customer.allCustomers);
+                        }
+                        else
+                        {
+                            updateTable(customerTable, SearchHandler.findCustomer(searchField.getText()));
+                        }
+                        break;
+                    case 2:
+                        if (newValue.matches(""))
+                        {
+                            updateTable(reservationTable, Reservation.allReservations);
+                        }
+                        else
+                        {
+                            updateTable(reservationTable, SearchHandler.findReservation(searchField.getText()));
+                        }
+                        break;
+                    case 3:
+                        if (newValue.matches(""))
+                        {
+                            updateTable(motorhomeTable, Motorhome.allMotorhomes);
+                        }
+                        else
+                        {
+                            updateTable(motorhomeTable, SearchHandler.findMotorhome(searchField.getText()));
+                        }
+                        break;
+                    case 4:
+                        if (newValue.matches(""))
+                        {
+                            ArrayList<Accessory> accessories = new ArrayList<>();
+                            accessories.addAll(Accessory.allAccessories.values());
+                            updateTable(accessoryTable, accessories);
+                        }
+                        else
+                        {
+                            updateTable(accessoryTable, SearchHandler.findAccessory(searchField.getText()));
+                        }
+                        break;
+                    default:
+                        System.out.println("Weird error. Tab not found. Fix please.");
+                        break;
+                }
+            }
+        });
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -1182,5 +1258,6 @@ public class AController implements Initializable
         positionBox.setItems(positions);
         sizeBox.setItems(sizes);
         forceNumericValues();
+        addSearchListener();
     }
 }
