@@ -27,11 +27,11 @@
                         <TableView fx:id="rentalTable" layoutX="147.0" layoutY="120.0" prefHeight="196.0" prefWidth="790.0">
                           <columns>
                             <TableColumn fx:id="rentalIDCol" prefWidth="109.0" text="Rental ID" />
-                            <TableColumn fx:id="customerCol" prefWidth="103.0" text="Customer" />
-                              <TableColumn fx:id="motorhomeCol" prefWidth="109.0" text="Motorhome" />
-                              <TableColumn fx:id="serviceCol" minWidth="0.0" prefWidth="97.0" text="Service" />
-                              <TableColumn fx:id="priceCol" prefWidth="116.0" text="Price" />
-                              <TableColumn prefWidth="199.0" text="Column X" />
+                            <TableColumn fx:id="customerCol" prefWidth="177.0" text="Customer" />
+                              <TableColumn fx:id="motorhomeCol" prefWidth="107.0" text="Motorhome" />
+                              <TableColumn fx:id="serviceCol" minWidth="0.0" prefWidth="142.0" text="Service" />
+                              <TableColumn prefWidth="111.0" text="Service date" />
+                              <TableColumn fx:id="priceCol" prefWidth="143.0" text="Price" />
                           </columns>
                         </TableView>
                         <Label alignment="CENTER_RIGHT" layoutX="147.0" layoutY="371.0" prefHeight="19.0" prefWidth="72.0" text="Service:">
@@ -54,16 +54,24 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Cleaning record">
+            <Tab text="Motorhome">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="61.0" layoutY="43.0" prefHeight="73.0" prefWidth="476.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
+                        <Label layoutX="311.0" layoutY="94.0" text="Search:" />
+                        <TextField layoutX="419.0" layoutY="89.0" />
+                        <TableView fx:id="motorhomeTable" layoutX="122.0" layoutY="145.0" prefHeight="158.0" prefWidth="781.0">
+                           <columns>
+                              <TableColumn fx:id="motorhomeIDCol" maxWidth="200.0" minWidth="109.0" prefWidth="121.0" text="Motorhome ID" />
+                              <TableColumn fx:id="motorhomeModelCol" maxWidth="200.0" minWidth="94.0" prefWidth="94.0" text="Model" />
+                              <TableColumn fx:id="motorhomeBrandCol" maxWidth="241.0" minWidth="122.0" prefWidth="122.0" text="Brand" />
+                              <TableColumn fx:id="motorhomeSizeCol" maxWidth="206.0" minWidth="60.0" prefWidth="84.0" text="Size" />
+                              <TableColumn fx:id="motorhomePriceCol" maxWidth="258.0" minWidth="101.0" prefWidth="136.0" text="Kr./day" />
+                              <TableColumn fx:id="motorhomeStatusCol" maxWidth="254.0" minWidth="0.0" prefWidth="69.0" text="Status" />
+                              <TableColumn prefWidth="153.0" text="Date of Check" />
+                           </columns>
                         </TableView>
+                        <Button layoutX="456.0" layoutY="350.0" mnemonicParsing="false" text="Check status" />
                      </children>
                   </AnchorPane>
               </content>
