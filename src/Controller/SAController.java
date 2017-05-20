@@ -10,10 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SAController implements Initializable
@@ -25,6 +28,9 @@ public class SAController implements Initializable
             );
 
     //region FXML
+    @FXML
+    private TabPane mainTabPane;
+
     @FXML
     private TextField nameField;
     @FXML
@@ -70,10 +76,48 @@ public class SAController implements Initializable
     private CheckBox highSeasonCheck;
     @FXML
     private TextField priceField;
+
+    @FXML
+    private TextField overviewSearchField;
+
+    @FXML
+    private TableView<Rental> overviewRentalTable;
+    @FXML
+    private TableColumn<Rental, String> overviewMotorhomeCol;
+    @FXML
+    private TableColumn<Rental, String> overviewCustomerCol;
+    @FXML
+    private TableColumn<Rental, String> overviewDateCol;
+    @FXML
+    private TableColumn<Rental, String> overviewPriceCol;
+    @FXML
+    private TableColumn<Rental, String> overviewStatusCol;
+
+    @FXML
+    private TextField checkoutSearchField;
+
+    @FXML
+    private TableView<Rental> checkoutRentalTable;
+    @FXML
+    private TableColumn<Rental, String> checkoutCustomerCol;
+    @FXML
+    private TableColumn<Rental, String> checkoutMotorhomeCol;
+    @FXML
+    private TableColumn<Rental, Integer> checkoutDaysCol;
+    @FXML
+    private TableColumn<Rental, String> checkoutPriceCol;
+    @FXML
+    private TableColumn<Rental, String> checkoutServicePriceCol;
+    @FXML
+    private TableColumn<Rental, String> checkoutTotalCol;
     //endregion
 
     private StageHandler stageHandler = new StageHandler();
 
+    public void onOptionsBtnPressed(ActionEvent actionEvent)
+    {
+
+    }
 
     public void onLogOutBtnPressed(ActionEvent actionEvent)
     {
@@ -176,6 +220,8 @@ public class SAController implements Initializable
                                     addAccessoriesToReservation(reservation);
                                     Reservation.allReservations.add(reservation);
                                     stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
+                                    updateTable(overviewRentalTable, Rental.allRentals);
+                                    updateTable(checkoutRentalTable, Rental.allRentals);
                                     clearReservationFields();
                                 }
                                 else
@@ -404,6 +450,27 @@ public class SAController implements Initializable
         motorhomeBox.setItems(motorhomes);
     }
 
+    private void updateTable(TableView table, ArrayList list)
+    {
+        table.getItems().setAll(list);
+    }
+
+    private void setupTableColumns()
+    {
+        overviewMotorhomeCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeName"));
+        overviewCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        overviewDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
+        overviewPriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+        overviewStatusCol.setCellValueFactory(new PropertyValueFactory<>("paidByCustomer"));
+
+        checkoutCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        checkoutMotorhomeCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeName"));
+        checkoutDaysCol.setCellValueFactory(new PropertyValueFactory<>("daysOfRental"));
+        checkoutPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        checkoutServicePriceCol.setCellValueFactory(new PropertyValueFactory<>("servicePrice"));
+        checkoutTotalCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+    }
+
     private void addListenerHandler()
     {
         tlfField.textProperty().addListener(new ChangeListener<String>()
@@ -435,6 +502,40 @@ public class SAController implements Initializable
                 recalculatePrice(null);
             }
         });
+
+        overviewSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(overviewRentalTable, Rental.allRentals);
+                }
+                else
+                {
+                    updateTable(overviewRentalTable, SearchHandler.findRental(overviewSearchField.getText()));
+                }
+
+            }
+        });
+
+        checkoutSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(checkoutRentalTable, Rental.allRentals);
+                }
+                else
+                {
+                    updateTable(checkoutRentalTable, SearchHandler.findRental(checkoutSearchField.getText()));
+                }
+
+            }
+        });
     }
 
     @Override
@@ -443,6 +544,9 @@ public class SAController implements Initializable
         updateCustomerList();
         updateMotorhomeList();
         dropoffBox.setItems(points);
+        setupTableColumns();
+        updateTable(overviewRentalTable, Rental.allRentals);
+        updateTable(checkoutRentalTable, Rental.allRentals);
         clearCustomerFields();
         clearReservationFields();
         addListenerHandler();

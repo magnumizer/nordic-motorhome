@@ -1,16 +1,20 @@
 package Model;//Magnus Svendsen DAT16i
 
+import java.time.LocalDate;
+
 public class Service
 {
     String serviceTitle;
     float price;
     String description;
+    LocalDate serviceDate;
 
-    public Service(String serviceTitle, float price, String description)
+    public Service(String serviceTitle, float price, String description, LocalDate serviceDate)
     {
         this.serviceTitle = serviceTitle;
         this.price = price;
         this.description = description;
+        this.serviceDate = serviceDate;
     }
 
     public String getServiceTitle()
@@ -41,6 +45,16 @@ public class Service
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public LocalDate getServiceDate()
+    {
+        return serviceDate;
+    }
+
+    public void setServiceDate(LocalDate serviceDate)
+    {
+        this.serviceDate = serviceDate;
     }
 
     @Override

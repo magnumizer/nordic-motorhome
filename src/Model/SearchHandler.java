@@ -180,6 +180,11 @@ public abstract class SearchHandler
                 foundMotorhomes.add(motorhome);
                 continue;
             }
+            if (motorhome.getDateOfCheck().contains(searchString))
+            {
+                foundMotorhomes.add(motorhome);
+                continue;
+            }
         }
 
         return foundMotorhomes;
@@ -237,6 +242,11 @@ public abstract class SearchHandler
                 continue;
             }
             if (rental.getServiceName().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getServiceDate().contains(searchString))
             {
                 foundRentals.add(rental);
                 continue;

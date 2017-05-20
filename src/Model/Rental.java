@@ -10,7 +10,6 @@ public class Rental
     String rentalID;
     Reservation reservation;
     Service service;
-    float totalPrice;
     boolean paidByCustomer;
 
     public Rental(Reservation reservation)
@@ -63,14 +62,21 @@ public class Rental
         }
     }
 
-    public float getTotalPrice()
+    public String getServiceDate()
     {
-        return totalPrice;
+        if (this.getService() != null)
+        {
+            return this.getService().getServiceDate().toString();
+        }
+        else
+        {
+            return "";
+        }
     }
 
-    public void setTotalPrice(float totalPrice)
+    public float getTotalPrice()
     {
-        this.totalPrice = totalPrice;
+        return this.getPrice() + this.getServicePrice();
     }
 
     public boolean isPaidByCustomer()
@@ -133,6 +139,11 @@ public class Rental
         {
             return 0;
         }
+    }
+
+    public String getReservationDate()
+    {
+        return this.getReservation().getReservationDate().toString();
     }
 
     @Override
