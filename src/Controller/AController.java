@@ -36,7 +36,15 @@ public class AController implements Initializable
 
     //region FXML
     @FXML
-    private TextField searchField;
+    private TextField staffSearchField;
+    @FXML
+    private TextField customerSearchField;
+    @FXML
+    private TextField reservationSearchField;
+    @FXML
+    private TextField motorhomeSearchField;
+    @FXML
+    private TextField accessorySearchField;
 
     @FXML
     private TabPane mainTabPane;
@@ -440,11 +448,6 @@ public class AController implements Initializable
         brandField.clear();
         sizeBox.getSelectionModel().clearSelection();
         priceField.clear();
-    }
-
-    public void onSearchEnter(ActionEvent actionEvent)
-    {
-
     }
 
     public void onEditBtnPressed(ActionEvent actionEvent)
@@ -1041,6 +1044,15 @@ public class AController implements Initializable
         table.getItems().setAll(list);
     }
 
+    public void resetTables()
+    {
+        staffTable.getItems().setAll(Employee.allEmployees);
+        customerTable.getItems().setAll(Customer.allCustomers);
+        reservationTable.getItems().setAll(Reservation.allReservations);
+        motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
+        accessoryTable.getItems().setAll(Accessory.allAccessories.values());
+    }
+
     public void onPickupDateSelected(ActionEvent actionEvent)
     {
         if (editReservationPickup.getValue() != null && editReservationDropoff.getValue() != null)
@@ -1174,72 +1186,86 @@ public class AController implements Initializable
         });
     }
 
-    private void addSearchListener()
+    private void addSearchListeners()
     {
-        searchField.textProperty().addListener(new ChangeListener<String>()
+        staffSearchField.textProperty().addListener(new ChangeListener<String>()
         {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
             {
-                int currentTab = overviewTabs.getSelectionModel().getSelectedIndex();
-
-                switch (currentTab)
+                if (newValue.matches(""))
                 {
-                    case 0:
-                        if (newValue.matches(""))
-                        {
-                            updateTable(staffTable, Employee.allEmployees);
-                        }
-                        else
-                        {
-                            updateTable(staffTable, SearchHandler.findEmployee(searchField.getText()));
-                        }
-                        break;
-                    case 1:
-                        if (newValue.matches(""))
-                        {
-                            updateTable(customerTable, Customer.allCustomers);
-                        }
-                        else
-                        {
-                            updateTable(customerTable, SearchHandler.findCustomer(searchField.getText()));
-                        }
-                        break;
-                    case 2:
-                        if (newValue.matches(""))
-                        {
-                            updateTable(reservationTable, Reservation.allReservations);
-                        }
-                        else
-                        {
-                            updateTable(reservationTable, SearchHandler.findReservation(searchField.getText()));
-                        }
-                        break;
-                    case 3:
-                        if (newValue.matches(""))
-                        {
-                            updateTable(motorhomeTable, Motorhome.allMotorhomes);
-                        }
-                        else
-                        {
-                            updateTable(motorhomeTable, SearchHandler.findMotorhome(searchField.getText()));
-                        }
-                        break;
-                    case 4:
-                        if (newValue.matches(""))
-                        {
-                            ArrayList<Accessory> accessories = new ArrayList<>();
-                            accessories.addAll(Accessory.allAccessories.values());
-                            updateTable(accessoryTable, accessories);
-                        }
-                        else
-                        {
-                            updateTable(accessoryTable, SearchHandler.findAccessory(searchField.getText()));
-                        }
-                        break;
-                    default:
-                        System.out.println("Weird error. Tab not found. Fix please.");
-                        break;
+                    updateTable(staffTable, Employee.allEmployees);
+                }
+                else
+                {
+                    updateTable(staffTable, SearchHandler.findEmployee(staffSearchField.getText()));
+                }
+            }
+        });
+
+        customerSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(customerTable, Customer.allCustomers);
+                }
+                else
+                {
+                    updateTable(customerTable, SearchHandler.findCustomer(customerSearchField.getText()));
+                }
+            }
+        });
+
+        reservationSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(reservationTable, Reservation.allReservations);
+                }
+                else
+                {
+                    updateTable(reservationTable, SearchHandler.findReservation(reservationSearchField.getText()));
+                }
+            }
+        });
+
+        motorhomeSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(motorhomeTable, Motorhome.allMotorhomes);
+                }
+                else
+                {
+                    updateTable(motorhomeTable, SearchHandler.findMotorhome(motorhomeSearchField.getText()));
+                }
+            }
+        });
+
+        accessorySearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    ArrayList<Accessory> accessories = new ArrayList<>();
+                    accessories.addAll(Accessory.allAccessories.values());
+                    updateTable(accessoryTable, accessories);
+                }
+                else
+                {
+                    updateTable(accessoryTable, SearchHandler.findAccessory(accessorySearchField.getText()));
                 }
             }
         });
@@ -1250,14 +1276,10 @@ public class AController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         setupTableColumns();
-        staffTable.getItems().setAll(Employee.allEmployees);
-        customerTable.getItems().setAll(Customer.allCustomers);
-        reservationTable.getItems().setAll(Reservation.allReservations);
-        motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
-        accessoryTable.getItems().setAll(Accessory.allAccessories.values());
+        resetTables();
         positionBox.setItems(positions);
         sizeBox.setItems(sizes);
         forceNumericValues();
-        addSearchListener();
+        addSearchListeners();
     }
 }

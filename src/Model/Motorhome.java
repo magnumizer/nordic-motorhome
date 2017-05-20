@@ -1,5 +1,6 @@
 package Model;//Magnus Svendsen DAT16i
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Motorhome
@@ -13,6 +14,7 @@ public class Motorhome
     boolean rentedStatus = false;
     boolean serviceStatus = false;
     float pricePerDay;
+    String dateOfCheck;
 
     public Motorhome(String model, String brand, String size, float pricePerDay)
     {
@@ -98,6 +100,23 @@ public class Motorhome
             return "Rented";
         else
             return "Available";
+    }
+
+    public String getDateOfCheck()
+    {
+        if (dateOfCheck == null)
+        {
+            return "";
+        }
+        else
+        {
+            return dateOfCheck;
+        }
+    }
+
+    public void setDateOfCheck(LocalDate localDate)
+    {
+        this.dateOfCheck = localDate.toString();
     }
 
     public float getPricePerDay()
