@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AController">
    <children>
       <TabPane fx:id="mainTabPane" layoutY="6.0" tabMinHeight="40.0" tabMinWidth="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
@@ -34,7 +34,7 @@
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
-                                          <TableView fx:id="staffTable" prefHeight="371.0" prefWidth="508.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                          <TableView fx:id="staffTable" prefHeight="371.0" prefWidth="886.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                             <columns>
                                               <TableColumn fx:id="staffNameCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="Name" />
                                                 <TableColumn fx:id="staffCPRCol" maxWidth="200.0" minWidth="131.0" prefWidth="85.0" text="CPR" />
@@ -215,7 +215,7 @@
                         <ComboBox fx:id="sizeBox" layoutX="438.0" layoutY="246.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="282.0" AnchorPane.leftAnchor="438.0" AnchorPane.rightAnchor="437.0" AnchorPane.topAnchor="246.0" />
                         <Label alignment="CENTER" layoutX="326.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="Price per day:" textAlignment="CENTER" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="326.0" AnchorPane.rightAnchor="586.0" AnchorPane.topAnchor="286.0" />
                         <TextField fx:id="priceField" layoutX="438.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="438.0" AnchorPane.rightAnchor="437.0" AnchorPane.topAnchor="286.0" />
-                        <Label layoutX="586.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="kr." textAlignment="CENTER" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="586.0" AnchorPane.rightAnchor="326.0" AnchorPane.topAnchor="286.0">
+                        <Label layoutX="612.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="112.0" text="kr." textAlignment="CENTER" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="612.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="286.0">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
