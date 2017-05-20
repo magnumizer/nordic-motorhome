@@ -21,9 +21,9 @@
                <content>
                   <AnchorPane>
                      <children>
-                        <TabPane prefHeight="362.0" prefWidth="600.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TabPane prefHeight="362.0" prefWidth="600.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="25.0" tabMinHeight="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <tabs>
-                              <Tab text="Register Reservation">
+                              <Tab closable="false">
                                  <content>
                                     <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -81,8 +81,11 @@
                                        </children>
                                     </AnchorPane>
                                  </content>
+                                 <graphic>
+                                    <Label minWidth="80.0" prefHeight="19.0" prefWidth="80.0" text="Reservation" />
+                                 </graphic>
                               </Tab>
-                              <Tab text="Register Customer">
+                              <Tab>
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="472.0">
                                        <children>
@@ -107,6 +110,9 @@
                                        </children>
                                     </AnchorPane>
                                  </content>
+                                 <graphic>
+                                    <Label minWidth="80.0" prefHeight="21.0" prefWidth="53.0" text="Customer" />
+                                 </graphic>
                               </Tab>
                            </tabs>
                         </TabPane>
@@ -116,9 +122,9 @@
             </Tab>
             <Tab closable="false" text="Rental">
               <content>
-                  <TabPane side="LEFT">
+                  <TabPane side="LEFT" tabMaxWidth="25.0" tabMinHeight="90.0">
                      <tabs>
-                        <Tab closable="false" text="Check out">
+                        <Tab closable="false">
                            <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -143,12 +149,15 @@
                                  </children>
                               </AnchorPane>
                            </content>
+                           <graphic>
+                              <Label minWidth="80.0" text="Check out" />
+                           </graphic>
                         </Tab>
-                        <Tab closable="false" text="Overview">
+                        <Tab closable="false">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView layoutX="191.0" layoutY="186.0" prefHeight="139.0" prefWidth="604.0">
+                                    <TableView layoutX="86.0" layoutY="137.0" prefHeight="236.0" prefWidth="744.0">
                                       <columns>
                                         <TableColumn prefWidth="75.0" text="Customer" />
                                         <TableColumn prefWidth="96.0" text="Pick up date" />
@@ -157,9 +166,14 @@
                                           <TableColumn prefWidth="123.0" text="Payment status" />
                                       </columns>
                                     </TableView>
+                                    <Label layoutX="86.0" layoutY="55.0" prefHeight="31.0" prefWidth="68.0" text="Search:" />
+                                    <TextField layoutX="154.0" layoutY="55.0" />
                                  </children>
                               </AnchorPane>
                           </content>
+                           <graphic>
+                              <Label minWidth="80.0" text="Overview" />
+                           </graphic>
                         </Tab>
                      </tabs>
                   </TabPane>
