@@ -150,15 +150,15 @@
                                           <Label layoutX="90.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off date:" textAlignment="CENTER" />
                                           <DatePicker fx:id="dropoffDate" layoutX="260.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onDropoffDateSelected" prefHeight="25.0" prefWidth="149.0" />
                                           <Label layoutX="90.0" layoutY="343.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Extra accessories:" textAlignment="CENTER" />
-                                          <ComboBox fx:id="bikeRackBox" editable="true" layoutX="260.0" layoutY="343.0" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="55.0" />
+                                          <ComboBox fx:id="bikeRackBox" editable="true" layoutX="260.0" layoutY="343.0" prefHeight="25.0" prefWidth="55.0" />
                                           <Label layoutX="321.0" layoutY="343.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" text="Bike rack (100kr)" />
-                                          <ComboBox fx:id="bedLinenBox" editable="true" layoutX="260.0" layoutY="378.0" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="55.0" />
+                                          <ComboBox fx:id="bedLinenBox" editable="true" layoutX="260.0" layoutY="378.0" prefHeight="25.0" prefWidth="55.0" />
                                           <Label layoutX="321.0" layoutY="378.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" text="Bed linen (10kr)" />
-                                          <ComboBox fx:id="childSeatBox" editable="true" layoutX="260.0" layoutY="413.0" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="55.0" />
+                                          <ComboBox fx:id="childSeatBox" editable="true" layoutX="260.0" layoutY="413.0" prefHeight="25.0" prefWidth="55.0" />
                                           <Label layoutX="321.0" layoutY="413.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" text="Child seat (50kr)" />
-                                          <ComboBox fx:id="picnicTableBox" editable="true" layoutX="260.0" layoutY="448.0" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="55.0" />
+                                          <ComboBox fx:id="picnicTableBox" editable="true" layoutX="260.0" layoutY="448.0" prefHeight="25.0" prefWidth="55.0" />
                                           <Label layoutX="321.0" layoutY="448.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" text="Picnic Table (150kr)" />
-                                          <ComboBox fx:id="chairBox" editable="true" layoutX="260.0" layoutY="483.0" onAction="#recalculatePrice" prefHeight="25.0" prefWidth="55.0" />
+                                          <ComboBox fx:id="chairBox" editable="true" layoutX="260.0" layoutY="483.0" prefHeight="25.0" prefWidth="55.0" />
                                           <Label layoutX="321.0" layoutY="483.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" text="Chair (20kr)" />
                                           <Label layoutX="480.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off point:" textAlignment="CENTER" />
                                           <ComboBox fx:id="dropoffBox" layoutX="650.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />

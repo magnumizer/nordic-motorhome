@@ -573,10 +573,15 @@ public class SAController implements Initializable
     {
         float price = 0;
 
+        if (!bikeRackBox.getValue().equals(""))
         price += Accessory.allAccessories.get("Bike Rack").getPrice() * Integer.parseInt(bikeRackBox.getValue());
+        if (!bedLinenBox.getValue().equals(""))
         price += Accessory.allAccessories.get("Bed Linen").getPrice() * Integer.parseInt(bedLinenBox.getValue());
+        if (!childSeatBox.getValue().equals(""))
         price += Accessory.allAccessories.get("Child Seat").getPrice() * Integer.parseInt(childSeatBox.getValue());
+        if (!picnicTableBox.getValue().equals(""))
         price += Accessory.allAccessories.get("Picnic Table").getPrice() * Integer.parseInt(picnicTableBox.getValue());
+        if (!chairBox.getValue().equals(""))
         price += Accessory.allAccessories.get("Chair").getPrice() * Integer.parseInt(chairBox.getValue());
 
         if (selectedMotorhome != null && pickupDate.getValue() != null && dropoffDate.getValue() != null)
@@ -745,8 +750,14 @@ public class SAController implements Initializable
                 {
                     bikeRackBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
                 }
-                bikeRackBox.setValue(newValue);
-                recalculatePrice(null);
+                else
+                {
+                    if(!newValue.matches(""))
+                    {
+                        bikeRackBox.setValue(newValue);
+                        recalculatePrice(null);
+                    }
+                }
             }
         });
 
@@ -759,8 +770,14 @@ public class SAController implements Initializable
                 {
                     bedLinenBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
                 }
-                bedLinenBox.setValue(newValue);
-                recalculatePrice(null);
+                else
+                {
+                    if(!newValue.matches(""))
+                    {
+                        bedLinenBox.setValue(newValue);
+                        recalculatePrice(null);
+                    }
+                }
             }
         });
 
@@ -773,8 +790,14 @@ public class SAController implements Initializable
                 {
                     childSeatBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
                 }
-                childSeatBox.setValue(newValue);
-                recalculatePrice(null);
+                else
+                {
+                    if(!newValue.matches(""))
+                    {
+                        childSeatBox.setValue(newValue);
+                        recalculatePrice(null);
+                    }
+                }
             }
         });
 
@@ -787,8 +810,14 @@ public class SAController implements Initializable
                 {
                     picnicTableBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
                 }
-                picnicTableBox.setValue(newValue);
-                recalculatePrice(null);
+                else
+                {
+                    if(!newValue.matches(""))
+                    {
+                        picnicTableBox.setValue(newValue);
+                        recalculatePrice(null);
+                    }
+                }
             }
         });
 
@@ -801,8 +830,14 @@ public class SAController implements Initializable
                 {
                     chairBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
                 }
-                chairBox.setValue(newValue);
-                recalculatePrice(null);
+                else
+                {
+                    if(!newValue.matches(""))
+                    {
+                        chairBox.setValue(newValue);
+                        recalculatePrice(null);
+                    }
+                }
             }
         });
     }
