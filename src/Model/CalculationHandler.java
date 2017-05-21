@@ -46,7 +46,7 @@ public abstract class CalculationHandler
 
         for (Accessory accessory : accessories)
         {
-            price += accessory.getPrice(); // * accessory.getQuantity(); //multiply by quantity (need gui option to set first)
+            price += accessory.getPrice() * accessory.getQuantity();
         }
 
         return price;
