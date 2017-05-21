@@ -45,9 +45,9 @@ public class SAController implements Initializable
     private TextField tlfField;
 
     @FXML
-    private ComboBox<Customer> customerBox;
+    private Button selectCustomerBtn;
     @FXML
-    private ComboBox<Motorhome> motorhomeBox;
+    private Button selectMotorhomeBtn;
     @FXML
     private DatePicker reservationDate;
     @FXML
@@ -76,6 +76,46 @@ public class SAController implements Initializable
     private CheckBox highSeasonCheck;
     @FXML
     private TextField priceField;
+
+    @FXML
+    private AnchorPane findCustomerPane;
+    @FXML
+    private TextField findCustomerSearchField;
+    @FXML
+    private TableView<Customer> customerTable;
+    @FXML
+    private TableColumn<Customer, String> customerIDCol;
+    @FXML
+    private TableColumn<Customer, String> customerNameCol;
+    @FXML
+    private TableColumn<Customer, String> customerCPRCol;
+    @FXML
+    private TableColumn<Customer, String> customerBirthdayCol;
+    @FXML
+    private TableColumn<Customer, String> customerAddressCol;
+    @FXML
+    private TableColumn<Customer, Integer> customerTlfCol;
+    @FXML
+    private TableColumn<Customer, String> customerEmailCol;
+
+    @FXML
+    private AnchorPane findMotorhomePane;
+    @FXML
+    private TextField findMotorhomeSearchField;
+    @FXML
+    private TableView<Motorhome> motorhomeTable;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeIDCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeModelCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeBrandCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeSizeCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomePriceCol;
+    @FXML
+    private TableColumn<Motorhome, String> motorhomeStatusCol;
 
     @FXML
     private TextField overviewSearchField;
@@ -114,6 +154,9 @@ public class SAController implements Initializable
 
     private StageHandler stageHandler = new StageHandler();
 
+    private Customer selectedCustomer = null;
+    private Motorhome selectedMotorhome = null;
+
     public void onOptionsBtnPressed(ActionEvent actionEvent)
     {
 
@@ -144,7 +187,6 @@ public class SAController implements Initializable
                                 Customer.allCustomers.add(customer);
 
                                 stageHandler.displayInfo("Success", "Customer successfully added to the system", "Press OK to continue");
-                                updateCustomerList();
                                 clearCustomerFields();
                             }
                             else
@@ -194,17 +236,109 @@ public class SAController implements Initializable
         emailField.clear();
     }
 
-    private void updateCustomerList()
+    public void onSelectCustomerBtnPressed(ActionEvent actionEvent)
     {
-        ObservableList<Customer> customers = FXCollections.observableArrayList(Customer.allCustomers);
-        customerBox.setItems(customers);
+        mainTabPane.setDisable(true);
+
+        if (!findCustomerPane.isVisible())
+        {
+            findCustomerSearchField.setText("");
+            customerTable.getItems().setAll(Customer.allCustomers);
+
+            findCustomerPane.setDisable(false);
+            findCustomerPane.setVisible(true);
+        }
+    }
+
+    public void onFindCustomerOKBtnPressed(ActionEvent actionEvent)
+    {
+        if (!customerTable.getSelectionModel().isEmpty())
+        {
+            Customer customer = customerTable.getSelectionModel().getSelectedItem();
+            selectedCustomer = customer;
+            selectCustomerBtn.setText(customer.getName());
+            closeFindPanel();
+        }
+        else
+        {
+            stageHandler.displayError("Selection error", "Customer not selected", "Please select a Customer from the list");
+        }
+    }
+
+    public void onFindCustomerCancelBtnPressed(ActionEvent actionEvent)
+    {
+        closeFindPanel();
+    }
+
+    public void onSelectMotorhomeBtnPressed(ActionEvent actionEvent)
+    {
+        mainTabPane.setDisable(true);
+
+        if (!findMotorhomePane.isVisible())
+        {
+            findMotorhomeSearchField.setText("");
+            motorhomeTable.getItems().setAll(showAvailableMotorhomes(Motorhome.allMotorhomes));
+
+            findMotorhomePane.setDisable(false);
+            findMotorhomePane.setVisible(true);
+        }
+    }
+
+    public void onFindMotorhomeOKBtnPressed(ActionEvent actionEvent)
+    {
+        if (!motorhomeTable.getSelectionModel().isEmpty())
+        {
+            Motorhome motorhome = motorhomeTable.getSelectionModel().getSelectedItem();
+            selectedMotorhome = motorhome;
+            selectMotorhomeBtn.setText(motorhome.getModel());
+            closeFindPanel();
+        }
+        else
+        {
+            stageHandler.displayError("Selection error", "Motorhome not selected", "Please select a Motorhome from the list");
+        }
+    }
+
+    public void onFindMotorhomeCancelBtnPressed(ActionEvent actionEvent)
+    {
+        closeFindPanel();
+    }
+    private void closeFindPanel()
+    {
+        mainTabPane.setDisable(false);
+
+        if (findCustomerPane.isVisible())
+        {
+            findCustomerPane.setVisible(false);
+            findCustomerPane.setDisable(true);
+        }
+        else if (findMotorhomePane.isVisible())
+        {
+            findMotorhomePane.setVisible(false);
+            findMotorhomePane.setDisable(true);
+        }
+    }
+
+    private ArrayList<Motorhome> showAvailableMotorhomes(ArrayList<Motorhome> motorhomeList)
+    {
+        ArrayList<Motorhome> motorhomes = new ArrayList<>();
+
+        for (Motorhome motorhome : motorhomeList)
+        {
+            if (!motorhome.isRentedStatus() && !motorhome.isServiceStatus())
+            {
+                motorhomes.add(motorhome);
+            }
+        }
+
+        return motorhomes;
     }
 
     public void onRegisterBtnPressed(ActionEvent actionEvent)
     {
-        if (!customerBox.getSelectionModel().isEmpty())
+        if (selectedCustomer != null)
         {
-            if (!motorhomeBox.getSelectionModel().isEmpty())
+            if (selectedMotorhome != null)
             {
                 if (reservationDate.getValue() != null)
                 {
@@ -216,7 +350,7 @@ public class SAController implements Initializable
                             {
                                 if (isSeasonSelected())
                                 {
-                                    Reservation reservation = new Reservation(customerBox.getValue(), motorhomeBox.getValue(), reservationDate.getValue(), pickupDate.getValue(), dropoffDate.getValue(), dropoffAddressField.getText(), getSeasonValue());
+                                    Reservation reservation = new Reservation(selectedCustomer, selectedMotorhome, reservationDate.getValue(), pickupDate.getValue(), dropoffDate.getValue(), dropoffAddressField.getText(), getSeasonValue());
                                     addAccessoriesToReservation(reservation);
                                     Reservation.allReservations.add(reservation);
                                     stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
@@ -256,20 +390,22 @@ public class SAController implements Initializable
             else
             {
                 stageHandler.displayError("Motorhome not specified", "Motorhome is missing", "Please select a Motorhome");
-                motorhomeBox.show();
+                onSelectMotorhomeBtnPressed(null);
             }
         }
         else
         {
             stageHandler.displayError("Customer not specified", "Customer is missing", "Please select a Customer");
-            customerBox.show();
+            onSelectCustomerBtnPressed(null);
         }
     }
 
     private void clearReservationFields()
     {
-        customerBox.getSelectionModel().clearSelection();
-        motorhomeBox.getSelectionModel().clearSelection();
+        selectedCustomer = null;
+        selectCustomerBtn.setText("Select a customer");
+        selectedMotorhome = null;
+        selectMotorhomeBtn.setText("Select a motorhome");
         reservationDate.setValue(LocalDate.now());
         pickupDate.setValue(null);
         dropoffDate.setValue(null);
@@ -425,9 +561,9 @@ public class SAController implements Initializable
         if (chairsCheck.isSelected())
             price += Accessory.allAccessories.get("Chair").getPrice();
 
-        if (!motorhomeBox.getSelectionModel().isEmpty() && pickupDate.getValue() != null && dropoffDate.getValue() != null)
+        if (selectedMotorhome != null && pickupDate.getValue() != null && dropoffDate.getValue() != null)
         {
-            price += CalculationHandler.calculateBasePrice(pickupDate.getValue(), dropoffDate.getValue(), motorhomeBox.getValue().getPricePerDay(), getSeasonValue());
+            price += CalculationHandler.calculateBasePrice(pickupDate.getValue(), dropoffDate.getValue(), selectedMotorhome.getPricePerDay(), getSeasonValue());
 
             if (dropoffBox.getSelectionModel().getSelectedIndex() == 1) //if custom drop off point
             {
@@ -444,11 +580,6 @@ public class SAController implements Initializable
         priceField.setText(price);
     }
 
-    private void updateMotorhomeList()
-    {
-        ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList(Motorhome.allMotorhomes);
-        motorhomeBox.setItems(motorhomes);
-    }
 
     private void updateTable(TableView table, ArrayList list)
     {
@@ -469,6 +600,21 @@ public class SAController implements Initializable
         checkoutPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         checkoutServicePriceCol.setCellValueFactory(new PropertyValueFactory<>("servicePrice"));
         checkoutTotalCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+
+        customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        customerCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
+        customerBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        customerTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        customerEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        motorhomeIDCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeID"));
+        motorhomeModelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
+        motorhomeBrandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        motorhomeSizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+        motorhomePriceCol.setCellValueFactory(new PropertyValueFactory<>("pricePerDay"));
+        motorhomeStatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
     private void addListenerHandler()
@@ -536,13 +682,46 @@ public class SAController implements Initializable
 
             }
         });
+
+        findCustomerSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(customerTable, Customer.allCustomers);
+                }
+                else
+                {
+                    updateTable(customerTable, SearchHandler.findCustomer(findCustomerSearchField.getText()));
+                }
+
+            }
+        });
+
+        findMotorhomeSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(motorhomeTable, showAvailableMotorhomes(Motorhome.allMotorhomes));
+                }
+                else
+                {
+                    ArrayList<Motorhome> motorhomes = SearchHandler.findMotorhome(findMotorhomeSearchField.getText());
+                    updateTable(motorhomeTable, showAvailableMotorhomes(motorhomes));
+                }
+
+            }
+        });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        updateCustomerList();
-        updateMotorhomeList();
         dropoffBox.setItems(points);
         setupTableColumns();
         updateTable(overviewRentalTable, Rental.allRentals);

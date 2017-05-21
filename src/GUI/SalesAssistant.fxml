@@ -19,11 +19,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SAController">
    <children>
-      <TabPane tabMinHeight="44.0" tabMinWidth="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="mainTabPane" tabMinHeight="44.0" tabMinWidth="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
             <Tab closable="false" text="Rental">
               <content>
-                  <TabPane side="LEFT" tabMaxWidth="25.0" tabMinHeight="90.0">
+                  <TabPane side="LEFT" tabMaxWidth="20.0" tabMinHeight="85.0">
                      <tabs>
                         <Tab closable="false">
                           <content>
@@ -130,14 +130,14 @@
                                              </font>
                                           </Label>
                                           <Label layoutX="80.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Customer:" textAlignment="CENTER" />
-                                          <ComboBox fx:id="customerBox" layoutX="260.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0" />
+                                          <Button fx:id="selectCustomerBtn" layoutX="260.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectCustomerBtnPressed" prefHeight="25.0" prefWidth="149.0" text="Select a customer" />
                                           <Label layoutX="449.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="269.0" text="Make sure the customer has been registered first." textAlignment="CENTER">
                                              <font>
                                                 <Font name="System Italic" size="12.0" />
                                              </font>
                                           </Label>
                                           <Label layoutX="80.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Motorhome:" textAlignment="CENTER" />
-                                          <ComboBox fx:id="motorhomeBox" layoutX="260.0" layoutY="143.0" prefWidth="150.0" />
+                                          <Button fx:id="selectMotorhomeBtn" layoutX="260.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectMotorhomeBtnPressed" prefHeight="25.0" prefWidth="149.0" text="Select a motorhome" />
                                           <Label layoutX="449.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="269.0" text="Only available motorhomes are shown in the list." textAlignment="CENTER">
                                              <font>
                                                 <Font name="System Italic" size="12.0" />
@@ -192,5 +192,50 @@
       </TabPane>
       <Button layoutX="838.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onOptionsBtnPressed" prefHeight="48.0" prefWidth="94.0" text="Options" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="0.0" />
       <Button layoutX="930.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="48.0" prefWidth="94.0" text="Log out" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="findCustomerPane" disable="true" layoutY="197.0" prefHeight="229.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="150.0">
+         <children>
+            <Label layoutX="286.0" layoutY="57.0" text="Find customer:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="findCustomerSearchField" layoutX="416.0" layoutY="57.0" />
+            <TableView fx:id="customerTable" layoutX="8.0" layoutY="103.0" prefHeight="108.0" prefWidth="910.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="102.0">
+              <columns>
+                <TableColumn fx:id="customerIDCol" editable="false" prefWidth="128.0" text="Customer ID" />
+                <TableColumn fx:id="customerNameCol" editable="false" prefWidth="128.0" text="Name" />
+                  <TableColumn fx:id="customerCPRCol" editable="false" prefWidth="128.0" text="CPR" />
+                  <TableColumn fx:id="customerBirthdayCol" editable="false" prefWidth="128.0" text="Date of birth" />
+                  <TableColumn fx:id="customerAddressCol" editable="false" prefWidth="128.0" text="Address" />
+                  <TableColumn fx:id="customerTlfCol" editable="false" prefWidth="128.0" text="Tlf" />
+                  <TableColumn fx:id="customerEmailCol" editable="false" prefWidth="128.0" text="E-mail" />
+              </columns>
+            </TableView>
+            <Button layoutX="348.0" layoutY="229.0" mnemonicParsing="false" onAction="#onFindCustomerOKBtnPressed" prefHeight="48.0" prefWidth="94.0" text="OK" />
+            <Button layoutX="482.0" layoutY="229.0" mnemonicParsing="false" onAction="#onFindCustomerCancelBtnPressed" prefHeight="48.0" prefWidth="94.0" text="Cancel" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="findMotorhomePane" disable="true" layoutX="50.0" layoutY="150.0" prefHeight="229.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="150.0">
+         <children>
+            <Label layoutX="276.0" layoutY="57.0" text="Find motorhome:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="findMotorhomeSearchField" layoutX="416.0" layoutY="57.0" />
+            <TableView fx:id="motorhomeTable" layoutX="8.0" layoutY="103.0" prefHeight="108.0" prefWidth="910.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="102.0">
+               <columns>
+                  <TableColumn fx:id="motorhomeIDCol" editable="false" prefWidth="148.0" text="Motorhome ID" />
+                  <TableColumn fx:id="motorhomeModelCol" editable="false" prefWidth="148.0" text="Model" />
+                  <TableColumn fx:id="motorhomeBrandCol" editable="false" prefWidth="148.0" text="Brand" />
+                  <TableColumn fx:id="motorhomeSizeCol" editable="false" prefWidth="148.0" text="Size" />
+                  <TableColumn fx:id="motorhomePriceCol" editable="false" prefWidth="148.0" text="Kr./day" />
+                  <TableColumn fx:id="motorhomeStatusCol" editable="false" prefWidth="148.0" text="Status" />
+               </columns>
+            </TableView>
+            <Button layoutX="348.0" layoutY="229.0" mnemonicParsing="false" onAction="#onFindMotorhomeOKBtnPressed" prefHeight="48.0" prefWidth="94.0" text="OK" />
+            <Button layoutX="482.0" layoutY="229.0" mnemonicParsing="false" onAction="#onFindMotorhomeCancelBtnPressed" prefHeight="48.0" prefWidth="94.0" text="Cancel" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

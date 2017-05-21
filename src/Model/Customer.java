@@ -18,7 +18,8 @@ public class Customer extends Person
     private String generateID()
     {
         //logic for generating unique id goes here
-        return "";
+        int val = Customer.allCustomers.size();
+        return val + "";
     }
 
     public String getCustomerID()

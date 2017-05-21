@@ -21,7 +21,8 @@ public class Rental
     private String generateID()
     {
         //logic for generating unique id goes here
-        return "null";
+        int val = Rental.allRentals.size();
+        return val + "";
     }
 
     public String getRentalID()
@@ -33,11 +34,6 @@ public class Rental
     public Reservation getReservation()
     {
         return reservation;
-    }
-
-    public void setReservation(Reservation reservation)
-    {
-        this.reservation = reservation;
     }
 
     public Service getService()
