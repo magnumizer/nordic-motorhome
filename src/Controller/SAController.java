@@ -741,6 +741,22 @@ public class SAController implements Initializable
             }
         });
 
+        bikeRackBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (bikeRackBox.getEditor().getText().length() >= limit)
+                    {
+                        bikeRackBox.getEditor().setText(bikeRackBox.getEditor().getText().substring(0, limit));
+                    }
+                }
+            }
+        });
+
         bikeRackBox.getEditor().textProperty().addListener(new ChangeListener<String>()
         {
             @Override
@@ -752,10 +768,23 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    if(!newValue.matches(""))
+                    bikeRackBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
+
+        bedLinenBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (bedLinenBox.getEditor().getText().length() >= limit)
                     {
-                        bikeRackBox.setValue(newValue);
-                        recalculatePrice(null);
+                        bedLinenBox.getEditor().setText(bedLinenBox.getEditor().getText().substring(0, limit));
                     }
                 }
             }
@@ -772,10 +801,23 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    if(!newValue.matches(""))
+                    bedLinenBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
+
+        childSeatBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (childSeatBox.getEditor().getText().length() >= limit)
                     {
-                        bedLinenBox.setValue(newValue);
-                        recalculatePrice(null);
+                        childSeatBox.getEditor().setText(childSeatBox.getEditor().getText().substring(0, limit));
                     }
                 }
             }
@@ -792,10 +834,23 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    if(!newValue.matches(""))
+                    childSeatBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
+
+        picnicTableBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (picnicTableBox.getEditor().getText().length() >= limit)
                     {
-                        childSeatBox.setValue(newValue);
-                        recalculatePrice(null);
+                        picnicTableBox.getEditor().setText(picnicTableBox.getEditor().getText().substring(0, limit));
                     }
                 }
             }
@@ -812,10 +867,23 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    if(!newValue.matches(""))
+                    picnicTableBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
+
+        chairBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (chairBox.getEditor().getText().length() >= limit)
                     {
-                        picnicTableBox.setValue(newValue);
-                        recalculatePrice(null);
+                        chairBox.getEditor().setText(chairBox.getEditor().getText().substring(0, limit));
                     }
                 }
             }
@@ -832,11 +900,8 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    if(!newValue.matches(""))
-                    {
-                        chairBox.setValue(newValue);
-                        recalculatePrice(null);
-                    }
+                    chairBox.setValue(newValue);
+                    recalculatePrice(null);
                 }
             }
         });
