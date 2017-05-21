@@ -1044,7 +1044,7 @@ public class AController implements Initializable
         table.getItems().setAll(list);
     }
 
-    public void resetTables()
+    private void resetTables()
     {
         staffTable.getItems().setAll(Employee.allEmployees);
         customerTable.getItems().setAll(Customer.allCustomers);

@@ -43,7 +43,8 @@ public class Reservation
     private String generateID()
     {
         //logic for generating unique id goes here
-        return "";
+        int val = Reservation.allReservations.size();
+        return val + "";
     }
 
     public String getReservationID()
