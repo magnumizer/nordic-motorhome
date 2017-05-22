@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -62,14 +63,7 @@ public class LController implements Initializable
         }
     }
 
-
-    public void onExitBtnPressed(ActionEvent actionEvent)
-    {
-        stageHandler.closeProgram();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
+    public void info(ActionEvent actionEvent)
     {
         //get data from db later, for now add here
 
@@ -116,17 +110,30 @@ public class LController implements Initializable
         Motorhome.allMotorhomes.add(motorhome3);
 
         //add accessories here for now, get from db later (crud in admin?)
-        Accessory bikeRack = new Accessory("Bike Rack", 100, 1);
-        Accessory bedLinen = new Accessory("Bed Linen", 10, 1);
-        Accessory childSeat = new Accessory("Child Seat", 50, 1);
-        Accessory picnicTable = new Accessory("Picnic Table", 150, 1);
-        Accessory chair = new Accessory("Chair", 50, 4);
+        Accessory bikeRack = new Accessory("Bike Rack", 100, 35);
+        Accessory bedLinen = new Accessory("Bed Linen", 10, 150);
+        Accessory childSeat = new Accessory("Child Seat", 50, 80);
+        Accessory picnicTable = new Accessory("Picnic Table", 150, 10);
+        Accessory chair = new Accessory("Chair", 50, 200);
 
         Accessory.allAccessories.put(bikeRack.getType(), bikeRack);
         Accessory.allAccessories.put(bedLinen.getType(), bedLinen);
         Accessory.allAccessories.put(childSeat.getType(), childSeat);
         Accessory.allAccessories.put(picnicTable.getType(), picnicTable);
         Accessory.allAccessories.put(chair.getType(), chair);
+
+        System.out.println("data added to program");
+    }
+
+    public void onExitBtnPressed(ActionEvent actionEvent)
+    {
+        stageHandler.closeProgram();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+
 
     }
 }

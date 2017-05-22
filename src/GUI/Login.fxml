@@ -29,5 +29,6 @@
       <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="213.0" />
       <Button defaultButton="true" layoutX="267.0" layoutY="281.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginBtnPressed" prefHeight="30.0" prefWidth="65.0" text="Log In" />
       <Button cancelButton="true" layoutX="267.0" layoutY="333.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onExitBtnPressed" prefHeight="30.0" prefWidth="65.0" text="Exit" />
+      <Button layoutX="420.0" layoutY="188.0" mnemonicParsing="false" onAction="#info" text="add info (click only once)" />
    </children>
 </AnchorPane>

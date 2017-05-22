@@ -17,6 +17,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 
 public class SAController implements Initializable
@@ -440,22 +441,50 @@ public class SAController implements Initializable
 
     private void addAccessoriesToReservation(Reservation reservation)
     {
+        Hashtable<Accessory, Integer> accessories = new Hashtable<>();
         int bikeRackQuantity = Integer.parseInt(bikeRackBox.getValue());
         int bedLinenQuantity = Integer.parseInt(bedLinenBox.getValue());
         int childSeatQuantity = Integer.parseInt(childSeatBox.getValue());
         int picnicTableQuantity = Integer.parseInt(picnicTableBox.getValue());
         int chairQuantity = Integer.parseInt(chairBox.getValue());
 
-        if (bikeRackQuantity > 0)
-            reservation.addAccessory(new Accessory("Bike Rack", Accessory.allAccessories.get("Bike Rack").getPrice(), bikeRackQuantity));
-        if (bedLinenQuantity > 0)
-            reservation.addAccessory(new Accessory("Bed Linen", Accessory.allAccessories.get("Bed Linen").getPrice(), bedLinenQuantity));
-        if (childSeatQuantity > 0)
-            reservation.addAccessory(new Accessory("Child Seat", Accessory.allAccessories.get("Child Seat").getPrice(), childSeatQuantity));
-        if (picnicTableQuantity > 0)
-            reservation.addAccessory(new Accessory("Picnic Table", Accessory.allAccessories.get("Picnic Table").getPrice(), picnicTableQuantity));
-        if (chairQuantity > 0)
-            reservation.addAccessory(new Accessory("Chair", Accessory.allAccessories.get("Chair").getPrice(), chairQuantity));
+        if (bikeRackQuantity >= 0)
+        {
+            Accessory bikeRack = Accessory.allAccessories.get("Bike Rack");
+            int quantity = bikeRack.getQuantity() - bikeRackQuantity;
+            bikeRack.setQuantity(quantity);
+            accessories.put(bikeRack, bikeRackQuantity);
+        }
+        if (bedLinenQuantity >= 0)
+        {
+            Accessory bedLinen = Accessory.allAccessories.get("Bed Linen");
+            int quantity = bedLinen.getQuantity() - bedLinenQuantity;
+            bedLinen.setQuantity(quantity);
+            accessories.put(bedLinen, bedLinenQuantity);
+        }
+        if (childSeatQuantity >= 0)
+        {
+            Accessory childSeat = Accessory.allAccessories.get("Child Seat");
+            int quantity = childSeat.getQuantity() - childSeatQuantity;
+            childSeat.setQuantity(quantity);
+            accessories.put(childSeat, childSeatQuantity);
+        }
+        if (picnicTableQuantity >= 0)
+        {
+            Accessory picnicTable = Accessory.allAccessories.get("Picnic Table");
+            int quantity = picnicTable.getQuantity() - picnicTableQuantity;
+            picnicTable.setQuantity(quantity);
+            accessories.put(picnicTable, picnicTableQuantity);
+        }
+        if (chairQuantity >= 0)
+        {
+            Accessory chair = Accessory.allAccessories.get("Chair");
+            int quantity = chair.getQuantity() - chairQuantity;
+            chair.setQuantity(quantity);
+            accessories.put(chair, chairQuantity);
+        }
+
+        reservation.setAccessories(accessories);
     }
 
     private void handleDropoffAddressField(boolean custom)
@@ -741,21 +770,6 @@ public class SAController implements Initializable
             }
         });
 
-        bikeRackBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
-            {
-                if (newValue.intValue() > oldValue.intValue())
-                {
-                    int limit = 2;
-                    if (bikeRackBox.getEditor().getText().length() >= limit)
-                    {
-                        bikeRackBox.getEditor().setText(bikeRackBox.getEditor().getText().substring(0, limit));
-                    }
-                }
-            }
-        });
 
         bikeRackBox.getEditor().textProperty().addListener(new ChangeListener<String>()
         {
@@ -768,24 +782,19 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    bikeRackBox.setValue(newValue);
-                    recalculatePrice(null);
-                }
-            }
-        });
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = Accessory.allAccessories.get("Bike Rack").getQuantity();
 
-        bedLinenBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
-            {
-                if (newValue.intValue() > oldValue.intValue())
-                {
-                    int limit = 2;
-                    if (bedLinenBox.getEditor().getText().length() >= limit)
+                    if (inputVal > limitVal)
                     {
-                        bedLinenBox.getEditor().setText(bedLinenBox.getEditor().getText().substring(0, limit));
+                        bikeRackBox.getEditor().setText(limitVal + "");
+                        bikeRackBox.setValue(limitVal + "");
                     }
+                    else
+                    {
+                        bikeRackBox.setValue(newValue);
+                    }
+                    recalculatePrice(null);
                 }
             }
         });
@@ -801,24 +810,19 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    bedLinenBox.setValue(newValue);
-                    recalculatePrice(null);
-                }
-            }
-        });
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = Accessory.allAccessories.get("Bed Linen").getQuantity();
 
-        childSeatBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
-            {
-                if (newValue.intValue() > oldValue.intValue())
-                {
-                    int limit = 2;
-                    if (childSeatBox.getEditor().getText().length() >= limit)
+                    if (inputVal > limitVal)
                     {
-                        childSeatBox.getEditor().setText(childSeatBox.getEditor().getText().substring(0, limit));
+                        bedLinenBox.getEditor().setText(limitVal + "");
+                        bedLinenBox.setValue(limitVal + "");
                     }
+                    else
+                    {
+                        bedLinenBox.setValue(newValue);
+                    }
+                    recalculatePrice(null);
                 }
             }
         });
@@ -834,24 +838,19 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    childSeatBox.setValue(newValue);
-                    recalculatePrice(null);
-                }
-            }
-        });
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = Accessory.allAccessories.get("Child Seat").getQuantity();
 
-        picnicTableBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
-            {
-                if (newValue.intValue() > oldValue.intValue())
-                {
-                    int limit = 2;
-                    if (picnicTableBox.getEditor().getText().length() >= limit)
+                    if (inputVal > limitVal)
                     {
-                        picnicTableBox.getEditor().setText(picnicTableBox.getEditor().getText().substring(0, limit));
+                        childSeatBox.getEditor().setText(limitVal + "");
+                        childSeatBox.setValue(limitVal + "");
                     }
+                    else
+                    {
+                        childSeatBox.setValue(newValue);
+                    }
+                    recalculatePrice(null);
                 }
             }
         });
@@ -867,24 +866,19 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    picnicTableBox.setValue(newValue);
-                    recalculatePrice(null);
-                }
-            }
-        });
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = Accessory.allAccessories.get("Picnic Table").getQuantity();
 
-        chairBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
-            {
-                if (newValue.intValue() > oldValue.intValue())
-                {
-                    int limit = 2;
-                    if (chairBox.getEditor().getText().length() >= limit)
+                    if (inputVal > limitVal)
                     {
-                        chairBox.getEditor().setText(chairBox.getEditor().getText().substring(0, limit));
+                        picnicTableBox.getEditor().setText(limitVal + "");
+                        picnicTableBox.setValue(limitVal + "");
                     }
+                    else
+                    {
+                        picnicTableBox.setValue(newValue);
+                    }
+                    recalculatePrice(null);
                 }
             }
         });
@@ -900,7 +894,18 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    chairBox.setValue(newValue);
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = Accessory.allAccessories.get("Chair").getQuantity();
+
+                    if (inputVal > limitVal)
+                    {
+                        chairBox.getEditor().setText(limitVal + "");
+                        chairBox.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        chairBox.setValue(newValue);
+                    }
                     recalculatePrice(null);
                 }
             }

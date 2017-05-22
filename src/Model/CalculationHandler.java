@@ -2,7 +2,7 @@ package Model;//Magnus Svendsen DAT16i
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+import java.util.Hashtable;
 
 public abstract class CalculationHandler
 {
@@ -40,13 +40,13 @@ public abstract class CalculationHandler
         return 100 * Reservation.getTransferCost();
     }
 
-    public static float calculateAccessorySum(ArrayList<Accessory> accessories)
+    public static float calculateAccessorySum(Hashtable<Accessory, Integer> accessories)
     {
         float price = 0;
 
-        for (Accessory accessory : accessories)
+        for (Accessory accessory : accessories.keySet())
         {
-            price += accessory.getPrice() * accessory.getQuantity();
+            price += accessory.getPrice() * accessories.get(accessory);
         }
 
         return price;

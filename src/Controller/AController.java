@@ -11,11 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 
 public class AController implements Initializable
@@ -32,6 +32,21 @@ public class AController implements Initializable
                     "Small",
                     "Medium",
                     "Large"
+            );
+
+    ObservableList<String> quantities =
+            FXCollections.observableArrayList(
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10"
             );
 
     //region FXML
@@ -210,15 +225,15 @@ public class AController implements Initializable
     @FXML
     private TextField editReservationAddress;
     @FXML
-    private CheckBox bikeRackCheck;
+    private ComboBox<String> bikeRackBox;
     @FXML
-    private CheckBox bedLinenCheck;
+    private ComboBox<String> bedLinenBox;
     @FXML
-    private CheckBox childSeatCheck;
+    private ComboBox<String> childSeatBox;
     @FXML
-    private CheckBox picnicTableCheck;
+    private ComboBox<String> picnicTableBox;
     @FXML
-    private CheckBox chairsCheck;
+    private ComboBox<String> chairBox;
 
     @FXML
     private AnchorPane editMotorhomePane;
@@ -395,6 +410,7 @@ public class AController implements Initializable
         usernameField.clear();
         passwordField.clear();
         confirmField.clear();
+        confirmLabel.setStyle("-fx-text-fill: black");
     }
 
     public void onAddMotorhomeBtnPressed(ActionEvent actionEvent)
@@ -556,19 +572,15 @@ public class AController implements Initializable
                         editReservationDropoff.setValue(reservation.getDropoffDate());
                         editReservationAddress.setText(reservation.getDropoffAddress());
 
-                        for (Accessory accessory : reservation.getAccessories())
-                        {
-                            if (accessory.getType().equals("Bike Rack"))
-                                bikeRackCheck.setSelected(true);
-                            if (accessory.getType().equals("Bed Linen"))
-                                bedLinenCheck.setSelected(true);
-                            if (accessory.getType().equals("Child Seat"))
-                                childSeatCheck.setSelected(true);
-                            if (accessory.getType().equals("Picnic Table"))
-                                picnicTableCheck.setSelected(true);
-                            if (accessory.getType().equals("Chairs"))
-                                chairsCheck.setSelected(true);
-                        }
+                        Hashtable<Accessory, Integer> accessories = reservation.getAccessories();
+
+
+
+                        bikeRackBox.setValue(accessories.get(Accessory.allAccessories.get("Bike Rack")) + "");
+                        bedLinenBox.setValue(accessories.get(Accessory.allAccessories.get("Bed Linen")) + "");
+                        childSeatBox.setValue(accessories.get(Accessory.allAccessories.get("Child Seat")) + "");
+                        picnicTableBox.setValue(accessories.get(Accessory.allAccessories.get("Picnic Table")) + "");
+                        chairBox.setValue(accessories.get(Accessory.allAccessories.get("Chair")) + "");
 
                         editReservationPane.setDisable(false);
                         editReservationPane.setVisible(true);
@@ -845,23 +857,11 @@ public class AController implements Initializable
                 reservation.setDropoffDate(editReservationDropoff.getValue());
                 reservation.setDropoffAddress(editReservationAddress.getText());
 
-                ArrayList<Accessory> accessories = new ArrayList<>();
-
-                if (bikeRackCheck.isSelected())
-                    accessories.add(Accessory.allAccessories.get("Bike Rack"));
-                if (bedLinenCheck.isSelected())
-                    accessories.add(Accessory.allAccessories.get("Bed Linen"));
-                if (childSeatCheck.isSelected())
-                    accessories.add(Accessory.allAccessories.get("Child Seat"));
-                if (picnicTableCheck.isSelected())
-                    accessories.add(Accessory.allAccessories.get("Picnic Table"));
-                if (chairsCheck.isSelected())
-                    accessories.add(Accessory.allAccessories.get("Chair"));
-
-                reservation.setAccessories(accessories);
+                addAccessoriesToReservation(reservation);
 
                 stageHandler.displayInfo("Success", "Reservation details have been changed", "Press OK to continue");
                 reservationTable.getItems().setAll(Reservation.allReservations);
+                accessoryTable.getItems().setAll(Accessory.allAccessories.values());
                 closeEditPanel();
             }
             else
@@ -875,6 +875,55 @@ public class AController implements Initializable
             stageHandler.displayError("Pick up date not specified", "Pick up date is missing", "Please enter a pick up date");
             editReservationPickup.show();
         }
+    }
+
+    private void addAccessoriesToReservation(Reservation reservation)
+    {
+        Hashtable<Accessory, Integer> currentAccessories = reservation.getAccessories();
+        Hashtable<Accessory, Integer> accessories = new Hashtable<>();
+        int bikeRackQuantity = Integer.parseInt(bikeRackBox.getValue());
+        int bedLinenQuantity = Integer.parseInt(bedLinenBox.getValue());
+        int childSeatQuantity = Integer.parseInt(childSeatBox.getValue());
+        int picnicTableQuantity = Integer.parseInt(picnicTableBox.getValue());
+        int chairQuantity = Integer.parseInt(chairBox.getValue());
+
+        if (bikeRackQuantity >= 0)
+        {
+            Accessory bikeRack = Accessory.allAccessories.get("Bike Rack");
+            int quantity = bikeRack.getQuantity() - bikeRackQuantity + currentAccessories.get(bikeRack);
+            bikeRack.setQuantity(quantity);
+            accessories.put(bikeRack, bikeRackQuantity);
+        }
+        if (bedLinenQuantity >= 0)
+        {
+            Accessory bedLinen = Accessory.allAccessories.get("Bed Linen");
+            int quantity = bedLinen.getQuantity() - bedLinenQuantity + currentAccessories.get(bedLinen);
+            bedLinen.setQuantity(quantity);
+            accessories.put(bedLinen, bedLinenQuantity);
+        }
+        if (childSeatQuantity >= 0)
+        {
+            Accessory childSeat = Accessory.allAccessories.get("Child Seat");
+            int quantity = childSeat.getQuantity() - childSeatQuantity + currentAccessories.get(childSeat);
+            childSeat.setQuantity(quantity);
+            accessories.put(childSeat, childSeatQuantity);
+        }
+        if (picnicTableQuantity >= 0)
+        {
+            Accessory picnicTable = Accessory.allAccessories.get("Picnic Table");
+            int quantity = picnicTable.getQuantity() - picnicTableQuantity + currentAccessories.get(picnicTable);
+            picnicTable.setQuantity(quantity);
+            accessories.put(picnicTable, picnicTableQuantity);
+        }
+        if (chairQuantity >= 0)
+        {
+            Accessory chair = Accessory.allAccessories.get("Chair");
+            int quantity = chair.getQuantity() - chairQuantity + currentAccessories.get(chair);
+            chair.setQuantity(quantity);
+            accessories.put(chair, chairQuantity);
+        }
+
+        reservation.setAccessories(accessories);
     }
 
     private void editMotorhome()
@@ -1036,7 +1085,7 @@ public class AController implements Initializable
 
         accessoryTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         accessoryPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        accessoryQuantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));//change this please
+        accessoryQuantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     }
 
     private void updateTable(TableView table, ArrayList list)
@@ -1184,6 +1233,142 @@ public class AController implements Initializable
                 }
             }
         });
+
+
+        bikeRackBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    bikeRackBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        bikeRackBox.getEditor().setText(limitVal + "");
+                        bikeRackBox.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        bikeRackBox.setValue(newValue);
+                    }
+                }
+            }
+        });
+
+        bedLinenBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    bedLinenBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        bedLinenBox.getEditor().setText(limitVal + "");
+                        bedLinenBox.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        bedLinenBox.setValue(newValue);
+                    }
+                }
+            }
+        });
+
+        childSeatBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    childSeatBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        childSeatBox.getEditor().setText(limitVal + "");
+                        childSeatBox.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        childSeatBox.setValue(newValue);
+                    }
+                }
+            }
+        });
+
+        picnicTableBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    picnicTableBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        picnicTableBox.getEditor().setText(limitVal + "");
+                        picnicTableBox.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        picnicTableBox.setValue(newValue);
+                    }
+                }
+            }
+        });
+
+        chairBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    chairBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        chairBox.getEditor().setText(limitVal + "");
+                        chairBox.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        chairBox.setValue(newValue);
+                    }
+                }
+            }
+        });
     }
 
     private void addSearchListeners()
@@ -1279,6 +1464,11 @@ public class AController implements Initializable
         resetTables();
         positionBox.setItems(positions);
         sizeBox.setItems(sizes);
+        bikeRackBox.setItems(quantities);
+        bedLinenBox.setItems(quantities);
+        childSeatBox.setItems(quantities);
+        picnicTableBox.setItems(quantities);
+        chairBox.setItems(quantities);
         forceNumericValues();
         addSearchListeners();
     }
