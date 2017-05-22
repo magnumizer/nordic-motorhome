@@ -27,6 +27,21 @@ public class SAController implements Initializable
                     "Custom"
             );
 
+    ObservableList<String> quantities =
+            FXCollections.observableArrayList(
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10"
+            );
+
     //region FXML
     @FXML
     private TabPane mainTabPane;
@@ -55,15 +70,15 @@ public class SAController implements Initializable
     @FXML
     private DatePicker dropoffDate;
     @FXML
-    private CheckBox bikeRackCheck;
+    private ComboBox<String> bikeRackBox;
     @FXML
-    private CheckBox bedLinenCheck;
+    private ComboBox<String> bedLinenBox;
     @FXML
-    private CheckBox childSeatCheck;
+    private ComboBox<String> childSeatBox;
     @FXML
-    private CheckBox picnicTableCheck;
+    private ComboBox<String> picnicTableBox;
     @FXML
-    private CheckBox chairsCheck;
+    private ComboBox<String> chairBox;
     @FXML
     private ComboBox<String> dropoffBox;
     @FXML
@@ -404,16 +419,18 @@ public class SAController implements Initializable
     {
         selectedCustomer = null;
         selectCustomerBtn.setText("Select a customer");
+        customerTable.getSelectionModel().clearSelection();
         selectedMotorhome = null;
         selectMotorhomeBtn.setText("Select a motorhome");
+        motorhomeTable.getSelectionModel().clearSelection();
         reservationDate.setValue(LocalDate.now());
         pickupDate.setValue(null);
         dropoffDate.setValue(null);
-        bikeRackCheck.setSelected(false);
-        bedLinenCheck.setSelected(false);
-        childSeatCheck.setSelected(false);
-        picnicTableCheck.setSelected(false);
-        chairsCheck.setSelected(false);
+        bikeRackBox.setValue("0");
+        bedLinenBox.setValue("0");
+        childSeatBox.setValue("0");
+        picnicTableBox.setValue("0");
+        chairBox.setValue("0");
         dropoffBox.getSelectionModel().selectFirst();
         lowSeasonCheck.setSelected(false);
         midSeasonCheck.setSelected(false);
@@ -423,16 +440,22 @@ public class SAController implements Initializable
 
     private void addAccessoriesToReservation(Reservation reservation)
     {
-        if (bikeRackCheck.isSelected())
-            reservation.addAccessory(Accessory.allAccessories.get("Bike Rack"));
-        if (bedLinenCheck.isSelected())
-            reservation.addAccessory(Accessory.allAccessories.get("Bed Linen"));
-        if (childSeatCheck.isSelected())
-            reservation.addAccessory(Accessory.allAccessories.get("Child Seat"));
-        if (picnicTableCheck.isSelected())
-            reservation.addAccessory(Accessory.allAccessories.get("Picnic Table"));
-        if (chairsCheck.isSelected())
-            reservation.addAccessory(Accessory.allAccessories.get("Chair"));
+        int bikeRackQuantity = Integer.parseInt(bikeRackBox.getValue());
+        int bedLinenQuantity = Integer.parseInt(bedLinenBox.getValue());
+        int childSeatQuantity = Integer.parseInt(childSeatBox.getValue());
+        int picnicTableQuantity = Integer.parseInt(picnicTableBox.getValue());
+        int chairQuantity = Integer.parseInt(chairBox.getValue());
+
+        if (bikeRackQuantity > 0)
+            reservation.addAccessory(new Accessory("Bike Rack", Accessory.allAccessories.get("Bike Rack").getPrice(), bikeRackQuantity));
+        if (bedLinenQuantity > 0)
+            reservation.addAccessory(new Accessory("Bed Linen", Accessory.allAccessories.get("Bed Linen").getPrice(), bedLinenQuantity));
+        if (childSeatQuantity > 0)
+            reservation.addAccessory(new Accessory("Child Seat", Accessory.allAccessories.get("Child Seat").getPrice(), childSeatQuantity));
+        if (picnicTableQuantity > 0)
+            reservation.addAccessory(new Accessory("Picnic Table", Accessory.allAccessories.get("Picnic Table").getPrice(), picnicTableQuantity));
+        if (chairQuantity > 0)
+            reservation.addAccessory(new Accessory("Chair", Accessory.allAccessories.get("Chair").getPrice(), chairQuantity));
     }
 
     private void handleDropoffAddressField(boolean custom)
@@ -550,16 +573,16 @@ public class SAController implements Initializable
     {
         float price = 0;
 
-        if (bikeRackCheck.isSelected())
-            price += Accessory.allAccessories.get("Bike Rack").getPrice();
-        if (bedLinenCheck.isSelected())
-            price += Accessory.allAccessories.get("Bed Linen").getPrice();
-        if (childSeatCheck.isSelected())
-            price += Accessory.allAccessories.get("Child Seat").getPrice();
-        if (picnicTableCheck.isSelected())
-            price += Accessory.allAccessories.get("Picnic Table").getPrice();
-        if (chairsCheck.isSelected())
-            price += Accessory.allAccessories.get("Chair").getPrice();
+        if (!bikeRackBox.getValue().equals(""))
+        price += Accessory.allAccessories.get("Bike Rack").getPrice() * Integer.parseInt(bikeRackBox.getValue());
+        if (!bedLinenBox.getValue().equals(""))
+        price += Accessory.allAccessories.get("Bed Linen").getPrice() * Integer.parseInt(bedLinenBox.getValue());
+        if (!childSeatBox.getValue().equals(""))
+        price += Accessory.allAccessories.get("Child Seat").getPrice() * Integer.parseInt(childSeatBox.getValue());
+        if (!picnicTableBox.getValue().equals(""))
+        price += Accessory.allAccessories.get("Picnic Table").getPrice() * Integer.parseInt(picnicTableBox.getValue());
+        if (!chairBox.getValue().equals(""))
+        price += Accessory.allAccessories.get("Chair").getPrice() * Integer.parseInt(chairBox.getValue());
 
         if (selectedMotorhome != null && pickupDate.getValue() != null && dropoffDate.getValue() != null)
         {
@@ -717,12 +740,182 @@ public class SAController implements Initializable
 
             }
         });
+
+        bikeRackBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (bikeRackBox.getEditor().getText().length() >= limit)
+                    {
+                        bikeRackBox.getEditor().setText(bikeRackBox.getEditor().getText().substring(0, limit));
+                    }
+                }
+            }
+        });
+
+        bikeRackBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    bikeRackBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    bikeRackBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
+
+        bedLinenBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (bedLinenBox.getEditor().getText().length() >= limit)
+                    {
+                        bedLinenBox.getEditor().setText(bedLinenBox.getEditor().getText().substring(0, limit));
+                    }
+                }
+            }
+        });
+
+        bedLinenBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    bedLinenBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    bedLinenBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
+
+        childSeatBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (childSeatBox.getEditor().getText().length() >= limit)
+                    {
+                        childSeatBox.getEditor().setText(childSeatBox.getEditor().getText().substring(0, limit));
+                    }
+                }
+            }
+        });
+
+        childSeatBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    childSeatBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    childSeatBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
+
+        picnicTableBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (picnicTableBox.getEditor().getText().length() >= limit)
+                    {
+                        picnicTableBox.getEditor().setText(picnicTableBox.getEditor().getText().substring(0, limit));
+                    }
+                }
+            }
+        });
+
+        picnicTableBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    picnicTableBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    picnicTableBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
+
+        chairBox.getEditor().lengthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                    int limit = 2;
+                    if (chairBox.getEditor().getText().length() >= limit)
+                    {
+                        chairBox.getEditor().setText(chairBox.getEditor().getText().substring(0, limit));
+                    }
+                }
+            }
+        });
+
+        chairBox.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    chairBox.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    chairBox.setValue(newValue);
+                    recalculatePrice(null);
+                }
+            }
+        });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         dropoffBox.setItems(points);
+        bikeRackBox.setItems(quantities);
+        bedLinenBox.setItems(quantities);
+        childSeatBox.setItems(quantities);
+        picnicTableBox.setItems(quantities);
+        chairBox.setItems(quantities);
         setupTableColumns();
         updateTable(overviewRentalTable, Rental.allRentals);
         updateTable(checkoutRentalTable, Rental.allRentals);
