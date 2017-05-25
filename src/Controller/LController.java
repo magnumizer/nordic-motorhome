@@ -1,13 +1,9 @@
 package Controller;//Magnus Svendsen DAT16i
 
 import Model.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -89,15 +85,6 @@ public class LController implements Initializable
         }
 
 
-        //add example customer for now
-        Customer customer = new Customer("alfred", "asd", LocalDate.now(), "cxz", 345, "zxc");
-        Customer.allCustomers.add(customer);
-
-        Customer customer1 = new Customer("tom", "asd", LocalDate.now(), "cxz", 345, "zxc");
-        Customer.allCustomers.add(customer1);
-
-        Customer customer2 = new Customer("sofia", "asd", LocalDate.now(), "cxz", 345, "zxc");
-        Customer.allCustomers.add(customer2);
 
         //add example motorhome for now
         Motorhome motorhome1 = new Motorhome("example1", "ad", "ad", 500f);

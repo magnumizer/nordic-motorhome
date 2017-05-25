@@ -150,7 +150,7 @@ public abstract class SearchHandler
 
         for (Motorhome motorhome : Motorhome.allMotorhomes)
         {
-            if (motorhome.getMotorhomeID().toLowerCase().contains(searchString))
+            if (String.valueOf(motorhome.getMotorhomeID()).contains(searchString))
             {
                 foundMotorhomes.add(motorhome);
                 continue;

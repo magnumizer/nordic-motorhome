@@ -7,7 +7,7 @@ public class Motorhome
 {
     public static ArrayList<Motorhome> allMotorhomes = new ArrayList<>();
 
-    String motorhomeID;
+    int motorhomeID;
     String model;
     String brand;
     String size;
@@ -22,22 +22,26 @@ public class Motorhome
         this.brand = brand;
         this.size = size;
         this.pricePerDay = pricePerDay;
-        this.motorhomeID = generateID();
+
     }
 
-    private String generateID()
+    public Motorhome(int motorhomeID,String model, String brand, String size, float pricePerDay)
     {
-        //logic for generating unique id goes here
-        int val = Motorhome.allMotorhomes.size();
-        return val + "";
+        this.motorhomeID=motorhomeID;
+        this.model = model;
+        this.brand = brand;
+        this.size = size;
+        this.pricePerDay = pricePerDay;
+
     }
 
-    public String getMotorhomeID()
+
+    public int getMotorhomeID()
     {
         return motorhomeID;
     }
 
-    public void setMotorhomeID(String motorhomeID)
+    public void setMotorhomeID(int motorhomeID)
     {
         this.motorhomeID = motorhomeID;
     }

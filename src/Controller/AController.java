@@ -1,5 +1,6 @@
 package Controller;//Magnus Svendsen DAT16i
 
+import DB.DBWrapper;
 import Model.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -155,7 +156,7 @@ public class AController implements Initializable
     @FXML
     private TextField tlfField;
     @FXML
-    private ComboBox<String> positionBox;
+    protected ComboBox<String> positionBox;
     @FXML
     private TextField usernameField;
     @FXML
@@ -258,6 +259,8 @@ public class AController implements Initializable
     private TextField editAccessoryAmount;
     //endregion
 
+    DBWrapper wrapper= new DBWrapper();
+
     private StageHandler stageHandler = new StageHandler();
 
     public void onOptionsBtnPressed(ActionEvent actionEvent)
@@ -302,23 +305,24 @@ public class AController implements Initializable
                                                         {
                                                             case "Admin":
                                                                 Admin admin = new Admin(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
-                                                                Employee.allEmployees.add(admin);
+                                                                wrapper.addEmployee(admin);
                                                                 stageHandler.displayInfo("Success", "Admin successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             case "Sales Assistant":
                                                                 SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
-                                                                Employee.allEmployees.add(salesAssistant);
+                                                                wrapper.addEmployee(salesAssistant);
                                                                 stageHandler.displayInfo("Success", "Sales Assistant successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             case "Auto Mechanic":
                                                                 AutoMechanic autoMechanic = new AutoMechanic(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
-                                                                Employee.allEmployees.add(autoMechanic);
+                                                                wrapper.addEmployee(autoMechanic);
                                                                 stageHandler.displayInfo("Success", "Auto Mechanic successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             default:
                                                                 System.out.println("Error in positionBox reference.");
                                                                 break;
                                                         }
+
 
                                                         staffTable.getItems().setAll(Employee.allEmployees);
                                                         clearStaffFields();
@@ -398,6 +402,12 @@ public class AController implements Initializable
         }
     }
 
+    public String getSelectedPosition(){
+
+        return positionBox.getValue();
+
+    }
+
     private void clearStaffFields()
     {
         nameField.clear();
@@ -427,7 +437,7 @@ public class AController implements Initializable
                         number = CalculationHandler.clamp(number, 0, 999999);
 
                         Motorhome motorhome = new Motorhome(modelField.getText(), brandField.getText(), sizeBox.getValue(), number);
-                        Motorhome.allMotorhomes.add(motorhome);
+                        wrapper.addMotorhome(motorhome);
 
                         stageHandler.displayInfo("Success", "Motorhome successfully added to the system", "Press OK to continue");
                         motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
@@ -943,6 +953,7 @@ public class AController implements Initializable
                     motorhome.setSize(editMotorhomeSizeBox.getValue());
                     motorhome.setPricePerDay(number);
 
+                    wrapper.updateMotorhome (motorhome);
                     if (editMotorhomeStatusBox.getValue().equals("Rented"))
                     {
                         motorhome.setRentedStatus(true);
@@ -1052,6 +1063,7 @@ public class AController implements Initializable
 
     private void setupTableColumns()
     {
+        wrapper.getEmployee();
         staffNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         staffCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
         staffBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
@@ -1060,7 +1072,7 @@ public class AController implements Initializable
         staffEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         staffUserCol.setCellValueFactory(new PropertyValueFactory<>("username"));
 
-        customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        wrapper.getCustomer();
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         customerCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
         customerBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
@@ -1076,6 +1088,8 @@ public class AController implements Initializable
         reservationDropoffCol.setCellValueFactory(new PropertyValueFactory<>("dropoffDate"));
         reservationPriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
 
+
+        wrapper.getMotorhomes();
         motorhomeIDCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeID"));
         motorhomeModelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
         motorhomeBrandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));
@@ -1098,6 +1112,7 @@ public class AController implements Initializable
         staffTable.getItems().setAll(Employee.allEmployees);
         customerTable.getItems().setAll(Customer.allCustomers);
         reservationTable.getItems().setAll(Reservation.allReservations);
+
         motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
         accessoryTable.getItems().setAll(Accessory.allAccessories.values());
     }
@@ -1462,6 +1477,7 @@ public class AController implements Initializable
     {
         setupTableColumns();
         resetTables();
+
         positionBox.setItems(positions);
         sizeBox.setItems(sizes);
         bikeRackBox.setItems(quantities);

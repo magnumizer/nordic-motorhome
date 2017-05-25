@@ -1,5 +1,6 @@
 package Controller;//Magnus Svendsen DAT16i
 
+import DB.DBWrapper;
 import Model.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -173,6 +174,8 @@ public class SAController implements Initializable
     private Customer selectedCustomer = null;
     private Motorhome selectedMotorhome = null;
 
+    private DBWrapper wrapper= new DBWrapper();
+
     public void onOptionsBtnPressed(ActionEvent actionEvent)
     {
 
@@ -200,7 +203,8 @@ public class SAController implements Initializable
                                 int number = Integer.parseInt(tlfField.getText());
 
                                 Customer customer = new Customer(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
-                                Customer.allCustomers.add(customer);
+                                wrapper.addCustomer(customer);
+
 
                                 stageHandler.displayInfo("Success", "Customer successfully added to the system", "Press OK to continue");
                                 clearCustomerFields();
