@@ -1,9 +1,6 @@
 package DB;//Magnus Svendsen DAT16i
 
-import Model.Accessory;
-import Model.Customer;
-import Model.Employee;
-import Model.Motorhome;
+import Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,8 +22,7 @@ public class DBWrapper
             Connection conn = DBConn.getConn();
 
             String query = "INSERT INTO customer(customer_name, customer_cpr, customer_DOB, customer_email, customer_address, customer_tlf ) VALUES (?,?,?,?,?,?);";
-            PreparedStatement stmt = null;
-            stmt = conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
 
 
             stmt.setString(1, customer.getName());
@@ -80,8 +76,7 @@ public class DBWrapper
             Connection conn = DBConn.getConn();
 
             String query = "INSERT INTO staff(id, staff_name, staff_cpr, staff_DOB, staff_email, staff_address, staff_tlf, username,password) VALUES (NULL ,?,?,?,?,?,?,?,?);";
-            PreparedStatement stmt = null;
-            stmt = conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
 
 
             stmt.setString(1, employee.getName());
@@ -112,7 +107,7 @@ public class DBWrapper
             String query ="SELECT * FROM staff";
             ResultSet rs=getDBcon(query);
             while (rs.next()) {
-                Employee employee = new Employee(rs.getString(2), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getString(5),
+                Employee employee = new Employee( rs.getString(2), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getString(5),
                         rs.getInt(7),rs.getString(6),rs.getString(8),rs.getString(9)) {
                 };
                 allEmployees.add(employee);
@@ -126,16 +121,59 @@ public class DBWrapper
 
     }
 
-    public void updateEmployee(){
+    public void updateEmployee(Employee employee){
 
+        try {
+            Connection conn = DBConn.getConn();
+
+            String query = "UPDATE staff SET staff_name=?, staff_cpr=?, staff_DOB=?, staff_email=?, staff_address=?, staff_tlf=?, username=?,password=? WHERE staff_cpr=?;";
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+
+            stmt.setString(1, employee.getName());
+            stmt.setString(2, employee.getCpr());
+            stmt.setDate(3, Date.valueOf(employee.getDateOfBirth()));
+            stmt.setString(4, employee.getEmail());
+            stmt.setString(5, employee.getAddress());
+            stmt.setInt(6, employee.getPhoneNumber());
+            stmt.setString(7,employee.getUsername());
+            stmt.setString(8,employee.getPassword());
+            stmt.setString(9,employee.getCpr());
+
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
 
 
 
     }
 //RESERVATION
-    public void addReservation(){
+    public void addReservation(Reservation reservation) {
+
+        try {
+            Connection conn = DBConn.getConn();
+
+            String query = "INSERT INTO reservation(customer_name, customer_cpr, customer_DOB, customer_email, customer_address, customer_tlf ) VALUES (?,?,?,?,?,?);";
+            PreparedStatement stmt = conn.prepareStatement(query);
 
 
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public void getReservation(){
+
+    }
+
+    public void updateReservation(){
 
     }
 
@@ -153,8 +191,7 @@ public class DBWrapper
             Connection conn = DBConn.getConn();
 
             String query = "INSERT INTO rent_accessory(accessory_id, name,price, quantity) VALUES (NULL ,?,?,?);";
-            PreparedStatement stmt = null;
-            stmt = conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
 
 
             stmt.setString(1, accessory.getType());
@@ -184,8 +221,7 @@ public class DBWrapper
             Connection conn = DBConn.getConn();
 
             String query = "INSERT INTO motorhome(motorhome_id, motorhome_brand, motorhome_model, motorhome_size, motorhome_price) VALUES (NULL ,?,?,?,?);";
-            PreparedStatement stmt = null;
-            stmt = conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
 
 
             stmt.setString(1, motorhome.getBrand());
@@ -209,7 +245,7 @@ public class DBWrapper
 
         try {
             Connection conn= DBConn.getConn();
-            String query="UPDATE motorhome SET(motorhome_brand, motorhome_model, motorhome_size, motorhome_price) VALUES (?,?,?,?) WHERE motorhome.motorhome_id=?;" ;
+            String query="UPDATE motorhome SET motorhome_brand=?, motorhome_model=?, motorhome_size=?, motorhome_price=?  WHERE motorhome_id =?;" ;
             PreparedStatement stmt = conn.prepareStatement(query);
 
 
@@ -225,6 +261,8 @@ public class DBWrapper
         }
 
     }
+
+
 
     public ArrayList<Motorhome> getMotorhomes(){
 

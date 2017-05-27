@@ -727,6 +727,7 @@ public class AController implements Initializable
                                             employee.setUsername(editStaffUserField.getText());
                                             employee.setPassword(editStaffPasswordField.getText());
 
+                                            wrapper.updateEmployee(employee);
                                             stageHandler.displayInfo("Success", "Staff details have been changed", "Press OK to continue");
                                             staffTable.getItems().setAll(Employee.allEmployees);
                                             closeEditPanel();
