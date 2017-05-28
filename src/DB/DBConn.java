@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 
 public class DBConn
 {
-    private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String DB_NAME = "test";
-    private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String URL = "jdbc:mysql://mydatabase.caz3kevaubmz.us-west-2.rds.amazonaws.com:3306/";
+    private static final String DB_NAME = "nordicmotorhome";
+    private static final String USER = "magnus";
+    private static final String PASS = "euw64cpt";
 
     public static Connection getConn()
     {

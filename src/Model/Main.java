@@ -1,5 +1,7 @@
 package Model;
 
+import DB.DBWrapper;
+import Handler.StageHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +19,14 @@ public class Main extends Application
         primaryStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/Login.fxml"));
         Scene scene = new Scene(root, 600, 400);
+
+        DBWrapper database = new DBWrapper();
+
+        database.getCustomerData();
+        database.getEmployeeData();
+        database.getMotorhomeData();
+        database.getAccessoryData();
+        database.getReservationData();
 
         primaryStage.setTitle("Nordic Motorhome Rental");
         primaryStage.setScene(scene);

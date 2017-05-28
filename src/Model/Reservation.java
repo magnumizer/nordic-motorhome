@@ -1,8 +1,10 @@
 package Model;//Magnus Svendsen DAT16i
 
+import Handler.CalculationHandler;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 public class Reservation
 {
@@ -20,7 +22,7 @@ public class Reservation
     private LocalDate pickupDate;
     private LocalDate dropoffDate;
     private String dropoffAddress = "Nordic Motorhome Office";
-    private Hashtable<Accessory, Integer> accessories = new Hashtable<>();
+    private HashMap<Accessory, Integer> accessories = new HashMap<>();
 
     private int currentSeason;
     private static final float transferCost = 0.70f;
@@ -114,12 +116,12 @@ public class Reservation
         this.dropoffAddress = dropoffAddress;
     }
 
-    public Hashtable<Accessory, Integer> getAccessories()
+    public HashMap<Accessory, Integer> getAccessories()
     {
         return accessories;
     }
 
-    public void setAccessories(Hashtable<Accessory, Integer> accessories)
+    public void setAccessories(HashMap<Accessory, Integer> accessories)
     {
         this.accessories = accessories;
     }

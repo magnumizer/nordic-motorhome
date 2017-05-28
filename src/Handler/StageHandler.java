@@ -1,5 +1,6 @@
-package Model;//Magnus Svendsen DAT16i
+package Handler;//Magnus Svendsen DAT16i
 
+import Model.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -79,7 +80,7 @@ public class StageHandler
                 System.out.println("FXML file not found: Make sure path is correct.");
             }
         }
-        else if (StageHandler.currentUser instanceof AutoMechanic || StageHandler.currentUser instanceof CleaningPersonnel)
+        else if (StageHandler.currentUser instanceof AutoMechanic || StageHandler.currentUser instanceof CleaningStaff)
         {
             try
             {

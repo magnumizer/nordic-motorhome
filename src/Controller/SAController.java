@@ -1,6 +1,9 @@
 package Controller;//Magnus Svendsen DAT16i
 
 import DB.DBWrapper;
+import Handler.CalculationHandler;
+import Handler.SearchHandler;
+import Handler.StageHandler;
 import Model.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -18,7 +21,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class SAController implements Initializable
@@ -169,12 +172,12 @@ public class SAController implements Initializable
     private TableColumn<Rental, String> checkoutTotalCol;
     //endregion
 
+    private DBWrapper database = new DBWrapper();
     private StageHandler stageHandler = new StageHandler();
 
     private Customer selectedCustomer = null;
     private Motorhome selectedMotorhome = null;
 
-    private DBWrapper wrapper= new DBWrapper();
 
     public void onOptionsBtnPressed(ActionEvent actionEvent)
     {
@@ -200,11 +203,9 @@ public class SAController implements Initializable
                         {
                             if (!tlfField.getText().equals(""))
                             {
-                                int number = Integer.parseInt(tlfField.getText());
-
-                                Customer customer = new Customer(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText());
-                                wrapper.addCustomer(customer);
-
+                                Customer customer = new Customer(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText());
+                                Customer.allCustomers.add(customer);
+                                database.updateCustomer(customer);
 
                                 stageHandler.displayInfo("Success", "Customer successfully added to the system", "Press OK to continue");
                                 clearCustomerFields();
@@ -323,6 +324,7 @@ public class SAController implements Initializable
     {
         closeFindPanel();
     }
+
     private void closeFindPanel()
     {
         mainTabPane.setDisable(false);
@@ -372,7 +374,10 @@ public class SAController implements Initializable
                                 {
                                     Reservation reservation = new Reservation(selectedCustomer, selectedMotorhome, reservationDate.getValue(), pickupDate.getValue(), dropoffDate.getValue(), dropoffAddressField.getText(), getSeasonValue());
                                     addAccessoriesToReservation(reservation);
-                                    wrapper.addReservation(reservation);
+
+                                    Reservation.allReservations.add(reservation);
+                                    database.updateReservation(reservation);
+
                                     stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
                                     updateTable(overviewRentalTable, Rental.allRentals);
                                     updateTable(checkoutRentalTable, Rental.allRentals);
@@ -445,7 +450,7 @@ public class SAController implements Initializable
 
     private void addAccessoriesToReservation(Reservation reservation)
     {
-        Hashtable<Accessory, Integer> accessories = new Hashtable<>();
+        HashMap<Accessory, Integer> accessories = new HashMap<>();
         int bikeRackQuantity = Integer.parseInt(bikeRackBox.getValue());
         int bedLinenQuantity = Integer.parseInt(bedLinenBox.getValue());
         int childSeatQuantity = Integer.parseInt(childSeatBox.getValue());
@@ -458,6 +463,7 @@ public class SAController implements Initializable
             int quantity = bikeRack.getQuantity() - bikeRackQuantity;
             bikeRack.setQuantity(quantity);
             accessories.put(bikeRack, bikeRackQuantity);
+            database.updateAccessory(bikeRack);
         }
         if (bedLinenQuantity >= 0)
         {
@@ -465,6 +471,7 @@ public class SAController implements Initializable
             int quantity = bedLinen.getQuantity() - bedLinenQuantity;
             bedLinen.setQuantity(quantity);
             accessories.put(bedLinen, bedLinenQuantity);
+            database.updateAccessory(bedLinen);
         }
         if (childSeatQuantity >= 0)
         {
@@ -472,6 +479,7 @@ public class SAController implements Initializable
             int quantity = childSeat.getQuantity() - childSeatQuantity;
             childSeat.setQuantity(quantity);
             accessories.put(childSeat, childSeatQuantity);
+            database.updateAccessory(childSeat);
         }
         if (picnicTableQuantity >= 0)
         {
@@ -479,6 +487,7 @@ public class SAController implements Initializable
             int quantity = picnicTable.getQuantity() - picnicTableQuantity;
             picnicTable.setQuantity(quantity);
             accessories.put(picnicTable, picnicTableQuantity);
+            database.updateAccessory(picnicTable);
         }
         if (chairQuantity >= 0)
         {
@@ -486,6 +495,7 @@ public class SAController implements Initializable
             int quantity = chair.getQuantity() - chairQuantity;
             chair.setQuantity(quantity);
             accessories.put(chair, chairQuantity);
+            database.updateAccessory(chair);
         }
 
         reservation.setAccessories(accessories);
@@ -644,7 +654,6 @@ public class SAController implements Initializable
 
     private void setupTableColumns()
     {
-
         overviewMotorhomeCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeName"));
         overviewCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         overviewDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
@@ -932,7 +941,5 @@ public class SAController implements Initializable
         clearCustomerFields();
         clearReservationFields();
         addListenerHandler();
-        wrapper.getMotorhomes();
-        wrapper.getCustomer();
     }
 }

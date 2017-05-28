@@ -19,12 +19,11 @@ public abstract class Employee extends Person
         return false;
     }
 
-    private int employeeID;
     private String username;
     private String password;
 
 
-    public Employee( String name, String cpr, LocalDate dateOfBirth, String address, int phoneNumber, String email, String username, String password)
+    public Employee(String name, String cpr, LocalDate dateOfBirth, String address, String phoneNumber, String email, String username, String password)
     {
         super(name, cpr, dateOfBirth, address, phoneNumber, email);
         this.username = username;

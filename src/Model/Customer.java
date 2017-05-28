@@ -7,10 +7,19 @@ public class Customer extends Person
 {
     public static ArrayList<Customer> allCustomers = new ArrayList<>();
 
+    public static Customer getCustomer(String cpr)
+    {
+        for (Customer customer : Customer.allCustomers)
+        {
+            if (customer.getCpr().equals(cpr))
+            {
+                return customer;
+            }
+        }
+        return null;
+    }
 
-    private int customerID;
-
-    public Customer(String name, String cpr, LocalDate dateOfBirth, String address, int phoneNumber, String email)
+    public Customer(String name, String cpr, LocalDate dateOfBirth, String address, String phoneNumber, String email)
     {
         super(name, cpr, dateOfBirth, address, phoneNumber, email);
 
@@ -20,13 +29,5 @@ public class Customer extends Person
     public String toString()
     {
         return this.getName();
-    }
-
-    public int getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
     }
 }

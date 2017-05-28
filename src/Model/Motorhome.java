@@ -7,7 +7,19 @@ public class Motorhome
 {
     public static ArrayList<Motorhome> allMotorhomes = new ArrayList<>();
 
-    int motorhomeID;
+    public static Motorhome getMotorhome(String id)
+    {
+        for (Motorhome motorhome : Motorhome.allMotorhomes)
+        {
+            if (motorhome.getMotorhomeID().equals(id))
+            {
+                return motorhome;
+            }
+        }
+        return null;
+    }
+
+    String motorhomeID;
     String model;
     String brand;
     String size;
@@ -22,26 +34,15 @@ public class Motorhome
         this.brand = brand;
         this.size = size;
         this.pricePerDay = pricePerDay;
-
+        this.motorhomeID = Motorhome.allMotorhomes.size() + "";
     }
 
-    public Motorhome(int motorhomeID,String model, String brand, String size, float pricePerDay)
-    {
-        this.motorhomeID=motorhomeID;
-        this.model = model;
-        this.brand = brand;
-        this.size = size;
-        this.pricePerDay = pricePerDay;
-
-    }
-
-
-    public int getMotorhomeID()
+    public String getMotorhomeID()
     {
         return motorhomeID;
     }
 
-    public void setMotorhomeID(int motorhomeID)
+    public void setMotorhomeID(String motorhomeID)
     {
         this.motorhomeID = motorhomeID;
     }

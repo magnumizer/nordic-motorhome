@@ -1,4 +1,7 @@
-package Model;//Magnus Svendsen DAT16i
+package Handler;//Magnus Svendsen DAT16i
+
+import Model.Employee;
+import Model.Main;
 
 public class LoginHandler
 {

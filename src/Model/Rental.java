@@ -1,5 +1,7 @@
 package Model;//Magnus Svendsen DAT16i
 
+import Handler.CalculationHandler;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 

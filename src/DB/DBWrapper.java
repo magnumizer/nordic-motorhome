@@ -3,329 +3,378 @@ package DB;//Magnus Svendsen DAT16i
 import Model.*;
 
 import java.sql.*;
-import java.util.ArrayList;
-
-import static Model.Customer.allCustomers;
-import static Model.Employee.allEmployees;
-import static Model.Motorhome.allMotorhomes;
-
+import java.time.LocalDate;
 
 public class DBWrapper
 {
 
 //CUSTOMER
+    //get
+    public void getCustomerData()
+    {
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
 
-    public void addCustomer(Customer customer) {
+            String sql = "SELECT * FROM customers;";
 
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
-        try {
-            Connection conn = DBConn.getConn();
+            while (rs.next())
+            {
+                String name = rs.getString("name");
+                String cpr = rs.getString("cpr");
+                LocalDate birthday = rs.getDate("birthday").toLocalDate();
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                String tlf = rs.getString("tlf");
 
-            String query = "INSERT INTO customer(customer_name, customer_cpr, customer_DOB, customer_email, customer_address, customer_tlf ) VALUES (?,?,?,?,?,?);";
-            PreparedStatement stmt = conn.prepareStatement(query);
-
-
-            stmt.setString(1, customer.getName());
-            stmt.setString(2, customer.getCpr());
-            stmt.setDate(3, Date.valueOf(customer.getDateOfBirth()));
-            stmt.setString(4, customer.getEmail());
-            stmt.setString(5, customer.getAddress());
-            stmt.setInt(6, customer.getPhoneNumber());
-            stmt.executeUpdate();
-
-            allCustomers.add(customer);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-
-    }
-
-    public ArrayList<Customer> getCustomer(){
-        allCustomers = new ArrayList<>();
-
-        try {
-            String query = "SELECT * FROM `customer`";
-            ResultSet rs = getDBcon(query);
-            while (rs.next()){
-               allCustomers.add(new Customer(rs.getString(2),rs.getString(3),
-                       rs.getDate(4).toLocalDate(),rs.getString(5)
-                       ,rs.getInt(7),rs.getString(6)));
+                Customer customer = new Customer(name, cpr, birthday, email, address, tlf);
+                Customer.allCustomers.add(customer);
             }
-        } catch (SQLException e) {
+
+            con.close();
+
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
-
-
-        return allCustomers;
     }
 
-    public void updateCustomer(Customer customer){
+    //set
+    public void updateCustomer(Customer customer)
+    {
+        String _name = customer.getName();
+        String _cpr = customer.getCpr();
+        LocalDate _birthday = customer.getDateOfBirth();
+        String _address = customer.getAddress();
+        String _tlf = customer.getPhoneNumber();
+        String _email = customer.getEmail();
 
-        try {
-            Connection conn = DBConn.getConn();
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "REPLACE INTO `customers` (`name`, `cpr`, `birthday`, `address`, `tlf`, `email`) " +
+                    "VALUES ('" + _name + "', '" + _cpr + "', '" + _birthday + "', '" + _address + "', '" + _tlf + "', '" + _email + "');";
 
 
-            String query = "UPDATE customer SET customer_name=?, customer_cpr=?, customer_DOB=?, customer_email=?, customer_address=?, customer_tlf=? WHERE customer_cpr=?;";
-            PreparedStatement stmt = conn.prepareStatement(query);
-
-
-            stmt.setString(1, customer.getName());
-            stmt.setString(2, customer.getCpr());
-            stmt.setDate(3, Date.valueOf(customer.getDateOfBirth()));
-            stmt.setString(4, customer.getEmail());
-            stmt.setString(5, customer.getAddress());
-            stmt.setInt(6, customer.getPhoneNumber());
-            stmt.setString(7,customer.getCpr());
-
-
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
             e.printStackTrace();
-
         }
-
-
     }
+
+
 
 //EMPLOYEE
-    public void addEmployee(Employee employee){
+    //get
+    public void getEmployeeData()
+    {
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
 
-        try {
-            Connection conn = DBConn.getConn();
+            String sql = "SELECT * FROM employees;";
 
-            String query = "INSERT INTO staff(id, staff_name, staff_cpr, staff_DOB, staff_email, staff_address, staff_tlf, username,password) VALUES (NULL ,?,?,?,?,?,?,?,?);";
-            PreparedStatement stmt = conn.prepareStatement(query);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
+            while (rs.next())
+            {
+                String name = rs.getString("name");
+                String cpr = rs.getString("cpr");
+                LocalDate birthday = rs.getDate("birthday").toLocalDate();
+                String address = rs.getString("address");
+                String tlf = rs.getString("tlf");
+                String email = rs.getString("email");
+                String position = rs.getString("position");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
 
-            stmt.setString(1, employee.getName());
-            stmt.setString(2, employee.getCpr());
-            stmt.setDate(3, Date.valueOf(employee.getDateOfBirth()));
-            stmt.setString(4, employee.getEmail());
-            stmt.setString(5, employee.getAddress());
-            stmt.setInt(6, employee.getPhoneNumber());
-            stmt.setString(7,employee.getUsername());
-            stmt.setString(8,employee.getPassword());
-
-            stmt.executeUpdate();
-
-            allEmployees.add(employee);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-    }
-
-
-    public ArrayList<Employee> getEmployee(){
-
-        try {
-            allEmployees = new ArrayList<>();
-            String query ="SELECT * FROM staff";
-            ResultSet rs=getDBcon(query);
-            while (rs.next()) {
-                Employee employee = new Employee( rs.getString(2), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getString(5),
-                        rs.getInt(7),rs.getString(6),rs.getString(8),rs.getString(9)) {
-                };
-                allEmployees.add(employee);
+                switch (position)
+                {
+                    case "Admin":
+                        Admin admin = new Admin(name, cpr, birthday, address, tlf, email, username, password);
+                        Employee.allEmployees.add(admin);
+                        break;
+                    case "Sales Assistant":
+                        SalesAssistant salesAssistant = new SalesAssistant(name, cpr, birthday, address, tlf, email, username, password);
+                        Employee.allEmployees.add(salesAssistant);
+                        break;
+                    case "Auto Mechanic":
+                        AutoMechanic autoMechanic = new AutoMechanic(name, cpr, birthday, address, tlf, email, username, password);
+                        Employee.allEmployees.add(autoMechanic);
+                        break;
+                    case "Cleaning Staff":
+                        CleaningStaff cleaningStaff = new CleaningStaff(name, cpr, birthday, address, tlf, email, username, password);
+                        Employee.allEmployees.add(cleaningStaff);
+                        break;
+                    case "Book Keeper":
+                        Admin bookkeeper = new Admin(name, cpr, birthday, address, tlf, email, username, password);
+                        Employee.allEmployees.add(bookkeeper);
+                        break;
+                    default:
+                        System.out.println("Error in parsing position from Staff table.");
+                        break;
+                }
             }
 
-        } catch (SQLException e) {
+            con.close();
+
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
-        return allEmployees;
-
-
     }
 
-    public void updateEmployee(Employee employee){
+    //set
+    public void updateEmployee(Employee employee)
+    {
+        String _name = employee.getName();
+        String _cpr = employee.getCpr();
+        LocalDate _birthday = employee.getDateOfBirth();
+        String _address = employee.getAddress();
+        String _tlf = employee.getPhoneNumber();
+        String _email = employee.getEmail();
+        String _position = "";
 
-        try {
-            Connection conn = DBConn.getConn();
-
-            String query = "UPDATE staff SET staff_name=?, staff_cpr=?, staff_DOB=?, staff_email=?, staff_address=?, staff_tlf=?, username=?,password=? WHERE staff_cpr=?;";
-            PreparedStatement stmt = conn.prepareStatement(query);
-
-
-            stmt.setString(1, employee.getName());
-            stmt.setString(2, employee.getCpr());
-            stmt.setDate(3, Date.valueOf(employee.getDateOfBirth()));
-            stmt.setString(4, employee.getEmail());
-            stmt.setString(5, employee.getAddress());
-            stmt.setInt(6, employee.getPhoneNumber());
-            stmt.setString(7,employee.getUsername());
-            stmt.setString(8,employee.getPassword());
-            stmt.setString(9,employee.getCpr());
-
-
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
+        if (employee instanceof Admin)
+        {
+            _position = "Admin";
         }
+        else if (employee instanceof SalesAssistant)
+        {
+            _position = "Sales Assistant";
+        }
+        else if (employee instanceof AutoMechanic)
+        {
+            _position = "Auto Mechanic";
+        }
+        else if (employee instanceof CleaningStaff)
+        {
+            _position = "Cleaning Staff";
+        }
+//        else if (employee instanceof BookKeeper)
+//        {
+//            _position = "Book Keeper";
+//        }
+        String _username = employee.getUsername();
+        String _password = employee.getPassword();
+
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "REPLACE INTO `employees` (`name`, `cpr`, `birthday`, `address`, `tlf`, `email`, `position`, `username`, `password`) " +
+                    "VALUES ('" + _name + "', '" + _cpr + "', '" + _birthday + "', '" + _address + "', '" + _tlf + "', '" + _email + "', '" + _position + "', '" + _username + "', '" + _password + "');";
 
 
-
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
+
+
 //RESERVATION
-    public void addReservation(Reservation reservation) {
+    //get
+    public void getReservationData()
+    {
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
 
-        try {
-            Connection conn = DBConn.getConn();
-//    public Reservation(Customer customer, Motorhome motorhome, LocalDate reservationDate, LocalDate pickupDate, LocalDate dropoffDate, String dropoffAddress, int currentSeason)
+            String sql = "SELECT * FROM reservations;";
 
-            String query = "INSERT INTO reservation(customer_id, motor_id,dropoff_place, reservation_date, pickup_date, dropoff_date, accessory_id ) VALUES (?,?,?,?,?,?);";
-            PreparedStatement stmt = conn.prepareStatement(query);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
-            stmt.setInt(1, reservation.getCustomer().getCustomerID());
-            stmt.setInt(2, reservation.getMotorhome().getMotorhomeID());
-            stmt.setString(3, reservation.getDropoffAddress());
-            stmt.setString(4, String.valueOf(reservation.getReservationDate()));
-            stmt.setString(5, String.valueOf(reservation.getPickupDate()));
-            stmt.setString(6, String.valueOf(reservation.getDropoffDate()));
+            while (rs.next())
+            {
+                String id = rs.getString("id");
+                Customer customer = Customer.getCustomer(rs.getString("customer"));
+                Motorhome motorhome = Motorhome.getMotorhome(rs.getString("motorhome"));
+                LocalDate reservationDate = rs.getDate("date").toLocalDate();
+                LocalDate pickupDate = rs.getDate("pickup").toLocalDate();
+                LocalDate dropoffDate = rs.getDate("dropoff").toLocalDate();
+                String address = rs.getString("address");
+                int season = rs.getInt("season");
 
-            Reservation.allReservations.add(reservation);
-            stmt.executeUpdate();
+                Reservation reservation = new Reservation(customer, motorhome, reservationDate, pickupDate, dropoffDate, address, season);
+                Reservation.allReservations.add(reservation);
 
-        } catch (SQLException e) {
+            }
+
+            con.close();
+
+        } catch (SQLException e)
+        {
             e.printStackTrace();
-
         }
-
     }
 
-    public void getReservation(){
+    //set
+    public void updateReservation(Reservation reservation)
+    {
+        String _id = reservation.getReservationID();
+        String _customerCPR = reservation.getCustomer().getCpr();
+        String _motorhomeID = reservation.getMotorhome().getMotorhomeID();
+        LocalDate _reservationDate = reservation.getReservationDate();
+        LocalDate _pickupDate = reservation.getPickupDate();
+        LocalDate _dropoffDate = reservation.getDropoffDate();
+        String _address = reservation.getDropoffAddress();
+        int _season = reservation.getCurrentSeason();
 
-    }
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
 
-    public void updateReservation(){
-
-    }
-
-
-//RENTAL
-    public void addRental(){
-
-
-
-    }
-//ACCESSORIES
-    public void addAccessory(Accessory accessory){
-
-        try {
-            Connection conn = DBConn.getConn();
-
-            String query = "INSERT INTO rent_accessory(accessory_id, name,price, quantity) VALUES (NULL ,?,?,?);";
-            PreparedStatement stmt = conn.prepareStatement(query);
+            String sql = "REPLACE INTO `reservations` (`id`, `customer`, `motorhome`, `date`, `pickup`, `dropoff`, `address`, `season`) " +
+                    "VALUES ('" + _id + "', '" + _customerCPR + "', '" + _motorhomeID + "', '" + _reservationDate + "', '" + _pickupDate + "', '" + _dropoffDate + "', '" + _address + "', '" + _season + "');";
 
 
-            stmt.setString(1, accessory.getType());
-            stmt.setInt(2, accessory.getQuantity());
-            stmt.setDouble(3,accessory.getPrice());
-
-            stmt.executeUpdate();
-
-
-        } catch (SQLException e) {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
             e.printStackTrace();
-
         }
+    }
 
 
-    }
-    public void updateAccessory(){
-    }
-    public ArrayList<Accessory> getAccessory(){
-     return null;
-    }
 
 //MOTORHOME
-    public void addMotorhome(Motorhome motorhome){
+    //get
+    public void getMotorhomeData()
+    {
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
 
-        try {
-            Connection conn = DBConn.getConn();
-            String query = "INSERT INTO motorhome(motorhome_id, motorhome_brand, motorhome_model, motorhome_size, motorhome_price) VALUES (NULL ,?,?,?,?);";
-            PreparedStatement stmt = conn.prepareStatement(query);
+            String sql = "SELECT * FROM motorhomes;";
 
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
-            stmt.setString(1, motorhome.getBrand());
-            stmt.setString(2,motorhome.getModel());
-            stmt.setString(3, motorhome.getSize());
-            stmt.setDouble(4, motorhome.getPricePerDay());
+            while (rs.next())
+            {
+                String model = rs.getString("model");
+                String brand = rs.getString("brand");
+                String size = rs.getString("size");
+                float pricePerDay = rs.getFloat("price");
 
-            stmt.executeUpdate();
-            allMotorhomes.add(motorhome);
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-    }
-
-
-    public void updateMotorhome(Motorhome motorhome){
-
-        try {
-            Connection conn= DBConn.getConn();
-            String query="UPDATE motorhome SET motorhome_brand=?, motorhome_model=?, motorhome_size=?, motorhome_price=?  WHERE motorhome_id =?;" ;
-            PreparedStatement stmt = conn.prepareStatement(query);
-
-
-            stmt.setString(1, motorhome.getBrand());
-            stmt.setString(2,motorhome.getModel());
-            stmt.setString(3, motorhome.getSize());
-            stmt.setDouble(4, motorhome.getPricePerDay());
-            stmt.setInt(5,motorhome.getMotorhomeID());
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-
-    public ArrayList<Motorhome> getMotorhomes(){
-
-
-        try {
-            allMotorhomes = new ArrayList<>();
-            String query ="SELECT * FROM motorhome";
-            ResultSet rs=getDBcon(query);
-            while (rs.next()) {
-                Motorhome motorhome = new Motorhome(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5));
-                allMotorhomes.add(motorhome);
+                Motorhome motorhome = new Motorhome(model, brand, size, pricePerDay);
+                Motorhome.allMotorhomes.add(motorhome);
             }
 
-        } catch (SQLException e) {
+            con.close();
+
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
-        return allMotorhomes;
+    }
+
+    //set
+    public void updateMotorhome(Motorhome motorhome)
+    {
+        String _id = motorhome.getMotorhomeID();
+        String _model = motorhome.getModel();
+        String _brand = motorhome.getBrand();
+        String _size = motorhome.getSize();
+        float _pricePerDay = motorhome.getPricePerDay();
+
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "REPLACE INTO `motorhomes` (`id`, `model`, `brand`, `size`, `price`) " +
+                    "VALUES ('" + _id + "', '" + _model + "', '" + _brand + "', '" + _size + "', '" + _pricePerDay + "');";
+
+
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
+//ACCESSORIES
+    //get
+    public void getAccessoryData()
+    {
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
 
-    public ResultSet getDBcon (String query){
-        ResultSet rs =null;
-        try {
-            Connection conn = DBConn.getConn();
-            Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery(query);
-        } catch (SQLException e) {
+            String sql = "SELECT * FROM accessories;";
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next())
+            {
+                String type = rs.getString("type");
+                float price = rs.getFloat("price");
+                int quantity = rs.getInt("quantity");
+
+                Accessory accessory = new Accessory(type, price, quantity);
+                Accessory.allAccessories.put(type, accessory);
+            }
+
+            con.close();
+
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
-        return rs;
     }
 
+    //set
+    public void updateAccessory(Accessory accessory)
+    {
+        String _type = accessory.getType();
+        float _price = accessory.getPrice();
+        int _quantity = accessory.getQuantity();
+
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "REPLACE INTO `accessories` (`type`, `price`, `quantity`) " +
+                    "VALUES ('" + _type + "', '" + _price + "', '" + _quantity + "');";
+
+
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
 
 

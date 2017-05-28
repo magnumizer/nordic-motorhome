@@ -1,8 +1,11 @@
-package Model;//Magnus Svendsen DAT16i
+package Handler;//Magnus Svendsen DAT16i
+
+import Model.Accessory;
+import Model.Reservation;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 public abstract class CalculationHandler
 {
@@ -40,7 +43,7 @@ public abstract class CalculationHandler
         return 100 * Reservation.getTransferCost();
     }
 
-    public static float calculateAccessorySum(Hashtable<Accessory, Integer> accessories)
+    public static float calculateAccessorySum(HashMap<Accessory, Integer> accessories)
     {
         float price = 0;
 

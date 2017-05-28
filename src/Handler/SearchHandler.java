@@ -1,4 +1,6 @@
-package Model;//Magnus Svendsen DAT16i
+package Handler;//Magnus Svendsen DAT16i
+
+import Model.*;
 
 import java.util.ArrayList;
 

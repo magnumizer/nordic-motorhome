@@ -1,5 +1,7 @@
 package Controller;//Magnus Svendsen DAT16i
 
+import Handler.SearchHandler;
+import Handler.StageHandler;
 import Model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

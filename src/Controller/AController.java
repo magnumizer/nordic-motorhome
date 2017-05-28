@@ -1,6 +1,9 @@
 package Controller;//Magnus Svendsen DAT16i
 
 import DB.DBWrapper;
+import Handler.CalculationHandler;
+import Handler.SearchHandler;
+import Handler.StageHandler;
 import Model.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -16,7 +19,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class AController implements Initializable
@@ -156,7 +159,7 @@ public class AController implements Initializable
     @FXML
     private TextField tlfField;
     @FXML
-    protected ComboBox<String> positionBox;
+    private ComboBox<String> positionBox;
     @FXML
     private TextField usernameField;
     @FXML
@@ -259,8 +262,7 @@ public class AController implements Initializable
     private TextField editAccessoryAmount;
     //endregion
 
-    DBWrapper wrapper= new DBWrapper();
-
+    private DBWrapper database = new DBWrapper();
     private StageHandler stageHandler = new StageHandler();
 
     public void onOptionsBtnPressed(ActionEvent actionEvent)
@@ -299,24 +301,23 @@ public class AController implements Initializable
                                                 {
                                                     if (passwordField.getText().equals(confirmField.getText()))
                                                     {
-                                                        int number = Integer.parseInt(tlfField.getText());
-
                                                         switch (positionBox.getValue())
                                                         {
                                                             case "Admin":
-                                                                Admin admin = new Admin(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
-                                                                wrapper.addEmployee(admin);
+                                                                Admin admin = new Admin(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText(), usernameField.getText(), passwordField.getText());
+                                                                Employee.allEmployees.add(admin);
+                                                                database.updateEmployee(admin);
                                                                 stageHandler.displayInfo("Success", "Admin successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             case "Sales Assistant":
-                                                                SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
-                                                                wrapper.addEmployee(salesAssistant);
-                                                                stageHandler.displayInfo("Success", "Sales Assistant successfully added to the system", "Press OK to continue");
+                                                                SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText(), usernameField.getText(), passwordField.getText());
+                                                                Employee.allEmployees.add(salesAssistant);
+                                                                database.updateEmployee(salesAssistant);                                                                stageHandler.displayInfo("Success", "Sales Assistant successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             case "Auto Mechanic":
-                                                                AutoMechanic autoMechanic = new AutoMechanic(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), number, emailField.getText(), usernameField.getText(), passwordField.getText());
-                                                                wrapper.addEmployee(autoMechanic);
-                                                                stageHandler.displayInfo("Success", "Auto Mechanic successfully added to the system", "Press OK to continue");
+                                                                AutoMechanic autoMechanic = new AutoMechanic(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText(), usernameField.getText(), passwordField.getText());
+                                                                Employee.allEmployees.add(autoMechanic);
+                                                                database.updateEmployee(autoMechanic);                                                                stageHandler.displayInfo("Success", "Auto Mechanic successfully added to the system", "Press OK to continue");
                                                                 break;
                                                             default:
                                                                 System.out.println("Error in positionBox reference.");
@@ -402,12 +403,6 @@ public class AController implements Initializable
         }
     }
 
-    public String getSelectedPosition(){
-
-        return positionBox.getValue();
-
-    }
-
     private void clearStaffFields()
     {
         nameField.clear();
@@ -437,7 +432,8 @@ public class AController implements Initializable
                         number = CalculationHandler.clamp(number, 0, 999999);
 
                         Motorhome motorhome = new Motorhome(modelField.getText(), brandField.getText(), sizeBox.getValue(), number);
-                        wrapper.addMotorhome(motorhome);
+                        Motorhome.allMotorhomes.add(motorhome);
+                        database.updateMotorhome(motorhome);
 
                         stageHandler.displayInfo("Success", "Motorhome successfully added to the system", "Press OK to continue");
                         motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
@@ -582,9 +578,7 @@ public class AController implements Initializable
                         editReservationDropoff.setValue(reservation.getDropoffDate());
                         editReservationAddress.setText(reservation.getDropoffAddress());
 
-                        Hashtable<Accessory, Integer> accessories = reservation.getAccessories();
-
-
+                        HashMap<Accessory, Integer> accessories = reservation.getAccessories();
 
                         bikeRackBox.setValue(accessories.get(Accessory.allAccessories.get("Bike Rack")) + "");
                         bedLinenBox.setValue(accessories.get(Accessory.allAccessories.get("Bed Linen")) + "");
@@ -616,7 +610,7 @@ public class AController implements Initializable
                         editMotorhomeBrand.setText(motorhome.getBrand());
                         editMotorhomeSizeBox.setItems(sizes);
                         editMotorhomeSizeBox.getSelectionModel().select(motorhome.getSize());
-                        editMotorhomePrice.setText(motorhome.getPricePerDay() + "");
+                        editMotorhomePrice.setText((motorhome.getPricePerDay() / 10) + "");
 
                         ObservableList<String> statusOptions =
                                 FXCollections.observableArrayList(
@@ -649,7 +643,7 @@ public class AController implements Initializable
                         Accessory accessory = Accessory.allAccessories.get(selectedAccessory);
 
                         editAccessoryType.setText(accessory.getType());
-                        editAccessoryPrice.setText(accessory.getPrice() + "");
+                        editAccessoryPrice.setText((accessory.getPrice() / 10) + "");
                         editAccessoryAmount.setText(accessory.getQuantity() + "");
 
                         editAccessoryPane.setDisable(false);
@@ -714,20 +708,17 @@ public class AController implements Initializable
                                     {
                                         if (editStaffPasswordField.getText().equals(editStaffConfirmField.getText()))
                                         {
-                                            int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
-                                            int number = Integer.parseInt(editStaffTlfField.getText());
-
-                                            Employee employee = Employee.allEmployees.get(selectedIndex);
+                                            Employee employee = staffTable.getSelectionModel().getSelectedItem();
                                             employee.setName(editStaffNameField.getText());
                                             employee.setCpr(editStaffCPRField.getText());
                                             employee.setDateOfBirth(editStaffBirthdayPicker.getValue());
                                             employee.setAddress(editStaffAddressField.getText());
-                                            employee.setPhoneNumber(number);
+                                            employee.setPhoneNumber(editStaffTlfField.getText());
                                             employee.setEmail(editStaffEmailField.getText());
                                             employee.setUsername(editStaffUserField.getText());
                                             employee.setPassword(editStaffPasswordField.getText());
 
-                                            wrapper.updateEmployee(employee);
+                                            database.updateEmployee(employee);
                                             stageHandler.displayInfo("Success", "Staff details have been changed", "Press OK to continue");
                                             staffTable.getItems().setAll(Employee.allEmployees);
                                             closeEditPanel();
@@ -801,20 +792,17 @@ public class AController implements Initializable
                         {
                             if (!editCustomerEmailField.getText().equals(""))
                             {
-                                int selectedIndex = customerTable.getSelectionModel().getSelectedIndex();
-                                int number = Integer.parseInt(editCustomerTlfField.getText());
-
-                                Customer customer = Customer.allCustomers.get(selectedIndex);
+                                Customer customer = customerTable.getSelectionModel().getSelectedItem();
                                 customer.setName(editCustomerNameField.getText());
                                 customer.setCpr(editCustomerCPRField.getText());
                                 customer.setDateOfBirth(editCustomerBirthdayPicker.getValue());
                                 customer.setAddress(editCustomerAddressField.getText());
-                                customer.setPhoneNumber(number);
+                                customer.setPhoneNumber(editCustomerTlfField.getText());
                                 customer.setEmail(editCustomerEmailField.getText());
 
+                                database.updateCustomer(customer);
                                 stageHandler.displayInfo("Success", "Customer details have been changed", "Press OK to continue");
                                 customerTable.getItems().setAll(Customer.allCustomers);
-                                wrapper.updateCustomer(customer);
                                 closeEditPanel();
                             }
                             else
@@ -860,9 +848,7 @@ public class AController implements Initializable
         {
             if (editReservationDropoff.getValue() != null)
             {
-                int selectedIndex = reservationTable.getSelectionModel().getSelectedIndex();
-
-                Reservation reservation = Reservation.allReservations.get(selectedIndex);
+                Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
                 reservation.setMotorhome(editReservationMotorhomeBox.getValue());
                 reservation.setCustomer(editReservationCustomerBox.getValue());
                 reservation.setPickupDate(editReservationPickup.getValue());
@@ -871,6 +857,7 @@ public class AController implements Initializable
 
                 addAccessoriesToReservation(reservation);
 
+                database.updateReservation(reservation);
                 stageHandler.displayInfo("Success", "Reservation details have been changed", "Press OK to continue");
                 reservationTable.getItems().setAll(Reservation.allReservations);
                 accessoryTable.getItems().setAll(Accessory.allAccessories.values());
@@ -891,8 +878,8 @@ public class AController implements Initializable
 
     private void addAccessoriesToReservation(Reservation reservation)
     {
-        Hashtable<Accessory, Integer> currentAccessories = reservation.getAccessories();
-        Hashtable<Accessory, Integer> accessories = new Hashtable<>();
+        HashMap<Accessory, Integer> currentAccessories = reservation.getAccessories();
+        HashMap<Accessory, Integer> accessories = new HashMap<>();
         int bikeRackQuantity = Integer.parseInt(bikeRackBox.getValue());
         int bedLinenQuantity = Integer.parseInt(bedLinenBox.getValue());
         int childSeatQuantity = Integer.parseInt(childSeatBox.getValue());
@@ -905,6 +892,7 @@ public class AController implements Initializable
             int quantity = bikeRack.getQuantity() - bikeRackQuantity + currentAccessories.get(bikeRack);
             bikeRack.setQuantity(quantity);
             accessories.put(bikeRack, bikeRackQuantity);
+            database.updateAccessory(bikeRack);
         }
         if (bedLinenQuantity >= 0)
         {
@@ -912,6 +900,7 @@ public class AController implements Initializable
             int quantity = bedLinen.getQuantity() - bedLinenQuantity + currentAccessories.get(bedLinen);
             bedLinen.setQuantity(quantity);
             accessories.put(bedLinen, bedLinenQuantity);
+            database.updateAccessory(bedLinen);
         }
         if (childSeatQuantity >= 0)
         {
@@ -919,6 +908,7 @@ public class AController implements Initializable
             int quantity = childSeat.getQuantity() - childSeatQuantity + currentAccessories.get(childSeat);
             childSeat.setQuantity(quantity);
             accessories.put(childSeat, childSeatQuantity);
+            database.updateAccessory(childSeat);
         }
         if (picnicTableQuantity >= 0)
         {
@@ -926,6 +916,7 @@ public class AController implements Initializable
             int quantity = picnicTable.getQuantity() - picnicTableQuantity + currentAccessories.get(picnicTable);
             picnicTable.setQuantity(quantity);
             accessories.put(picnicTable, picnicTableQuantity);
+            database.updateAccessory(picnicTable);
         }
         if (chairQuantity >= 0)
         {
@@ -933,6 +924,7 @@ public class AController implements Initializable
             int quantity = chair.getQuantity() - chairQuantity + currentAccessories.get(chair);
             chair.setQuantity(quantity);
             accessories.put(chair, chairQuantity);
+            database.updateAccessory(chair);
         }
 
         reservation.setAccessories(accessories);
@@ -946,16 +938,14 @@ public class AController implements Initializable
             {
                 if (!editMotorhomePrice.getText().equals(""))
                 {
-                    int selectedIndex = motorhomeTable.getSelectionModel().getSelectedIndex();
                     float number = Float.parseFloat(editMotorhomePrice.getText());
 
-                    Motorhome motorhome = Motorhome.allMotorhomes.get(selectedIndex);
+                    Motorhome motorhome = motorhomeTable.getSelectionModel().getSelectedItem();
                     motorhome.setModel(editMotorhomeModel.getText());
                     motorhome.setBrand(editMotorhomeBrand.getText());
                     motorhome.setSize(editMotorhomeSizeBox.getValue());
                     motorhome.setPricePerDay(number);
 
-                    wrapper.updateMotorhome (motorhome);
                     if (editMotorhomeStatusBox.getValue().equals("Rented"))
                     {
                         motorhome.setRentedStatus(true);
@@ -972,6 +962,7 @@ public class AController implements Initializable
                         motorhome.setServiceStatus(false);
                     }
 
+                    database.updateMotorhome(motorhome);
                     stageHandler.displayInfo("Success", "Motorhome details have been changed", "Press OK to continue");
                     motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
                     closeEditPanel();
@@ -1001,8 +992,7 @@ public class AController implements Initializable
         {
             if (!editAccessoryAmount.getText().equals(""))
             {
-                int selectedIndex = accessoryTable.getSelectionModel().getSelectedIndex();
-                String selectedAccessory = accessoryTable.getItems().get(selectedIndex).getType();
+                String selectedAccessory = accessoryTable.getSelectionModel().getSelectedItem().getType();
                 float price = Float.parseFloat(editAccessoryPrice.getText());
                 int amount = Integer.parseInt(editAccessoryAmount.getText());
 
@@ -1010,6 +1000,7 @@ public class AController implements Initializable
                 accessory.setPrice(price);
                 accessory.setQuantity(amount);
 
+                database.updateAccessory(accessory);
                 stageHandler.displayInfo("Success", "Accessory details have been changed", "Press OK to continue");
                 accessoryTable.getItems().setAll(Accessory.allAccessories.values());
                 closeEditPanel();
@@ -1065,7 +1056,6 @@ public class AController implements Initializable
 
     private void setupTableColumns()
     {
-        wrapper.getEmployee();
         staffNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         staffCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
         staffBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
@@ -1074,7 +1064,6 @@ public class AController implements Initializable
         staffEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         staffUserCol.setCellValueFactory(new PropertyValueFactory<>("username"));
 
-        wrapper.getCustomer();
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         customerCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
         customerBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
@@ -1090,8 +1079,6 @@ public class AController implements Initializable
         reservationDropoffCol.setCellValueFactory(new PropertyValueFactory<>("dropoffDate"));
         reservationPriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
 
-
-        wrapper.getMotorhomes();
         motorhomeIDCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeID"));
         motorhomeModelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
         motorhomeBrandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));

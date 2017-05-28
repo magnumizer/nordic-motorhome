@@ -4,14 +4,33 @@ import java.time.LocalDate;
 
 public abstract class Person
 {
+    public static boolean checkIfPersonExists(String cpr)
+    {
+        for (Employee employee : Employee.allEmployees)
+        {
+            if (employee.getCpr().equals(cpr))
+            {
+                return true;
+            }
+        }
+        for (Customer customer : Customer.allCustomers)
+        {
+            if (customer.getCpr().equals(cpr))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private String name;
     private String cpr;
     private LocalDate dateOfBirth;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
 
-    public Person(String name, String cpr, LocalDate dateOfBirth, String address, int phoneNumber, String email)
+    public Person(String name, String cpr, LocalDate dateOfBirth, String address, String phoneNumber, String email)
     {
         this.name = name;
         this.cpr = cpr;
@@ -53,11 +72,11 @@ public abstract class Person
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
