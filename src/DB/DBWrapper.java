@@ -50,9 +50,9 @@ public class DBWrapper
             String query = "SELECT * FROM `customer`";
             ResultSet rs = getDBcon(query);
             while (rs.next()){
-               allCustomers.add(new Customer(rs.getString(1),rs.getString(2),
-                       rs.getDate(3).toLocalDate(),rs.getString(4)
-                       ,rs.getInt(6),rs.getString(5)));
+               allCustomers.add(new Customer(rs.getString(2),rs.getString(3),
+                       rs.getDate(4).toLocalDate(),rs.getString(5)
+                       ,rs.getInt(7),rs.getString(6)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +64,29 @@ public class DBWrapper
 
     public void updateCustomer(Customer customer){
 
+        try {
+            Connection conn = DBConn.getConn();
 
+
+            String query = "UPDATE customer SET customer_name=?, customer_cpr=?, customer_DOB=?, customer_email=?, customer_address=?, customer_tlf=? WHERE customer_cpr=?;";
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+
+            stmt.setString(1, customer.getName());
+            stmt.setString(2, customer.getCpr());
+            stmt.setDate(3, Date.valueOf(customer.getDateOfBirth()));
+            stmt.setString(4, customer.getEmail());
+            stmt.setString(5, customer.getAddress());
+            stmt.setInt(6, customer.getPhoneNumber());
+            stmt.setString(7,customer.getCpr());
+
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
 
 
     }
@@ -156,11 +178,20 @@ public class DBWrapper
 
         try {
             Connection conn = DBConn.getConn();
+//    public Reservation(Customer customer, Motorhome motorhome, LocalDate reservationDate, LocalDate pickupDate, LocalDate dropoffDate, String dropoffAddress, int currentSeason)
 
-            String query = "INSERT INTO reservation(customer_name, customer_cpr, customer_DOB, customer_email, customer_address, customer_tlf ) VALUES (?,?,?,?,?,?);";
+            String query = "INSERT INTO reservation(customer_id, motor_id,dropoff_place, reservation_date, pickup_date, dropoff_date, accessory_id ) VALUES (?,?,?,?,?,?);";
             PreparedStatement stmt = conn.prepareStatement(query);
 
+            stmt.setInt(1, reservation.getCustomer().getCustomerID());
+            stmt.setInt(2, reservation.getMotorhome().getMotorhomeID());
+            stmt.setString(3, reservation.getDropoffAddress());
+            stmt.setString(4, String.valueOf(reservation.getReservationDate()));
+            stmt.setString(5, String.valueOf(reservation.getPickupDate()));
+            stmt.setString(6, String.valueOf(reservation.getDropoffDate()));
 
+            Reservation.allReservations.add(reservation);
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -219,7 +250,6 @@ public class DBWrapper
 
         try {
             Connection conn = DBConn.getConn();
-
             String query = "INSERT INTO motorhome(motorhome_id, motorhome_brand, motorhome_model, motorhome_size, motorhome_price) VALUES (NULL ,?,?,?,?);";
             PreparedStatement stmt = conn.prepareStatement(query);
 

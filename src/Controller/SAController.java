@@ -372,7 +372,7 @@ public class SAController implements Initializable
                                 {
                                     Reservation reservation = new Reservation(selectedCustomer, selectedMotorhome, reservationDate.getValue(), pickupDate.getValue(), dropoffDate.getValue(), dropoffAddressField.getText(), getSeasonValue());
                                     addAccessoriesToReservation(reservation);
-                                    Reservation.allReservations.add(reservation);
+                                    wrapper.addReservation(reservation);
                                     stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
                                     updateTable(overviewRentalTable, Rental.allRentals);
                                     updateTable(checkoutRentalTable, Rental.allRentals);
@@ -644,6 +644,7 @@ public class SAController implements Initializable
 
     private void setupTableColumns()
     {
+
         overviewMotorhomeCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeName"));
         overviewCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         overviewDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
@@ -931,5 +932,7 @@ public class SAController implements Initializable
         clearCustomerFields();
         clearReservationFields();
         addListenerHandler();
+        wrapper.getMotorhomes();
+        wrapper.getCustomer();
     }
 }

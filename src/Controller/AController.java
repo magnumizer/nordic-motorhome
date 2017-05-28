@@ -814,6 +814,7 @@ public class AController implements Initializable
 
                                 stageHandler.displayInfo("Success", "Customer details have been changed", "Press OK to continue");
                                 customerTable.getItems().setAll(Customer.allCustomers);
+                                wrapper.updateCustomer(customer);
                                 closeEditPanel();
                             }
                             else

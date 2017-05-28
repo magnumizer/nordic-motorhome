@@ -8,7 +8,7 @@ public class Customer extends Person
     public static ArrayList<Customer> allCustomers = new ArrayList<>();
 
 
-
+    private int customerID;
 
     public Customer(String name, String cpr, LocalDate dateOfBirth, String address, int phoneNumber, String email)
     {
@@ -20,5 +20,13 @@ public class Customer extends Person
     public String toString()
     {
         return this.getName();
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 }

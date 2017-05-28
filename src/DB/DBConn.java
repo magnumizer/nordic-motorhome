@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DBConn
 {
     private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String DB_NAME = "nordicmotorhome";
+    private static final String DB_NAME = "test";
     private static final String USER = "root";
     private static final String PASS = "";
 
