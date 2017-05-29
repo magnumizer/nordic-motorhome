@@ -27,8 +27,10 @@ public class AController implements Initializable
     ObservableList<String> positions =
             FXCollections.observableArrayList(
                     "Admin",
-                    "Sales Assistant",
-                    "Auto Mechanic"
+                    "Auto Mechanic",
+                    "Book Keeper",
+                    "Cleaning Staff",
+                    "Sales Assistant"
             );
 
     ObservableList<String> sizes =
@@ -85,12 +87,10 @@ public class AController implements Initializable
     @FXML
     private TableColumn<Employee, String> staffEmailCol;
     @FXML
-    private TableColumn<Employee, String> staffUserCol;
+    private TableColumn<Employee, String> staffPositionCol;
 
     @FXML
     private TableView<Customer> customerTable;
-    @FXML
-    private TableColumn<Customer, String> customerIDCol;
     @FXML
     private TableColumn<Customer, String> customerNameCol;
     @FXML
@@ -265,11 +265,6 @@ public class AController implements Initializable
     private DBWrapper database = new DBWrapper();
     private StageHandler stageHandler = new StageHandler();
 
-    public void onOptionsBtnPressed(ActionEvent actionEvent)
-    {
-
-    }
-
     public void onLogOutBtnPressed(ActionEvent actionEvent)
     {
         stageHandler.logOut();
@@ -309,16 +304,31 @@ public class AController implements Initializable
                                                                 database.updateEmployee(admin);
                                                                 stageHandler.displayInfo("Success", "Admin successfully added to the system", "Press OK to continue");
                                                                 break;
-                                                            case "Sales Assistant":
-                                                                SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText(), usernameField.getText(), passwordField.getText());
-                                                                Employee.allEmployees.add(salesAssistant);
-                                                                database.updateEmployee(salesAssistant);                                                                stageHandler.displayInfo("Success", "Sales Assistant successfully added to the system", "Press OK to continue");
-                                                                break;
                                                             case "Auto Mechanic":
                                                                 AutoMechanic autoMechanic = new AutoMechanic(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText(), usernameField.getText(), passwordField.getText());
                                                                 Employee.allEmployees.add(autoMechanic);
-                                                                database.updateEmployee(autoMechanic);                                                                stageHandler.displayInfo("Success", "Auto Mechanic successfully added to the system", "Press OK to continue");
+                                                                database.updateEmployee(autoMechanic);
+                                                                stageHandler.displayInfo("Success", "Auto Mechanic successfully added to the system", "Press OK to continue");
                                                                 break;
+                                                            case "Book Keeper":
+                                                                BookKeeper bookKeeper = new BookKeeper(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText(), usernameField.getText(), passwordField.getText());
+                                                                Employee.allEmployees.add(bookKeeper);
+                                                                database.updateEmployee(bookKeeper);
+                                                                stageHandler.displayInfo("Success", "Book Keeper successfully added to the system", "Press OK to continue");
+                                                                break;
+                                                            case "Cleaning Staff":
+                                                                CleaningStaff cleaningStaff = new CleaningStaff(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText(), usernameField.getText(), passwordField.getText());
+                                                                Employee.allEmployees.add(cleaningStaff);
+                                                                database.updateEmployee(cleaningStaff);
+                                                                stageHandler.displayInfo("Success", "Cleaning Staff successfully added to the system", "Press OK to continue");
+                                                                break;
+                                                            case "Sales Assistant":
+                                                                SalesAssistant salesAssistant = new SalesAssistant(nameField.getText(), cprField.getText(), birthdayPicker.getValue(), addressField.getText(), tlfField.getText(), emailField.getText(), usernameField.getText(), passwordField.getText());
+                                                                Employee.allEmployees.add(salesAssistant);
+                                                                database.updateEmployee(salesAssistant);
+                                                                stageHandler.displayInfo("Success", "Sales Assistant successfully added to the system", "Press OK to continue");
+                                                                break;
+
                                                             default:
                                                                 System.out.println("Error in positionBox reference.");
                                                                 break;
@@ -1062,7 +1072,7 @@ public class AController implements Initializable
         staffAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         staffTlfCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         staffEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        staffUserCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+        staffPositionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
 
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         customerCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));

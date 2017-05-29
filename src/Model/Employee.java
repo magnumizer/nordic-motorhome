@@ -50,4 +50,32 @@ public abstract class Employee extends Person
     {
         this.password = password;
     }
+
+    public String getPosition()
+    {
+        if (this instanceof Admin)
+        {
+            return "Admin";
+        }
+        else if (this instanceof SalesAssistant)
+        {
+            return "Sales Assistant";
+        }
+        else if (this instanceof AutoMechanic)
+        {
+            return "Auto Mechanic";
+        }
+        else if (this instanceof CleaningStaff)
+        {
+            return "Cleaning Staff";
+        }
+        else if (this instanceof BookKeeper)
+        {
+            return "Book Keeper";
+        }
+        else
+        {
+            return "Unknown";
+        }
+    }
 }

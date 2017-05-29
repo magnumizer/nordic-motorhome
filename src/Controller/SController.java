@@ -23,9 +23,9 @@ public class SController implements Initializable
 {
     ObservableList<String> statusOptions =
             FXCollections.observableArrayList(
-                    "Available",
-                    "Rented",
-                    "Out of service"
+                    "Cleaned",
+                    "Not yet cleaned",
+                    "Out of order"
             );
 
     //region FXML
@@ -158,7 +158,6 @@ public class SController implements Initializable
 
     public void onCheckStatusBtnPressed(ActionEvent actionEvent)
     {
-        //open reservation edit panel
         if (!motorhomeTable.getSelectionModel().isEmpty())
         {
             mainTabPane.setDisable(true);
@@ -168,7 +167,7 @@ public class SController implements Initializable
                 int selectedIndex = motorhomeTable.getSelectionModel().getSelectedIndex();
                 Motorhome motorhome = Motorhome.allMotorhomes.get(selectedIndex);
 
-                statusBox.getSelectionModel().select(motorhome.getStatus());
+                statusBox.getSelectionModel().select(motorhome.getCleanStatus());
 
                 editMotorhomeStatusPane.setDisable(false);
                 editMotorhomeStatusPane.setVisible(true);
@@ -185,20 +184,25 @@ public class SController implements Initializable
         int selectedIndex = motorhomeTable.getSelectionModel().getSelectedIndex();
         Motorhome motorhome = Motorhome.allMotorhomes.get(selectedIndex);
 
-        if (statusBox.getValue().equals("Rented"))
+        if (statusBox.getValue().equals("Cleaned"))
         {
-            motorhome.setRentedStatus(true);
             motorhome.setServiceStatus(false);
+            motorhome.setCleanStatus("Clean");
         }
-        else if (statusBox.getValue().equals("Out of service"))
+        else if (statusBox.getValue().equals("Out of order"))
         {
             motorhome.setRentedStatus(false);
             motorhome.setServiceStatus(true);
+            motorhome.setCleanStatus("Out of order");
+        }
+        else if (statusBox.getValue().equals("Not yet cleaned"))
+        {
+            motorhome.setServiceStatus(true);
+            motorhome.setCleanStatus("Not clean");
         }
         else
         {
-            motorhome.setRentedStatus(false);
-            motorhome.setServiceStatus(false);
+            motorhome.setCleanStatus(statusBox.getValue());
         }
 
         motorhome.setDateOfCheck(LocalDate.now());
@@ -237,7 +241,7 @@ public class SController implements Initializable
         motorhomeIDCol.setCellValueFactory(new PropertyValueFactory<>("motorhomeID"));
         motorhomeModelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
         motorhomeBrandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));
-        motorhomeStatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        motorhomeStatusCol.setCellValueFactory(new PropertyValueFactory<>("cleanStatus"));
         motorhomeDateCheckCol.setCellValueFactory(new PropertyValueFactory<>("dateOfCheck"));
     }
 

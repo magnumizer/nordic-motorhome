@@ -26,6 +26,7 @@ public class Motorhome
     boolean rentedStatus = false;
     boolean serviceStatus = false;
     float pricePerDay;
+    String cleanStatus = "Clean";
     String dateOfCheck;
 
     public Motorhome(String model, String brand, String size, float pricePerDay)
@@ -105,6 +106,16 @@ public class Motorhome
             return "Rented";
         else
             return "Available";
+    }
+
+    public String getCleanStatus()
+    {
+        return cleanStatus;
+    }
+
+    public void setCleanStatus(String cleanStatus)
+    {
+        this.cleanStatus = cleanStatus;
     }
 
     public String getDateOfCheck()

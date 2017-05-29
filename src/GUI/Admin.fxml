@@ -47,7 +47,7 @@
                                                 <TableColumn fx:id="staffAddressCol" maxWidth="200.0" minWidth="130.0" prefWidth="120.0" text="Address" />
                                                 <TableColumn fx:id="staffTlfCol" maxWidth="200.0" minWidth="130.0" prefWidth="120.0" text="Tlf" />
                                                 <TableColumn fx:id="staffEmailCol" maxWidth="200.0" minWidth="130.0" prefWidth="120.0" text="E-mail" />
-                                                <TableColumn fx:id="staffUserCol" maxWidth="200.0" minWidth="130.0" prefWidth="120.0" text="Username" />
+                                                <TableColumn fx:id="staffPositionCol" maxWidth="200.0" minWidth="130.0" prefWidth="120.0" text="Position" />
                                             </columns>
                                           </TableView>
                                        </children>
@@ -234,7 +234,6 @@
             </Tab>
          </tabs>
       </TabPane>
-      <Button layoutX="838.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onOptionsBtnPressed" prefHeight="44.0" prefWidth="94.0" text="Options" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="0.0" />
       <Button layoutX="930.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="44.0" prefWidth="94.0" text="Log out" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="editCustomerPane" disable="true" layoutX="114.0" layoutY="212.0" prefHeight="201.0" prefWidth="886.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="212.0">
          <children>

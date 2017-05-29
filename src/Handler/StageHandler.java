@@ -54,25 +54,12 @@ public class StageHandler
     {
         Parent root = null;
 
-        if (StageHandler.currentUser instanceof Admin)
+        if (StageHandler.currentUser instanceof Admin || StageHandler.currentUser instanceof BookKeeper)
         {
             try
             {
-                System.out.println("Loading Admin screen...");
+                System.out.println("Loading Book Keeper screen...");
                 root = FXMLLoader.load(getClass().getResource("/GUI/Admin.fxml"));
-
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-                System.out.println("FXML file not found: Make sure path is correct.");
-            }
-        }
-        else if (StageHandler.currentUser instanceof SalesAssistant)
-        {
-            try
-            {
-                System.out.println("Loading Sales Assistant screen...");
-                root = FXMLLoader.load(getClass().getResource("/GUI/SalesAssistant.fxml"));
 
             } catch (IOException e)
             {
@@ -86,6 +73,19 @@ public class StageHandler
             {
                 System.out.println("Loading Service screen...");
                 root = FXMLLoader.load(getClass().getResource("/GUI/Service.fxml"));
+
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+                System.out.println("FXML file not found: Make sure path is correct.");
+            }
+        }
+        else if (StageHandler.currentUser instanceof SalesAssistant)
+        {
+            try
+            {
+                System.out.println("Loading Sales Assistant screen...");
+                root = FXMLLoader.load(getClass().getResource("/GUI/SalesAssistant.fxml"));
 
             } catch (IOException e)
             {

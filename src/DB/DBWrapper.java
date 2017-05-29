@@ -32,7 +32,7 @@ public class DBWrapper
                 String address = rs.getString("address");
                 String tlf = rs.getString("tlf");
 
-                Customer customer = new Customer(name, cpr, birthday, email, address, tlf);
+                Customer customer = new Customer(name, cpr, birthday, address, tlf, email);
                 Customer.allCustomers.add(customer);
             }
 
