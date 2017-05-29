@@ -253,7 +253,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="editCustomerCPRField" layoutX="177.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <TextField fx:id="editCustomerCPRField" editable="false" layoutX="177.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
             <Label alignment="CENTER" layoutX="324.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Date of birth">
                <font>
                   <Font size="13.0" />
@@ -300,7 +300,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="editStaffCPRField" layoutX="290.0" layoutY="119.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <TextField fx:id="editStaffCPRField" editable="false" layoutX="290.0" layoutY="119.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
             <Label alignment="CENTER" layoutX="437.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Date of birth">
                <font>
                   <Font size="13.0" />
