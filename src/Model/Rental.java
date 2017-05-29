@@ -108,7 +108,7 @@ public class Rental
 
     public String getMotorhomeName()
     {
-        return this.getReservation().getMotorhome().getModel();
+        return this.getReservation().getMotorhome().getBrand() + " " + this.getReservation().getMotorhome().getModel();
     }
 
     public LocalDate getPickupDate()
