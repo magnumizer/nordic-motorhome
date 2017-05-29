@@ -251,7 +251,12 @@ public class DBWrapper
         int _season = reservation.getCurrentSeason();
 
         HashMap<Accessory, Integer> accessoriesMap = reservation.getAccessories();
-        String _accessories = accessoriesMap.get("Bike Rack") + "," + accessoriesMap.get("Bed Linen") + "," + accessoriesMap.get("Child Seat") + "," + accessoriesMap.get("Picnic Table") + "," + accessoriesMap.get("Chair") + "";
+
+        String _accessories = accessoriesMap.get(Accessory.allAccessories.get("Bike Rack")) + ","
+                            + accessoriesMap.get(Accessory.allAccessories.get("Bed Linen")) + ","
+                            + accessoriesMap.get(Accessory.allAccessories.get("Child Seat")) + ","
+                            + accessoriesMap.get(Accessory.allAccessories.get("Picnic Table")) + ","
+                            + accessoriesMap.get(Accessory.allAccessories.get("Chair")) + "";
 
         Connection con = null;
         try
