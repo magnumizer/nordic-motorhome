@@ -580,11 +580,11 @@ public class AController implements Initializable
 
                         HashMap<Accessory, Integer> accessories = reservation.getAccessories();
 
-                        bikeRackBox.setValue(accessories.get(Accessory.allAccessories.get("Bike Rack")) + "");
-                        bedLinenBox.setValue(accessories.get(Accessory.allAccessories.get("Bed Linen")) + "");
-                        childSeatBox.setValue(accessories.get(Accessory.allAccessories.get("Child Seat")) + "");
-                        picnicTableBox.setValue(accessories.get(Accessory.allAccessories.get("Picnic Table")) + "");
-                        chairBox.setValue(accessories.get(Accessory.allAccessories.get("Chair")) + "");
+                        bikeRackBox.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Bike Rack"))));
+                        bedLinenBox.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Bed Linen"))));
+                        childSeatBox.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Child Seat"))));
+                        picnicTableBox.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Picnic Table"))));
+                        chairBox.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Chair"))));
 
                         editReservationPane.setDisable(false);
                         editReservationPane.setVisible(true);

@@ -4,6 +4,7 @@ import Model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public class DBWrapper
 {
@@ -211,9 +212,20 @@ public class DBWrapper
                 LocalDate pickupDate = rs.getDate("pickup").toLocalDate();
                 LocalDate dropoffDate = rs.getDate("dropoff").toLocalDate();
                 String address = rs.getString("address");
+                String accessories = rs.getString("accessories");
                 int season = rs.getInt("season");
 
+                HashMap<Accessory, Integer> accessoriesMap = new HashMap<>();
+                String[] split = accessories.split(",");
+                accessoriesMap.put(Accessory.allAccessories.get("Bike Rack"), Integer.parseInt(split[0]));
+                accessoriesMap.put(Accessory.allAccessories.get("Bed Linen"), Integer.parseInt(split[1]));
+                accessoriesMap.put(Accessory.allAccessories.get("Child Seat"), Integer.parseInt(split[2]));
+                accessoriesMap.put(Accessory.allAccessories.get("Picnic Table"), Integer.parseInt(split[3]));
+                accessoriesMap.put(Accessory.allAccessories.get("Chair"), Integer.parseInt(split[4]));
+
+
                 Reservation reservation = new Reservation(customer, motorhome, reservationDate, pickupDate, dropoffDate, address, season);
+                reservation.setAccessories(accessoriesMap);
                 Reservation.allReservations.add(reservation);
 
             }
@@ -238,13 +250,16 @@ public class DBWrapper
         String _address = reservation.getDropoffAddress();
         int _season = reservation.getCurrentSeason();
 
+        HashMap<Accessory, Integer> accessoriesMap = reservation.getAccessories();
+        String _accessories = accessoriesMap.get("Bike Rack") + "," + accessoriesMap.get("Bed Linen") + "," + accessoriesMap.get("Child Seat") + "," + accessoriesMap.get("Picnic Table") + "," + accessoriesMap.get("Chair") + "";
+
         Connection con = null;
         try
         {
             con = DBConn.getConn();
 
-            String sql = "REPLACE INTO `reservations` (`id`, `customer`, `motorhome`, `date`, `pickup`, `dropoff`, `address`, `season`) " +
-                    "VALUES ('" + _id + "', '" + _customerCPR + "', '" + _motorhomeID + "', '" + _reservationDate + "', '" + _pickupDate + "', '" + _dropoffDate + "', '" + _address + "', '" + _season + "');";
+            String sql = "REPLACE INTO `reservations` (`id`, `customer`, `motorhome`, `date`, `pickup`, `dropoff`, `address`, `accessories`, `season`) " +
+                    "VALUES ('" + _id + "', '" + _customerCPR + "', '" + _motorhomeID + "', '" + _reservationDate + "', '" + _pickupDate + "', '" + _dropoffDate + "', '" + _address + "', '" + _accessories + "', '" + _season + "');";
 
 
             Statement stmt = con.createStatement();
