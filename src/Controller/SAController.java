@@ -311,7 +311,7 @@ public class SAController implements Initializable
         {
             Motorhome motorhome = motorhomeTable.getSelectionModel().getSelectedItem();
             selectedMotorhome = motorhome;
-            selectMotorhomeBtn.setText(motorhome.getModel());
+            selectMotorhomeBtn.setText(motorhome.getBrand() + " " + motorhome.getModel());
             closeFindPanel();
         }
         else
@@ -347,7 +347,7 @@ public class SAController implements Initializable
 
         for (Motorhome motorhome : motorhomeList)
         {
-            if (!motorhome.isRentedStatus() && !motorhome.isServiceStatus())
+            if (motorhome.getStatus().equals("Available"))
             {
                 motorhomes.add(motorhome);
             }
@@ -377,6 +377,10 @@ public class SAController implements Initializable
 
                                     Reservation.allReservations.add(reservation);
                                     database.updateReservation(reservation);
+
+                                    Rental rental = new Rental(reservation);
+                                    Rental.allRentals.add(rental);
+                                    database.updateRental(rental);
 
                                     stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
                                     updateTable(overviewRentalTable, Rental.allRentals);

@@ -955,22 +955,7 @@ public class AController implements Initializable
                     motorhome.setBrand(editMotorhomeBrand.getText());
                     motorhome.setSize(editMotorhomeSizeBox.getValue());
                     motorhome.setPricePerDay(number);
-
-                    if (editMotorhomeStatusBox.getValue().equals("Rented"))
-                    {
-                        motorhome.setRentedStatus(true);
-                        motorhome.setServiceStatus(false);
-                    }
-                    else if (editMotorhomeStatusBox.getValue().equals("Out of service"))
-                    {
-                        motorhome.setRentedStatus(false);
-                        motorhome.setServiceStatus(true);
-                    }
-                    else
-                    {
-                        motorhome.setRentedStatus(false);
-                        motorhome.setServiceStatus(false);
-                    }
+                    motorhome.setStatus(editMotorhomeStatusBox.getValue());
 
                     database.updateMotorhome(motorhome);
                     stageHandler.displayInfo("Success", "Motorhome details have been changed", "Press OK to continue");

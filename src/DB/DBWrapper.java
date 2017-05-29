@@ -1,5 +1,6 @@
 package DB;//Magnus Svendsen DAT16i
 
+import Handler.SearchHandler;
 import Model.*;
 
 import java.sql.*;
@@ -206,8 +207,8 @@ public class DBWrapper
             while (rs.next())
             {
                 String id = rs.getString("id");
-                Customer customer = Customer.getCustomer(rs.getString("customer"));
-                Motorhome motorhome = Motorhome.getMotorhome(rs.getString("motorhome"));
+                Customer customer = SearchHandler.getCustomer(rs.getString("customer"));
+                Motorhome motorhome = SearchHandler.getMotorhome(rs.getString("motorhome"));
                 LocalDate reservationDate = rs.getDate("date").toLocalDate();
                 LocalDate pickupDate = rs.getDate("pickup").toLocalDate();
                 LocalDate dropoffDate = rs.getDate("dropoff").toLocalDate();
@@ -294,12 +295,23 @@ public class DBWrapper
 
             while (rs.next())
             {
+                String id = rs.getString("id");
                 String model = rs.getString("model");
                 String brand = rs.getString("brand");
                 String size = rs.getString("size");
                 float pricePerDay = rs.getFloat("price");
+                String status = rs.getString("generalstatus");
+                String cleanStatus = rs.getString("cleanstatus");
+                String dateOfCheck = rs.getString("dateofcheck");
 
                 Motorhome motorhome = new Motorhome(model, brand, size, pricePerDay);
+                motorhome.setMotorhomeID(id);
+                motorhome.setStatus(status);
+                motorhome.setCleanStatus(cleanStatus);
+                if (dateOfCheck != null && !dateOfCheck.equals(""))
+                {
+                    motorhome.setDateOfCheck(LocalDate.parse(dateOfCheck));
+                }
                 Motorhome.allMotorhomes.add(motorhome);
             }
 
@@ -319,14 +331,17 @@ public class DBWrapper
         String _brand = motorhome.getBrand();
         String _size = motorhome.getSize();
         float _pricePerDay = motorhome.getPricePerDay();
+        String _status = motorhome.getStatus();
+        String _cleanStatus = motorhome.getCleanStatus();
+        String _dateOfCheck = motorhome.getDateOfCheck();
 
         Connection con = null;
         try
         {
             con = DBConn.getConn();
 
-            String sql = "REPLACE INTO `motorhomes` (`id`, `model`, `brand`, `size`, `price`) " +
-                    "VALUES ('" + _id + "', '" + _model + "', '" + _brand + "', '" + _size + "', '" + _pricePerDay + "');";
+            String sql = "REPLACE INTO `motorhomes` (`id`, `model`, `brand`, `size`, `price`, `generalstatus`, `cleanstatus`, `dateofcheck`) " +
+                    "VALUES ('" + _id + "', '" + _model + "', '" + _brand + "', '" + _size + "', '" + _pricePerDay + "', '" + _status + "', '" + _cleanStatus + "', '" + _dateOfCheck + "');";
 
 
             Statement stmt = con.createStatement();
@@ -385,6 +400,137 @@ public class DBWrapper
 
             String sql = "REPLACE INTO `accessories` (`type`, `price`, `quantity`) " +
                     "VALUES ('" + _type + "', '" + _price + "', '" + _quantity + "');";
+
+
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+//RENTALS
+    //get
+    public void getRentalData()
+    {
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "SELECT * FROM rentals;";
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next())
+            {
+                String id = rs.getString("id");
+                Reservation reservation = SearchHandler.getReservation(rs.getString("reservation"));
+                Service service = SearchHandler.getService(rs.getString("service"));
+                boolean paid = rs.getBoolean("paid");
+
+                Rental rental = new Rental(reservation);
+                rental.setRentalID(id);
+                rental.setService(service);
+                rental.setPaidByCustomer(paid);
+
+                Rental.allRentals.add(rental);
+            }
+
+            con.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    //set
+    public void updateRental(Rental rental)
+    {
+        String _id = rental.getRentalID();
+        String _reservationID = rental.getReservation().getReservationID();
+        String _serviceID = null;
+        if (rental.getService() != null)
+        {
+            _serviceID = rental.getService().getServiceID();
+        }
+        int _paid = rental.isPaidByCustomer() ? 1 : 0;
+
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "REPLACE INTO `rentals` (`id`, `reservation`, `service`, `paid`) " +
+                    "VALUES ('" + _id + "', '" + _reservationID + "', '" + _serviceID + "', '" + _paid + "');";
+
+
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+//SERVICES
+    //get
+    public void getServiceData()
+    {
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "SELECT * FROM services;";
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next())
+            {
+                String id = rs.getString("id");
+                String title = rs.getString("title");
+                float price = rs.getFloat("price");
+                String description = rs.getString("description");
+                String date = rs.getString("date");
+
+                Service service = new Service(title, price, description,  LocalDate.parse(date));
+                service.setServiceID(id);
+                Service.allServices.add(service);
+            }
+
+            con.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    //set
+    public void updateService(Service service)
+    {
+        String _id = service.getServiceID();
+        String _title = service.getServiceTitle();
+        float _price = service.getPrice();
+        String _description = service.getDescription();
+        String _date = service.getServiceDate().toString();
+
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "REPLACE INTO `services` (`id`, `title`, `price`, `description`, `date`) " +
+                    "VALUES ('" + _id + "', '" + _title + "', '" + _price + "', '" + _description + "', '" + _date + "');";
 
 
             Statement stmt = con.createStatement();

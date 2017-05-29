@@ -32,6 +32,10 @@ public class Rental
         return rentalID;
     }
 
+    public void setRentalID(String rentalID)
+    {
+        this.rentalID = rentalID;
+    }
 
     public Reservation getReservation()
     {

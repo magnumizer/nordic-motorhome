@@ -7,24 +7,11 @@ public class Motorhome
 {
     public static ArrayList<Motorhome> allMotorhomes = new ArrayList<>();
 
-    public static Motorhome getMotorhome(String id)
-    {
-        for (Motorhome motorhome : Motorhome.allMotorhomes)
-        {
-            if (motorhome.getMotorhomeID().equals(id))
-            {
-                return motorhome;
-            }
-        }
-        return null;
-    }
-
     String motorhomeID;
     String model;
     String brand;
     String size;
-    boolean rentedStatus = false;
-    boolean serviceStatus = false;
+    String status = "Available";
     float pricePerDay;
     String cleanStatus = "Clean";
     String dateOfCheck;
@@ -78,34 +65,14 @@ public class Motorhome
         this.size = size;
     }
 
-    public boolean isRentedStatus()
-    {
-        return rentedStatus;
-    }
-
-    public void setRentedStatus(boolean rentedStatus)
-    {
-        this.rentedStatus = rentedStatus;
-    }
-
-    public boolean isServiceStatus()
-    {
-        return serviceStatus;
-    }
-
-    public void setServiceStatus(boolean serviceStatus)
-    {
-        this.serviceStatus = serviceStatus;
-    }
-
     public String getStatus()
     {
-        if (this.isServiceStatus())
-            return "Out of service";
-        else if (this.isRentedStatus())
-            return "Rented";
-        else
-            return "Available";
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
     }
 
     public String getCleanStatus()
@@ -148,6 +115,6 @@ public class Motorhome
     @Override
     public String toString()
     {
-        return this.getModel();
+        return this.getBrand() + " " + this.getModel();
     }
 }

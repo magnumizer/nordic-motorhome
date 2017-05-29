@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public abstract class SearchHandler
 {
+
+    //region Lists
     public static ArrayList<Employee> findEmployee(String searchValue)
     {
         ArrayList<Employee> foundEmployees = new ArrayList<>();
@@ -258,5 +260,57 @@ public abstract class SearchHandler
         return foundRentals;
 
     }
+    //endregion
+
+
+    //region Single
+    public static Customer getCustomer(String cpr)
+    {
+        for (Customer customer : Customer.allCustomers)
+        {
+            if (customer.getCpr().equals(cpr))
+            {
+                return customer;
+            }
+        }
+        return null;
+    }
+
+    public static Motorhome getMotorhome(String id)
+    {
+        for (Motorhome motorhome : Motorhome.allMotorhomes)
+        {
+            if (motorhome.getMotorhomeID().equals(id))
+            {
+                return motorhome;
+            }
+        }
+        return null;
+    }
+
+    public static Reservation getReservation(String id)
+    {
+        for (Reservation reservation : Reservation.allReservations)
+        {
+            if (reservation.getReservationID().equals(id))
+            {
+                return reservation;
+            }
+        }
+        return null;
+    }
+
+    public static Service getService(String id)
+    {
+        for (Service service : Service.allServices)
+        {
+            if (service.getServiceID().equals(id))
+            {
+                return service;
+            }
+        }
+        return null;
+    }
+    //endregion
 
 }

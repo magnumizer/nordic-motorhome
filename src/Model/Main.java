@@ -27,6 +27,8 @@ public class Main extends Application
         database.getMotorhomeData();
         database.getAccessoryData();
         database.getReservationData();
+        database.getServiceData();
+        database.getRentalData();
 
         primaryStage.setTitle("Nordic Motorhome Rental");
         primaryStage.setScene(scene);

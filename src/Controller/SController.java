@@ -1,5 +1,6 @@
 package Controller;//Magnus Svendsen DAT16i
 
+import DB.DBWrapper;
 import Handler.SearchHandler;
 import Handler.StageHandler;
 import Model.*;
@@ -78,6 +79,7 @@ public class SController implements Initializable
     private ComboBox<String> statusBox;
     //endregion
 
+    private DBWrapper database = new DBWrapper();
     private StageHandler stageHandler = new StageHandler();
 
     public void onOptionsBtnPressed(ActionEvent actionEvent)
@@ -115,7 +117,12 @@ public class SController implements Initializable
                 {
                     float price = Float.parseFloat(priceField.getText());
                     Service service = new Service(serviceField.getText(), price, descriptionField.getText(), LocalDate.now());
+                    Service.allServices.add(service);
                     Rental.allRentals.get(selectedIndex).setService(service);
+
+                    database.updateService(service);
+                    database.updateRental(Rental.allRentals.get(selectedIndex));
+
                     stageHandler.displayInfo("Success", "Service successfully submitted to Rental", "Press OK to continue");
                     updateRentalTable(Rental.allRentals);
                     clearFields();
@@ -181,23 +188,21 @@ public class SController implements Initializable
 
     public void onStatusSaveBtnPressed(ActionEvent actionEvent)
     {
-        int selectedIndex = motorhomeTable.getSelectionModel().getSelectedIndex();
-        Motorhome motorhome = Motorhome.allMotorhomes.get(selectedIndex);
+        Motorhome motorhome = motorhomeTable.getSelectionModel().getSelectedItem();
 
         if (statusBox.getValue().equals("Cleaned"))
         {
-            motorhome.setServiceStatus(false);
+            motorhome.setStatus("Available");
             motorhome.setCleanStatus("Clean");
         }
         else if (statusBox.getValue().equals("Out of order"))
         {
-            motorhome.setRentedStatus(false);
-            motorhome.setServiceStatus(true);
+            motorhome.setStatus("Out of service");
             motorhome.setCleanStatus("Out of order");
         }
         else if (statusBox.getValue().equals("Not yet cleaned"))
         {
-            motorhome.setServiceStatus(true);
+            motorhome.setStatus("Out of service");
             motorhome.setCleanStatus("Not clean");
         }
         else
@@ -207,6 +212,7 @@ public class SController implements Initializable
 
         motorhome.setDateOfCheck(LocalDate.now());
 
+        database.updateMotorhome(motorhome);
         stageHandler.displayInfo("Success", "Motorhome details have been changed", "Press OK to continue");
         motorhomeTable.getItems().setAll(Motorhome.allMotorhomes);
         closeEditPanel();

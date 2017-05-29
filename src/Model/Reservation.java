@@ -37,10 +37,6 @@ public class Reservation
         this.dropoffAddress = dropoffAddress;
         this.currentSeason = currentSeason;
         this.reservationID = generateID();
-
-        //creating rental here for now.. not sure where to instantiate it
-        Rental rental = new Rental(this);
-        Rental.allRentals.add(rental);
     }
 
 
@@ -54,6 +50,11 @@ public class Reservation
     public String getReservationID()
     {
         return reservationID;
+    }
+
+    public void setReservationID(String reservationID)
+    {
+        this.reservationID = reservationID;
     }
 
     public Customer getCustomer()

@@ -1,9 +1,13 @@
 package Model;//Magnus Svendsen DAT16i
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Service
 {
+    public static ArrayList<Service> allServices = new ArrayList<>();
+
+    String serviceID;
     String serviceTitle;
     float price;
     String description;
@@ -11,10 +15,21 @@ public class Service
 
     public Service(String serviceTitle, float price, String description, LocalDate serviceDate)
     {
+        this.serviceID = allServices.size() + "";
         this.serviceTitle = serviceTitle;
         this.price = price;
         this.description = description;
         this.serviceDate = serviceDate;
+    }
+
+    public String getServiceID()
+    {
+        return serviceID;
+    }
+
+    public void setServiceID(String serviceID)
+    {
+        this.serviceID = serviceID;
     }
 
     public String getServiceTitle()

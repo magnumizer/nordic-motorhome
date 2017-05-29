@@ -4,25 +4,6 @@ import java.time.LocalDate;
 
 public abstract class Person
 {
-    public static boolean checkIfPersonExists(String cpr)
-    {
-        for (Employee employee : Employee.allEmployees)
-        {
-            if (employee.getCpr().equals(cpr))
-            {
-                return true;
-            }
-        }
-        for (Customer customer : Customer.allCustomers)
-        {
-            if (customer.getCpr().equals(cpr))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private String name;
     private String cpr;
     private LocalDate dateOfBirth;
