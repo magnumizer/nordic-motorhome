@@ -179,9 +179,21 @@ public class SAController implements Initializable
     private Motorhome selectedMotorhome = null;
 
 
-    public void onOptionsBtnPressed(ActionEvent actionEvent)
+    public void onCheckoutBtnPressed(ActionEvent actionEvent)
     {
-
+        if (!checkoutRentalTable.getSelectionModel().isEmpty())
+        {
+            Rental rental = checkoutRentalTable.getSelectionModel().getSelectedItem();
+            rental.setPaidByCustomer(true);
+            database.updateRental(rental);
+            stageHandler.displayInfo("Success", "Rental has been paid by " + rental.getCustomerName(), "Press OK to continue");
+            updateTable(checkoutRentalTable, unpaidRentals());
+            updateTable(overviewRentalTable, Rental.allRentals);
+        }
+        else
+        {
+            stageHandler.displayError("Selection error", "Rental is missing", "Please select a Rental");
+        }
     }
 
     public void onLogOutBtnPressed(ActionEvent actionEvent)
@@ -384,7 +396,7 @@ public class SAController implements Initializable
 
                                     stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
                                     updateTable(overviewRentalTable, Rental.allRentals);
-                                    updateTable(checkoutRentalTable, Rental.allRentals);
+                                    updateTable(checkoutRentalTable, unpaidRentals());
                                     clearReservationFields();
                                 }
                                 else
@@ -650,6 +662,58 @@ public class SAController implements Initializable
         priceField.setText(price);
     }
 
+    private ArrayList<Rental> unpaidRentals()
+    {
+        ArrayList<Rental> rentals = new ArrayList<>();
+
+        for (Rental rental : Rental.allRentals)
+        {
+            if (!rental.isPaidByCustomer())
+            {
+                rentals.add(rental);
+            }
+        }
+
+        return rentals;
+    }
+
+    private ArrayList<Rental> findUnpaidRental(String searchValue)
+    {
+        ArrayList<Rental> foundRentals = new ArrayList<>();
+        ArrayList<Rental> unpaidRentals = unpaidRentals();
+        String searchString = searchValue.toLowerCase();
+
+        for (Rental rental : unpaidRentals)
+        {
+            if (rental.getRentalID().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getCustomerName().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getMotorhomeName().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getServiceName().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getServiceDate().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+        }
+
+        return foundRentals;
+    }
 
     private void updateTable(TableView table, ArrayList list)
     {
@@ -743,11 +807,11 @@ public class SAController implements Initializable
             {
                 if (newValue.matches(""))
                 {
-                    updateTable(checkoutRentalTable, Rental.allRentals);
+                    updateTable(checkoutRentalTable, unpaidRentals());
                 }
                 else
                 {
-                    updateTable(checkoutRentalTable, SearchHandler.findRental(checkoutSearchField.getText()));
+                    updateTable(checkoutRentalTable, findUnpaidRental(checkoutSearchField.getText()));
                 }
 
             }
@@ -941,7 +1005,7 @@ public class SAController implements Initializable
         chairBox.setItems(quantities);
         setupTableColumns();
         updateTable(overviewRentalTable, Rental.allRentals);
-        updateTable(checkoutRentalTable, Rental.allRentals);
+        updateTable(checkoutRentalTable, unpaidRentals());
         clearCustomerFields();
         clearReservationFields();
         addListenerHandler();

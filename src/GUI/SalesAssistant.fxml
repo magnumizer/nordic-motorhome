@@ -73,7 +73,7 @@
                                           <TableColumn fx:id="checkoutTotalCol" minWidth="0.0" prefWidth="95.0" text="Total" />
                                       </columns>
                                     </TableView>
-                                    <Button layoutX="112.0" layoutY="476.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" text="Check out" />
+                                    <Button layoutX="112.0" layoutY="476.0" mnemonicParsing="false" onAction="#onCheckoutBtnPressed" prefHeight="35.0" prefWidth="94.0" text="Check out" />
                                  </children>
                               </AnchorPane>
                            </content>
