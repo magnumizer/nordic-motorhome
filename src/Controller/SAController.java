@@ -592,39 +592,66 @@ public class SAController implements Initializable
 
     public void onPickupDateSelected(ActionEvent actionEvent)
     {
-        if (pickupDate.getValue() != null && dropoffDate.getValue() != null)
+        if (pickupDate.getValue() != null)
         {
-            if (!pickupDate.getValue().isBefore(dropoffDate.getValue()))
+            if (pickupDate.getValue().isAfter(reservationDate.getValue()))
             {
-                pickupDate.setValue(null);
-                stageHandler.displayError("Invalid date", "Pick up date must be BEFORE drop off date", "Please select a valid date");
-                Platform.runLater(() -> {
-                    pickupDate.show();
-                });
+                if (dropoffDate.getValue() != null)
+                {
+                    if (!pickupDate.getValue().isBefore(dropoffDate.getValue()))
+                    {
+                        pickupDate.setValue(null);
+                        stageHandler.displayError("Invalid date", "Pick up date must be BEFORE drop off date", "Please select a valid date");
+                        Platform.runLater(() -> {
+                            pickupDate.show();
+                        });
+                    }
+                    else
+                    {
+                        recalculatePrice(actionEvent);
+                    }
+                }
             }
             else
             {
-                recalculatePrice(actionEvent);
+                stageHandler.displayError("Invalid date", "Pick up date must be AFTER today", "Please select a valid date");
+                pickupDate.setValue(null);
+                Platform.runLater(() -> {
+                    pickupDate.show();
+                });
             }
         }
     }
 
     public void onDropoffDateSelected(ActionEvent actionEvent)
     {
-        if (pickupDate.getValue() != null && dropoffDate.getValue() != null)
+        if (dropoffDate.getValue() != null)
         {
-            if (!dropoffDate.getValue().isAfter(pickupDate.getValue()))
+            if (dropoffDate.getValue().isAfter(reservationDate.getValue()))
             {
-                dropoffDate.setValue(null);
-                stageHandler.displayError("Invalid date", "Drop off date must be AFTER pick up date", "Please select a valid date");
-                Platform.runLater(() -> {
-                    dropoffDate.show();
-                });
+                if (pickupDate.getValue() != null)
+                {
+                    if (!dropoffDate.getValue().isAfter(pickupDate.getValue()))
+                    {
+                        dropoffDate.setValue(null);
+                        stageHandler.displayError("Invalid date", "Drop off date must be AFTER pick up date", "Please select a valid date");
+                        Platform.runLater(() -> {
+                            dropoffDate.show();
+                        });
+                    }
+                    else
+                    {
+                        recalculatePrice(actionEvent);
+                    }
+                }
             }
             else
             {
-                recalculatePrice(actionEvent);
-            }
+                stageHandler.displayError("Invalid date", "Drop off date must be AFTER today", "Please select a valid date");
+                dropoffDate.setValue(null);
+                Platform.runLater(() -> {
+                    dropoffDate.show();
+                });            }
         }
     }
 
