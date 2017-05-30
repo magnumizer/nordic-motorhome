@@ -104,8 +104,6 @@ public class SAController implements Initializable
     @FXML
     private TableView<Customer> customerTable;
     @FXML
-    private TableColumn<Customer, String> customerIDCol;
-    @FXML
     private TableColumn<Customer, String> customerNameCol;
     @FXML
     private TableColumn<Customer, String> customerCPRCol;
@@ -762,7 +760,6 @@ public class SAController implements Initializable
         checkoutServicePriceCol.setCellValueFactory(new PropertyValueFactory<>("servicePrice"));
         checkoutTotalCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
 
-        customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         customerCPRCol.setCellValueFactory(new PropertyValueFactory<>("cpr"));
         customerBirthdayCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));

@@ -65,11 +65,11 @@
                                     <TextField fx:id="checkoutSearchField" layoutX="162.0" layoutY="119.0" />
                                     <TableView fx:id="checkoutRentalTable" layoutX="112.0" layoutY="167.0" prefHeight="283.0" prefWidth="704.0">
                                       <columns>
-                                        <TableColumn fx:id="checkoutCustomerCol" prefWidth="153.0" text="Customer" />
-                                          <TableColumn fx:id="checkoutMotorhomeCol" prefWidth="153.0" text="Motorhome" />
-                                        <TableColumn fx:id="checkoutDaysCol" prefWidth="95.0" text="Days of rental" />
+                                        <TableColumn fx:id="checkoutCustomerCol" prefWidth="123.0" text="Customer" />
+                                          <TableColumn fx:id="checkoutMotorhomeCol" prefWidth="123.0" text="Motorhome" />
+                                        <TableColumn fx:id="checkoutDaysCol" minWidth="120.0" prefWidth="95.0" text="Days of rental" />
                                           <TableColumn fx:id="checkoutPriceCol" prefWidth="95.0" text="Price" />
-                                          <TableColumn fx:id="checkoutServicePriceCol" minWidth="0.0" prefWidth="95.0" text="Service price" />
+                                          <TableColumn fx:id="checkoutServicePriceCol" minWidth="130.0" prefWidth="95.0" text="Service price" />
                                           <TableColumn fx:id="checkoutTotalCol" minWidth="0.0" prefWidth="95.0" text="Total" />
                                       </columns>
                                     </TableView>
@@ -206,13 +206,12 @@
             <TextField fx:id="findCustomerSearchField" layoutX="416.0" layoutY="57.0" />
             <TableView fx:id="customerTable" layoutX="8.0" layoutY="103.0" prefHeight="108.0" prefWidth="910.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="102.0">
               <columns>
-                <TableColumn fx:id="customerIDCol" editable="false" prefWidth="128.0" text="Customer ID" />
-                <TableColumn fx:id="customerNameCol" editable="false" prefWidth="128.0" text="Name" />
-                  <TableColumn fx:id="customerCPRCol" editable="false" prefWidth="128.0" text="CPR" />
-                  <TableColumn fx:id="customerBirthdayCol" editable="false" prefWidth="128.0" text="Date of birth" />
-                  <TableColumn fx:id="customerAddressCol" editable="false" prefWidth="128.0" text="Address" />
-                  <TableColumn fx:id="customerTlfCol" editable="false" prefWidth="128.0" text="Tlf" />
-                  <TableColumn fx:id="customerEmailCol" editable="false" prefWidth="128.0" text="E-mail" />
+                <TableColumn fx:id="customerNameCol" editable="false" minWidth="148.0" prefWidth="120.0" text="Name" />
+                  <TableColumn fx:id="customerCPRCol" editable="false" minWidth="148.0" prefWidth="120.0" text="CPR" />
+                  <TableColumn fx:id="customerBirthdayCol" editable="false" minWidth="148.0" prefWidth="120.0" text="Date of birth" />
+                  <TableColumn fx:id="customerAddressCol" editable="false" minWidth="148.0" prefWidth="120.0" text="Address" />
+                  <TableColumn fx:id="customerTlfCol" editable="false" minWidth="148.0" prefWidth="120.0" text="Tlf" />
+                  <TableColumn fx:id="customerEmailCol" editable="false" minWidth="148.0" prefWidth="120.0" text="E-mail" />
               </columns>
             </TableView>
             <Button layoutX="348.0" layoutY="229.0" mnemonicParsing="false" onAction="#onFindCustomerOKBtnPressed" prefHeight="48.0" prefWidth="94.0" text="OK" />
