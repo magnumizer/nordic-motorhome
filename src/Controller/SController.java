@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -82,9 +83,22 @@ public class SController implements Initializable
     private DBWrapper database = new DBWrapper();
     private StageHandler stageHandler = new StageHandler();
 
-    public void onOptionsBtnPressed(ActionEvent actionEvent)
+    public void onRentalTableClicked(MouseEvent mouseEvent)
     {
-
+        if (!rentalTable.getSelectionModel().isEmpty())
+        {
+            Rental rental = rentalTable.getSelectionModel().getSelectedItem();
+            if (rental.getService() != null)
+            {
+                serviceField.setText(rental.getService().getServiceTitle());
+                priceField.setText(String.valueOf(rental.getService().getPrice() / 10));
+                descriptionField.setText(rental.getService().getDescription());
+            }
+            else
+            {
+                clearFields();
+            }
+        }
     }
 
     public void onLogOutBtnPressed(ActionEvent actionEvent)
@@ -115,14 +129,27 @@ public class SController implements Initializable
             {
                 if (!descriptionField.getText().equals(""))
                 {
+                    Rental rental = Rental.allRentals.get(selectedIndex);
                     float price = Float.parseFloat(priceField.getText());
-                    Service service = new Service(serviceField.getText(), price, descriptionField.getText(), LocalDate.now());
-                    Service.allServices.add(service);
-                    Rental.allRentals.get(selectedIndex).setService(service);
 
-                    database.updateService(service);
-                    database.updateRental(Rental.allRentals.get(selectedIndex));
+                    if (rental.getService() == null)
+                    {
+                        Service service = new Service(serviceField.getText(), price, descriptionField.getText(), LocalDate.now());
+                        Service.allServices.add(service);
+                        rental.setService(service);
+                        database.updateService(service);
+                    }
+                    else
+                    {
+                        Service service = rental.getService();
+                        service.setServiceTitle(serviceField.getText());
+                        service.setPrice(price);
+                        service.setDescription(descriptionField.getText());
+                        service.setServiceDate(LocalDate.now());
+                        database.updateService(service);
+                    }
 
+                    database.updateRental(rental);
                     stageHandler.displayInfo("Success", "Service successfully submitted to Rental", "Press OK to continue");
                     updateRentalTable(Rental.allRentals);
                     clearFields();

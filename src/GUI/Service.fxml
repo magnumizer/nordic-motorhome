@@ -34,7 +34,7 @@
                               <Insets right="5.0" />
                            </padding></Label>
                         <TextField fx:id="searchField" layoutX="163.0" layoutY="121.0" />
-                        <TableView fx:id="rentalTable" layoutX="112.0" layoutY="168.0" prefHeight="196.0" prefWidth="790.0">
+                        <TableView fx:id="rentalTable" layoutX="112.0" layoutY="168.0" onMouseClicked="#onRentalTableClicked" prefHeight="196.0" prefWidth="790.0">
                           <columns>
                             <TableColumn fx:id="rentalIDCol" prefWidth="109.0" text="Rental ID" />
                             <TableColumn fx:id="customerCol" prefWidth="172.0" text="Customer" />
@@ -58,7 +58,7 @@
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <TextArea fx:id="descriptionField" layoutX="344.0" layoutY="438.0" prefHeight="86.0" prefWidth="325.0" />
+                        <TextArea fx:id="descriptionField" layoutX="344.0" layoutY="438.0" prefHeight="86.0" prefWidth="325.0" wrapText="true" />
                         <Button layoutX="811.0" layoutY="493.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSubmitBtnPressed" prefHeight="31.0" prefWidth="91.0" text="Submit" />
                      </children>
                   </AnchorPane>
