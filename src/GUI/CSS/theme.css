@@ -1,8 +1,10 @@
 Button {
--fx-background-color: floralwhite ;
+-fx-background-color: #003333 ;
 -fx-font-family:  "Georgia", "Serif","Times New Roman";
--fx-font-size: 12;
+-fx-font-size: 14;
 -fx-color:  #da8282;
+-fx-text-fill :floralwhite;
+-fx-opacity:0.75;
 }
 AnchorPane {
 -fx-background-image: url("..//Images//background.jpg");
@@ -34,6 +36,7 @@ ComboBox{
 -fx-font-size: 12;
 -fx-background-color: floralwhite;
 -fx-background-blend-mode: lighten;
+-fx-opacity: 0.9;
 }
 
 TextField{
@@ -41,6 +44,7 @@ TextField{
 -fx-font-size: 12;
 -fx-background-color: floralwhite;
 -fx-background-blend-mode: lighten;
+-fx-opacity:0.9;
 }
 
 PasswordField{
@@ -48,13 +52,7 @@ PasswordField{
 -fx-font-size: 12;
 -fx-background-color: floralwhite;
 -fx-background-blend-mode: lighten;
-
-}
-.tab-content-area
-{
--fx-background-color: 	#191970;
--fx-padding: 0.0em; /* 0 */
-
+-fx-opacity:0.9;
 }
 .tab {
   -fx-font-family: Arial;
@@ -68,8 +66,6 @@ PasswordField{
 }
 .tab:selected {
     -fx-background-color-moz-radial-gradient(center, ellipse cover, rgba(98,125,77,1) 0%, rgba(31,59,8,1) 100%);
-
-
 }
 
 .dialog-pane:header .header-panel {
@@ -78,7 +74,7 @@ PasswordField{
 
 
 .dialog-pane:header .header-panel .label{
-  -fx-background-color: #008080;
+
   -fx-background-radius:10px;
   -fx-text-fill:floralwhite;
   -fx-font-size:15.0px;
