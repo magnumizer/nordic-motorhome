@@ -1,17 +1,21 @@
 Button {
--fx-background-color: floralwhite  ;
+-fx-background-color: floralwhite ;
 -fx-font-family:  "Georgia", "Serif","Times New Roman";
 -fx-font-size: 12;
 -fx-color:  #da8282;
 }
 AnchorPane {
-
+-fx-background-image: url("..//Images//background.jpg");
 -fx-background-size: 100%;
 -fx-background-color: rgba(0, 0, 0, 0.2);
 }
 Label {
 -fx-font-family: "Georgia", "Serif","Times New Roman";
--fx-font-size: 12;
+-fx-font-size: 14;
+-fx-text-fill: floralwhite;
+}
+Text {
+-fx-color:floralwhite;
 }
 
 .table-cell{
@@ -41,7 +45,22 @@ PasswordField{
 }
 .tab-content-area
 {
--fx-background-color: -fx-control-inner-background;
+-fx-background-color: 	#191970;
 -fx-padding: 0.0em; /* 0 */
+
+}
+.tab {
+  -fx-font-family: Arial;
+  -fx-font-size: 18;
+  -fx-background-color: #006666 ;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0.25;
+    -fx-background-color: 	#008080;
+}
+.tab:selected {
+    -fx-background-color-moz-radial-gradient(center, ellipse cover, rgba(98,125,77,1) 0%, rgba(31,59,8,1) 100%);
+
 
 }
