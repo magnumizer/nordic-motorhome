@@ -195,7 +195,6 @@
             </Tab>
          </tabs>
       </TabPane>
-      <Button layoutX="838.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onOptionsBtnPressed" prefHeight="48.0" prefWidth="94.0" text="Options" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="0.0" />
       <Button layoutX="930.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLogOutBtnPressed" prefHeight="48.0" prefWidth="94.0" text="Log out" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="findCustomerPane" disable="true" layoutY="197.0" prefHeight="229.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="150.0">
          <children>
