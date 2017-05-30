@@ -20,7 +20,14 @@ Text {
 
 .table-cell{
 -fx-alignment: center;
+-fx-color:floralwhite;
 }
+
+.table-view .column-header {
+-fx-background-color: #008080;
+-fx-opacity: 0.75;
+}
+
 
 ComboBox{
 -fx-font-family:  "Georgia", "Serif","Times New Roman";
@@ -63,4 +70,36 @@ PasswordField{
     -fx-background-color-moz-radial-gradient(center, ellipse cover, rgba(98,125,77,1) 0%, rgba(31,59,8,1) 100%);
 
 
+}
+
+.dialog-pane:header .header-panel {
+  -fx-background-color: #00b3b3;
+}
+
+
+.dialog-pane:header .header-panel .label{
+  -fx-background-color: #008080;
+  -fx-background-radius:10px;
+  -fx-text-fill:floralwhite;
+  -fx-font-size:15.0px;
+   -fx-opacity: 0.75;
+}
+
+
+.dialog-pane > .content.label {
+   -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+   -fx-background-color: #008080;
+   -fx-text-fill: floralwhite;
+   -fx-font-size: 15.0px;
+
+}
+
+.dialog-pane > .button-bar > .container{
+
+ -fx-background-color: #004d4d;
+
+}
+.dialog-pane > .button-bar > .button{
+
+-fx-background-color: #008080;
 }
