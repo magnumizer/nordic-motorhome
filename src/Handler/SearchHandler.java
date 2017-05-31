@@ -48,7 +48,6 @@ public abstract class SearchHandler
             if (employee.getUsername().toLowerCase().contains(searchString))
             {
                 foundEmployees.add(employee);
-                continue;
             }
         }
 
@@ -91,7 +90,6 @@ public abstract class SearchHandler
             if (customer.getEmail().toLowerCase().contains(searchString))
             {
                 foundCustomers.add(customer);
-                continue;
             }
         }
 
@@ -139,7 +137,53 @@ public abstract class SearchHandler
             if (String.valueOf(reservation.getTotalPrice()).contains(searchString))
             {
                 foundReservations.add(reservation);
+            }
+        }
+
+        return foundReservations;
+
+    }
+
+    public static ArrayList<Reservation> findFutureReservation(String searchValue, ArrayList<Reservation> futureReservations)
+    {
+        ArrayList<Reservation> foundReservations = new ArrayList<>();
+        String searchString = searchValue.toLowerCase();
+
+        for (Reservation reservation : futureReservations)
+        {
+            if (reservation.getReservationID().toLowerCase().contains(searchString))
+            {
+                foundReservations.add(reservation);
                 continue;
+            }
+            if (reservation.getMotorhome().toString().toLowerCase().contains(searchString))
+            {
+                foundReservations.add(reservation);
+                continue;
+            }
+            if (reservation.getCustomer().toString().toLowerCase().contains(searchString))
+            {
+                foundReservations.add(reservation);
+                continue;
+            }
+            if (reservation.getReservationDate().toString().contains(searchString))
+            {
+                foundReservations.add(reservation);
+                continue;
+            }
+            if (reservation.getPickupDate().toString().contains(searchString))
+            {
+                foundReservations.add(reservation);
+                continue;
+            }
+            if (reservation.getDropoffDate().toString().contains(searchString))
+            {
+                foundReservations.add(reservation);
+                continue;
+            }
+            if (String.valueOf(reservation.getTotalPrice()).contains(searchString))
+            {
+                foundReservations.add(reservation);
             }
         }
 
@@ -187,7 +231,6 @@ public abstract class SearchHandler
             if (motorhome.getDateOfCheck().contains(searchString))
             {
                 foundMotorhomes.add(motorhome);
-                continue;
             }
         }
 
@@ -215,7 +258,6 @@ public abstract class SearchHandler
             if (String.valueOf(accessory.getQuantity()).contains(searchString))
             {
                 foundAccessories.add(accessory);
-                continue;
             }
         }
 
@@ -253,12 +295,47 @@ public abstract class SearchHandler
             if (rental.getServiceDate().contains(searchString))
             {
                 foundRentals.add(rental);
-                continue;
             }
         }
 
         return foundRentals;
 
+    }
+
+    public static ArrayList<Rental> findUnpaidRental(String searchValue, ArrayList<Rental> unpaidRentals)
+    {
+        ArrayList<Rental> foundRentals = new ArrayList<>();
+        String searchString = searchValue.toLowerCase();
+
+        for (Rental rental : unpaidRentals)
+        {
+            if (rental.getRentalID().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getCustomerName().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getMotorhomeName().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getServiceName().toLowerCase().contains(searchString))
+            {
+                foundRentals.add(rental);
+                continue;
+            }
+            if (rental.getServiceDate().contains(searchString))
+            {
+                foundRentals.add(rental);
+            }
+        }
+
+        return foundRentals;
     }
     //endregion
 

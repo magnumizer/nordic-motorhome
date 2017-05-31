@@ -36,14 +36,26 @@ public class Reservation
         this.dropoffDate = dropoffDate;
         this.dropoffAddress = dropoffAddress;
         this.currentSeason = currentSeason;
-        this.reservationID = generateID();
     }
 
 
-    private String generateID()
+    public String generateID()
     {
         //logic for generating unique id goes here
-        int val = Reservation.allReservations.size();
+        int val = 0;
+
+        for (Reservation reservation : Reservation.allReservations)
+        {
+            if (val <= Integer.parseInt(reservation.getReservationID()))
+            {
+                val++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
         return val + "";
     }
 

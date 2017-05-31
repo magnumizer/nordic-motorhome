@@ -55,6 +55,38 @@ public abstract class CalculationHandler
         return price;
     }
 
+    public static float calculateCancellationFee(Reservation reservation)
+    {
+        int days = CalculationHandler.calculateDaysBetweenDates(LocalDate.now(), reservation.getPickupDate());
+        float price = reservation.getTotalPrice();
+        float fine = 0;
+
+        if (days >= 50)
+        {
+            fine = (20*price)/100;
+
+            if (fine < 200f)
+            {
+                fine = 200f;
+            }
+        }
+        else if (days >= 15 && days <= 49)
+        {
+            fine = (50*price)/100;
+        }
+        else if (days < 15 && days >= 1)
+        {
+            fine = (80*price)/100;
+        }
+        else if (days == 0)
+        {
+            fine = (95*price)/100;
+        }
+
+        return fine;
+
+    }
+
     public static float clamp(float val, float min, float max)
     {
         return Math.max(min, Math.min(max, val));

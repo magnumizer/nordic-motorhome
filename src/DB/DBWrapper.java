@@ -226,6 +226,7 @@ public class DBWrapper
 
 
                 Reservation reservation = new Reservation(customer, motorhome, reservationDate, pickupDate, dropoffDate, address, season);
+                reservation.setReservationID(id);
                 reservation.setAccessories(accessoriesMap);
                 Reservation.allReservations.add(reservation);
 
@@ -270,6 +271,29 @@ public class DBWrapper
 
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    //delete
+    public void deleteReservation(Reservation reservation)
+    {
+        String reservationID = reservation.getReservationID();
+
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "DELETE FROM reservations WHERE id = ?;";
+
+            PreparedStatement prepStmt = con.prepareStatement(sql);
+            prepStmt.setString(1, reservationID);
+            prepStmt.execute();
+
             con.close();
         } catch (SQLException e)
         {
@@ -472,6 +496,29 @@ public class DBWrapper
 
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    //delete
+    public void deleteRental(Rental rental )
+    {
+        String rentalID = rental.getRentalID();
+
+        Connection con = null;
+        try
+        {
+            con = DBConn.getConn();
+
+            String sql = "DELETE FROM rentals WHERE id = ?;";
+
+            PreparedStatement prepStmt = con.prepareStatement(sql);
+            prepStmt.setString(1, rentalID);
+            prepStmt.execute();
+
             con.close();
         } catch (SQLException e)
         {

@@ -85,6 +85,77 @@
                   </TabPane>
               </content>
             </Tab>
+
+<Tab closable="false" text="Reservation">
+<content>
+                  <TabPane fx:id="reservationTabPane" side="LEFT" tabMaxWidth="20.0" tabMinHeight="85.0">
+                     <tabs>
+                        <Tab closable="false">
+                           <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                                    <Label alignment="CENTER" prefHeight="98.0" prefWidth="1024.0" text="List of all Reservations" AnchorPane.bottomAnchor="451.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                  <TableView fx:id="reservationTable" layoutX="114.0" layoutY="98.0" prefHeight="283.0" prefWidth="704.0">
+                     <columns>
+                        <TableColumn fx:id="reservationIDCol" prefWidth="115.0" text="Reservation ID" />
+                        <TableColumn fx:id="reservationMotorhomeCol" prefWidth="160.0" text="Motorhome" />
+                        <TableColumn fx:id="reservationCustomerCol" prefWidth="137.0" text="Customer " />
+                        <TableColumn fx:id="reservationPickupDateCol" prefWidth="130.0" text="Pickup date" />
+                        <TableColumn fx:id="reservationPriceCol" prefWidth="137.0" text="Price" />
+                     </columns>
+                  </TableView>
+                  <Button layoutX="396.0" layoutY="412.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditReservationBtnPressed" prefHeight="30.0" prefWidth="140.0" text="Edit Reservation" />
+                                    <TextField fx:id="reservationSearchField" layoutX="166.0" layoutY="49.0" />
+                                    <Label layoutX="114.0" layoutY="53.0" text="Search:" />
+               </children>
+            </AnchorPane>
+                           </content>
+                           <graphic>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Overview" />
+                           </graphic>
+                        </Tab>
+                        <Tab closable="false">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="98.0" prefWidth="1024.0" text="List of scheduled Reservations" AnchorPane.bottomAnchor="451.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="reservationScheduleTable" layoutX="114.0" layoutY="98.0" onMouseClicked="#onReservationTableClicked" prefHeight="283.0" prefWidth="704.0">
+                                       <columns>
+                                          <TableColumn fx:id="reservationScheduleIDCol" prefWidth="115.0" text="Reservation ID" />
+                                          <TableColumn fx:id="reservationScheduleMotorhomeCol" prefWidth="160.0" text="Motorhome" />
+                                          <TableColumn fx:id="reservationScheduleCustomerCol" prefWidth="137.0" text="Customer " />
+                                          <TableColumn fx:id="reservationSchedulePickupDateCol" prefWidth="130.0" text="Pickup date" />
+                                          <TableColumn fx:id="reservationSchedulePriceCol" prefWidth="137.0" text="Price" />
+                                       </columns>
+                                    </TableView>
+                                    <Label layoutX="315.0" layoutY="412.0" text="Fine:" />
+                                    <TextField fx:id="fineField" disable="true" editable="false" layoutX="376.0" layoutY="408.0" />
+                                    <Label layoutX="535.0" layoutY="412.0" prefHeight="17.0" prefWidth="40.0" text="kr." />
+                                    <Label layoutX="315.0" layoutY="446.0" text="Payment:" />
+                                    <CheckBox fx:id="cashCheck" layoutX="376.0" layoutY="446.0" mnemonicParsing="false" text="Cash" />
+                                    <CheckBox fx:id="creditCheck" layoutX="376.0" layoutY="477.0" mnemonicParsing="false" text="Credit card" />
+                                    <Button layoutX="629.0" layoutY="451.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onConfirmCancellationBtnPressed" prefHeight="35.0" prefWidth="170.0" text="Confirm Cancellation" />
+                                    <TextField fx:id="reservationScheduleSearchField" layoutX="166.0" layoutY="49.0" />
+                                    <Label layoutX="114.0" layoutY="53.0" text="Search:" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                           <graphic>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="80.0" text="Cancellation" />
+                           </graphic>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+</content>
+</Tab>
             <Tab closable="false" text="Registration">
                <content>
                   <AnchorPane>
@@ -238,6 +309,62 @@
             </TableView>
             <Button layoutX="348.0" layoutY="229.0" mnemonicParsing="false" onAction="#onFindMotorhomeOKBtnPressed" prefHeight="48.0" prefWidth="94.0" text="OK" />
             <Button layoutX="482.0" layoutY="229.0" mnemonicParsing="false" onAction="#onFindMotorhomeCancelBtnPressed" prefHeight="48.0" prefWidth="94.0" text="Cancel" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="editReservationPane" disable="true" layoutX="5.0" layoutY="212.0" prefHeight="201.0" prefWidth="1017.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: black;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="39.0" prefWidth="884.0" text="Edit selected Reservation" AnchorPane.bottomAnchor="161.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Motorhome">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="editReservationMotorhomeBox" layoutX="15.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="162.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Customer">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="editReservationCustomerBox" layoutX="177.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="324.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Pick up date">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="editReservationPickup" layoutX="339.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPickupDateSelected" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="486.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Drop off date">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="editReservationDropoff" layoutX="501.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onDropoffDateSelected" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="648.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Drop off address">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editReservationAddress" layoutX="663.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="810.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" text="Accessories">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="bikeRackBoxEdit" editable="true" layoutX="825.0" layoutY="30.0" prefHeight="25.0" prefWidth="55.0" />
+            <Label layoutX="886.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="110.0" text="Bike rack (100kr)" />
+            <ComboBox fx:id="bedLinenBoxEdit" editable="true" layoutX="825.0" layoutY="65.0" prefHeight="25.0" prefWidth="55.0" />
+            <Label layoutX="886.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="110.0" text="Bed linen (10kr)" />
+            <ComboBox fx:id="childSeatBoxEdit" editable="true" layoutX="825.0" layoutY="100.0" prefHeight="25.0" prefWidth="55.0" />
+            <Label layoutX="886.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="110.0" text="Child seat (50kr)" />
+            <ComboBox fx:id="picnicTableBoxEdit" editable="true" layoutX="825.0" layoutY="135.0" prefHeight="25.0" prefWidth="55.0" />
+            <Label layoutX="886.0" layoutY="135.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="110.0" text="Picnic Table (150kr)" />
+            <ComboBox fx:id="chairBoxEdit" editable="true" layoutX="825.0" layoutY="170.0" prefHeight="25.0" prefWidth="55.0" />
+            <Label layoutX="886.0" layoutY="170.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="110.0" text="Chair (20kr)" />
+            <Button layoutX="396.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditSaveBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Save" />
+            <Button layoutX="500.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEditCancelBtnPressed" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
          </children>
       </AnchorPane>
    </children>

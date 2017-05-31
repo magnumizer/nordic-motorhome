@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -98,6 +99,13 @@ public class SAController implements Initializable
     private TextField priceField;
 
     @FXML
+    private TextField fineField;
+    @FXML
+    private CheckBox cashCheck;
+    @FXML
+    private CheckBox creditCheck;
+
+    @FXML
     private AnchorPane findCustomerPane;
     @FXML
     private TextField findCustomerSearchField;
@@ -168,6 +176,61 @@ public class SAController implements Initializable
     private TableColumn<Rental, String> checkoutServicePriceCol;
     @FXML
     private TableColumn<Rental, String> checkoutTotalCol;
+
+    @FXML
+    private AnchorPane editReservationPane;
+    @FXML
+    private ComboBox<Motorhome> editReservationMotorhomeBox;
+    @FXML
+    private ComboBox<Customer> editReservationCustomerBox;
+    @FXML
+    private DatePicker editReservationPickup;
+    @FXML
+    private DatePicker editReservationDropoff;
+    @FXML
+    private TextField editReservationAddress;
+    @FXML
+    private ComboBox<String> bikeRackBoxEdit;
+    @FXML
+    private ComboBox<String> bedLinenBoxEdit;
+    @FXML
+    private ComboBox<String> childSeatBoxEdit;
+    @FXML
+    private ComboBox<String> picnicTableBoxEdit;
+    @FXML
+    private ComboBox<String> chairBoxEdit;
+
+    @FXML
+    private TextField reservationSearchField;
+
+    @FXML
+    private TableView<Reservation> reservationTable;
+    @FXML
+    private TableColumn<Reservation, String> reservationIDCol;
+    @FXML
+    private TableColumn<Motorhome, String> reservationMotorhomeCol;
+    @FXML
+    private TableColumn<Customer, String> reservationCustomerCol;
+    @FXML
+    private TableColumn<Reservation, String> reservationPickupDateCol;
+    @FXML
+    private TableColumn<Reservation, String> reservationPriceCol;
+
+    @FXML
+    private TextField reservationScheduleSearchField;
+
+    @FXML
+    private TableView<Reservation> reservationScheduleTable;
+    @FXML
+    private TableColumn<Reservation, String> reservationScheduleIDCol;
+    @FXML
+    private TableColumn<Motorhome, String> reservationScheduleMotorhomeCol;
+    @FXML
+    private TableColumn<Customer, String> reservationScheduleCustomerCol;
+    @FXML
+    private TableColumn<Reservation, String> reservationSchedulePickupDateCol;
+    @FXML
+    private TableColumn<Reservation, String> reservationSchedulePriceCol;
     //endregion
 
     private DBWrapper database = new DBWrapper();
@@ -383,18 +446,22 @@ public class SAController implements Initializable
                                 if (isSeasonSelected())
                                 {
                                     Reservation reservation = new Reservation(selectedCustomer, selectedMotorhome, reservationDate.getValue(), pickupDate.getValue(), dropoffDate.getValue(), dropoffAddressField.getText(), getSeasonValue());
+                                    reservation.setReservationID(reservation.generateID());
                                     addAccessoriesToReservation(reservation);
 
                                     Reservation.allReservations.add(reservation);
                                     database.updateReservation(reservation);
 
                                     Rental rental = new Rental(reservation);
+                                    rental.setRentalID(rental.generateID());
                                     Rental.allRentals.add(rental);
                                     database.updateRental(rental);
 
                                     stageHandler.displayInfo("Success", "Reservation successfully added to the system", "Press OK to continue");
                                     updateTable(overviewRentalTable, Rental.allRentals);
                                     updateTable(checkoutRentalTable, unpaidRentals());
+                                    updateTable(reservationTable, Reservation.allReservations);
+                                    updateTable(reservationScheduleTable, futureReservations());
                                     clearReservationFields();
                                 }
                                 else
@@ -702,42 +769,189 @@ public class SAController implements Initializable
         return rentals;
     }
 
-    private ArrayList<Rental> findUnpaidRental(String searchValue)
+    private ArrayList<Reservation> futureReservations()
     {
-        ArrayList<Rental> foundRentals = new ArrayList<>();
-        ArrayList<Rental> unpaidRentals = unpaidRentals();
-        String searchString = searchValue.toLowerCase();
+        ArrayList<Reservation> reservations = new ArrayList<>();
 
-        for (Rental rental : unpaidRentals)
+        for (Reservation reservation : Reservation.allReservations)
         {
-            if (rental.getRentalID().toLowerCase().contains(searchString))
+            if (!reservation.getPickupDate().isBefore(LocalDate.now()))
             {
-                foundRentals.add(rental);
-                continue;
-            }
-            if (rental.getCustomerName().toLowerCase().contains(searchString))
-            {
-                foundRentals.add(rental);
-                continue;
-            }
-            if (rental.getMotorhomeName().toLowerCase().contains(searchString))
-            {
-                foundRentals.add(rental);
-                continue;
-            }
-            if (rental.getServiceName().toLowerCase().contains(searchString))
-            {
-                foundRentals.add(rental);
-                continue;
-            }
-            if (rental.getServiceDate().contains(searchString))
-            {
-                foundRentals.add(rental);
-                continue;
+                reservations.add(reservation);
             }
         }
 
-        return foundRentals;
+        return reservations;
+    }
+
+    public void onReservationTableClicked(MouseEvent mouseEvent)
+    {
+        if (!reservationScheduleTable.getSelectionModel().isEmpty())
+        {
+            calculateFine(reservationScheduleTable.getSelectionModel().getSelectedItem());
+        }
+    }
+
+    public void onEditReservationBtnPressed(ActionEvent actionEvent)
+    {
+        if (!reservationTable.getSelectionModel().isEmpty())
+        {
+            mainTabPane.setDisable(true);
+
+            if (!editReservationPane.isVisible())
+            {
+                int selectedIndex = reservationTable.getSelectionModel().getSelectedIndex();
+                Reservation reservation = Reservation.allReservations.get(selectedIndex);
+
+                ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList(Motorhome.allMotorhomes);
+                editReservationMotorhomeBox.setItems(motorhomes);
+
+                ObservableList<Customer> customers = FXCollections.observableArrayList(Customer.allCustomers);
+                editReservationCustomerBox.setItems(customers);
+
+                int motorhomeIndex = 0;
+
+                for (int i = 0; i < Motorhome.allMotorhomes.size(); i++)
+                {
+                    if (reservation.getMotorhome() == Motorhome.allMotorhomes.get(i))
+                    {
+                        motorhomeIndex = i;
+                    }
+                }
+
+                int customerIndex = 0;
+
+                for (int i = 0; i < Customer.allCustomers.size(); i++)
+                {
+                    if (reservation.getCustomer() == Customer.allCustomers.get(i))
+                    {
+                        customerIndex = i;
+                    }
+                }
+
+                editReservationMotorhomeBox.getSelectionModel().select(motorhomeIndex);
+                editReservationCustomerBox.getSelectionModel().select(customerIndex);
+                editReservationPickup.setValue(reservation.getPickupDate());
+                editReservationDropoff.setValue(reservation.getDropoffDate());
+                editReservationAddress.setText(reservation.getDropoffAddress());
+
+                HashMap<Accessory, Integer> accessories = reservation.getAccessories();
+
+                bikeRackBoxEdit.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Bike Rack"))));
+                bedLinenBoxEdit.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Bed Linen"))));
+                childSeatBoxEdit.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Child Seat"))));
+                picnicTableBoxEdit.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Picnic Table"))));
+                chairBoxEdit.setValue(String.valueOf(accessories.get(Accessory.allAccessories.get("Chair"))));
+
+                editReservationPane.setDisable(false);
+                editReservationPane.setVisible(true);
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Selection error", "Reservation not selected", "Please select a Reservation from the list");
+        }
+    }
+
+    public void onEditSaveBtnPressed(ActionEvent actionEvent)
+    {
+        if (editReservationPickup.getValue() != null)
+        {
+            if (editReservationDropoff.getValue() != null)
+            {
+                Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
+                reservation.setMotorhome(editReservationMotorhomeBox.getValue());
+                reservation.setCustomer(editReservationCustomerBox.getValue());
+                reservation.setPickupDate(editReservationPickup.getValue());
+                reservation.setDropoffDate(editReservationDropoff.getValue());
+                reservation.setDropoffAddress(editReservationAddress.getText());
+
+                addAccessoriesToReservation(reservation);
+
+                database.updateReservation(reservation);
+                stageHandler.displayInfo("Success", "Reservation details have been changed", "Press OK to continue");
+                updateTable(reservationTable, Reservation.allReservations);
+                updateTable(reservationScheduleTable, futureReservations());
+                closeEditPanel();
+            }
+            else
+            {
+                stageHandler.displayError("Drop off date not specified", "Drop off date is missing", "Please enter a drop off date");
+                editReservationDropoff.show();
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Pick up date not specified", "Pick up date is missing", "Please enter a pick up date");
+            editReservationPickup.show();
+        }
+    }
+
+    public void onEditCancelBtnPressed(ActionEvent actionEvent)
+    {
+        closeEditPanel();
+    }
+
+    private void closeEditPanel()
+    {
+        mainTabPane.setDisable(false);
+
+        if (editReservationPane.isVisible())
+        {
+            editReservationPane.setVisible(false);
+            editReservationPane.setDisable(true);
+        }
+    }
+
+    private void clearFineFields()
+    {
+        fineField.clear();
+        cashCheck.setSelected(false);
+        creditCheck.setSelected(false);
+    }
+
+    private void calculateFine(Reservation reservation)
+    {
+        String fineText = String.valueOf(CalculationHandler.calculateCancellationFee(reservation));
+        fineField.setText(fineText);
+    }
+
+    public void onConfirmCancellationBtnPressed(ActionEvent actionEvent)
+    {
+        if (!reservationScheduleTable.getSelectionModel().isEmpty())
+        {
+            if (cashCheck.isSelected() || creditCheck.isSelected())
+            {
+                Reservation reservation = reservationScheduleTable.getSelectionModel().getSelectedItem();
+                Reservation.allReservations.remove(reservation);
+                database.deleteReservation(reservation);
+
+                for (Rental rental : Rental.allRentals)
+                {
+                    if (rental.getReservation() == reservation)
+                    {
+                        Rental.allRentals.remove(rental);
+                        database.deleteRental(rental);
+                        break;
+                    }
+                }
+
+                stageHandler.displayInfo("Success", "Reservation successfully cancelled - Payment receieved", "Press OK to continue");
+                updateTable(reservationTable, Reservation.allReservations);
+                updateTable(reservationScheduleTable, futureReservations());
+                clearFineFields();
+                updateTable(overviewRentalTable, Rental.allRentals);
+                updateTable(checkoutRentalTable, unpaidRentals());
+            }
+            else
+            {
+                stageHandler.displayError("Payment type error", "Payment method not selected", "Please select the payment method the customer has chosen");
+            }
+        }
+        else
+        {
+            stageHandler.displayError("Selection error", "Reservation not selected", "Please select a Reservation from the list");
+        }
     }
 
     private void updateTable(TableView table, ArrayList list)
@@ -773,6 +987,18 @@ public class SAController implements Initializable
         motorhomeSizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
         motorhomePriceCol.setCellValueFactory(new PropertyValueFactory<>("pricePerDay"));
         motorhomeStatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        reservationIDCol.setCellValueFactory(new PropertyValueFactory<>("reservationID"));
+        reservationMotorhomeCol.setCellValueFactory(new PropertyValueFactory<>("motorhome"));
+        reservationCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        reservationPickupDateCol.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
+        reservationPriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+
+        reservationScheduleIDCol.setCellValueFactory(new PropertyValueFactory<>("reservationID"));
+        reservationScheduleMotorhomeCol.setCellValueFactory(new PropertyValueFactory<>("motorhome"));
+        reservationScheduleCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        reservationSchedulePickupDateCol.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
+        reservationSchedulePriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
     }
 
     private void addListenerHandler()
@@ -835,7 +1061,7 @@ public class SAController implements Initializable
                 }
                 else
                 {
-                    updateTable(checkoutRentalTable, findUnpaidRental(checkoutSearchField.getText()));
+                    updateTable(checkoutRentalTable, SearchHandler.findUnpaidRental(checkoutSearchField.getText(), unpaidRentals()));
                 }
 
             }
@@ -1016,10 +1242,176 @@ public class SAController implements Initializable
                 }
             }
         });
+
+        reservationSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(reservationTable, Reservation.allReservations);
+                }
+                else
+                {
+                    updateTable(reservationTable, SearchHandler.findReservation(reservationSearchField.getText()));
+                }
+            }
+        });
+
+        reservationScheduleSearchField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (newValue.matches(""))
+                {
+                    updateTable(reservationScheduleTable, futureReservations());
+                }
+                else
+                {
+                    updateTable(reservationScheduleTable, SearchHandler.findFutureReservation(reservationScheduleSearchField.getText(), futureReservations()));
+                }
+            }
+        });
+
+        bikeRackBoxEdit.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    bikeRackBoxEdit.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        bikeRackBoxEdit.getEditor().setText(limitVal + "");
+                        bikeRackBoxEdit.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        bikeRackBoxEdit.setValue(newValue);
+                    }
+                }
+            }
+        });
+
+        bedLinenBoxEdit.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    bedLinenBoxEdit.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        bedLinenBoxEdit.getEditor().setText(limitVal + "");
+                        bedLinenBoxEdit.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        bedLinenBoxEdit.setValue(newValue);
+                    }
+                }
+            }
+        });
+
+        childSeatBoxEdit.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    childSeatBoxEdit.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        childSeatBoxEdit.getEditor().setText(limitVal + "");
+                        childSeatBoxEdit.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        childSeatBoxEdit.setValue(newValue);
+                    }
+                }
+            }
+        });
+
+        picnicTableBoxEdit.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    picnicTableBoxEdit.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        picnicTableBoxEdit.getEditor().setText(limitVal + "");
+                        picnicTableBoxEdit.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        picnicTableBoxEdit.setValue(newValue);
+                    }
+                }
+            }
+        });
+
+        chairBoxEdit.getEditor().textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
+                    chairBoxEdit.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                else
+                {
+                    int inputVal = Integer.parseInt(newValue);
+                    int limitVal = 99;
+
+                    if (inputVal > limitVal)
+                    {
+                        chairBoxEdit.getEditor().setText(limitVal + "");
+                        chairBoxEdit.setValue(limitVal + "");
+                    }
+                    else
+                    {
+                        chairBoxEdit.setValue(newValue);
+                    }
+                }
+            }
+        });
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
+    private void setupComboboxes()
     {
         dropoffBox.setItems(points);
         bikeRackBox.setItems(quantities);
@@ -1027,9 +1419,22 @@ public class SAController implements Initializable
         childSeatBox.setItems(quantities);
         picnicTableBox.setItems(quantities);
         chairBox.setItems(quantities);
+        bikeRackBoxEdit.setItems(quantities);
+        bedLinenBoxEdit.setItems(quantities);
+        childSeatBoxEdit.setItems(quantities);
+        picnicTableBoxEdit.setItems(quantities);
+        chairBoxEdit.setItems(quantities);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        setupComboboxes();
         setupTableColumns();
         updateTable(overviewRentalTable, Rental.allRentals);
         updateTable(checkoutRentalTable, unpaidRentals());
+        updateTable(reservationTable, Reservation.allReservations);
+        updateTable(reservationScheduleTable, futureReservations());
         clearCustomerFields();
         clearReservationFields();
         addListenerHandler();

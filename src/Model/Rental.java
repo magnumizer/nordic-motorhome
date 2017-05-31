@@ -16,14 +16,26 @@ public class Rental
 
     public Rental(Reservation reservation)
     {
-        this.rentalID = generateID();
         this.reservation = reservation;
     }
 
-    private String generateID()
+    public String generateID()
     {
         //logic for generating unique id goes here
-        int val = Rental.allRentals.size();
+        int val = 0;
+
+        for (Rental rental : Rental.allRentals)
+        {
+            if (val <= Integer.parseInt(rental.getRentalID()))
+            {
+                val++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
         return val + "";
     }
 
