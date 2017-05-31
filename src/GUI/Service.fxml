@@ -84,7 +84,7 @@
                               <TableColumn fx:id="motorhomeDateCheckCol" prefWidth="170.0" text="Date of Check" />
                            </columns>
                         </TableView>
-                        <Button layoutX="463.0" layoutY="454.0" mnemonicParsing="false" onAction="#onCheckStatusBtnPressed" prefHeight="37.0" prefWidth="98.0" text="Check status" />
+                        <Button layoutX="457.0" layoutY="454.0" mnemonicParsing="false" onAction="#onCheckStatusBtnPressed" prefHeight="37.0" prefWidth="110.0" text="Check status" />
                      </children>
                   </AnchorPane>
               </content>
