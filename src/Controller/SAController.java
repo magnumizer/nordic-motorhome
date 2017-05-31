@@ -916,6 +916,22 @@ public class SAController implements Initializable
         fineField.setText(fineText);
     }
 
+    public void onCashSelected(ActionEvent actionEvent)
+    {
+        if (cashCheck.isSelected())
+        {
+            creditCheck.setSelected(false);
+        }
+    }
+
+    public void onCreditSelected(ActionEvent actionEvent)
+    {
+        if (creditCheck.isSelected())
+        {
+            cashCheck.setSelected(false);
+        }
+    }
+
     public void onConfirmCancellationBtnPressed(ActionEvent actionEvent)
     {
         if (!reservationScheduleTable.getSelectionModel().isEmpty())
