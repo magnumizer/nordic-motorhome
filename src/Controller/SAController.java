@@ -416,39 +416,62 @@ public class SAController implements Initializable
     //Sarb Alisia-Nadia
     private ArrayList<Motorhome> showAvailableMotorhomes(ArrayList<Motorhome> motorhomeList)
     {
-        ArrayList<Motorhome> motorhomes = new ArrayList<>();
-
-        for (Motorhome motorhome : motorhomeList) {
-            for (Reservation reservation : Reservation.allReservations) {
-
-                if (motorhome.equals(reservation.getMotorhome())) {
-
-                    if ((reservation.getPickupDate().isEqual(pickupDate.getValue())
-                            && reservation.getDropoffDate().isEqual(dropoffDate.getValue())
-                            || (reservation.getPickupDate().isEqual(pickupDate.getValue())
-                            && reservation.getDropoffDate().isBefore(dropoffDate.getValue()))
-                            || (reservation.getPickupDate().isAfter(pickupDate.getValue())
-                            && reservation.getDropoffDate().isEqual(dropoffDate.getValue())))
-                            || (reservation.getPickupDate().isBefore(pickupDate.getValue())
-                            && reservation.getDropoffDate().isEqual(pickupDate.getValue()))
-                            || (reservation.getPickupDate().isEqual(dropoffDate.getValue())
-                            && reservation.getDropoffDate().isAfter(dropoffDate.getValue()))) {
-
-                    } else {
-
-                        if (motorhome.getStatus().equals("Available") && motorhome.getCleanStatus().equals("Clean")) {
+       
+        if(pickupDate.getValue() != null && dropoffDate.getValue() != null) {
 
 
-                            motorhomes.add(motorhome);
+            for (Motorhome motorhome : motorhomeList) {
+                for (Reservation reservation : Reservation.allReservations) {
+
+                    if (motorhome.equals(reservation.getMotorhome())) {
+
+                        if ((reservation.getPickupDate().isEqual(pickupDate.getValue())
+                                && reservation.getDropoffDate().isEqual(dropoffDate.getValue())
+                                || (reservation.getPickupDate().isEqual(pickupDate.getValue())
+                                && reservation.getDropoffDate().isBefore(dropoffDate.getValue()))
+                                || (reservation.getPickupDate().isAfter(pickupDate.getValue())
+                                && reservation.getDropoffDate().isEqual(dropoffDate.getValue())))
+                                || (reservation.getPickupDate().isBefore(pickupDate.getValue())
+                                && reservation.getDropoffDate().isEqual(pickupDate.getValue()))
+                                || (reservation.getPickupDate().isEqual(dropoffDate.getValue())
+                                && reservation.getDropoffDate().isAfter(dropoffDate.getValue()))) {
+
+                        } else {
+
+                            if (motorhome.getStatus().equals("Available") && motorhome.getCleanStatus().equals("Clean")) {
+
+
+                                motorhomes.add(motorhome);
+
+                            }
 
                         }
 
+
                     }
 
-
                 }
+            }
+        }
+        else{
+
+            if(dropoffDate.getValue() == null){
+
+                stageHandler.displayError("Drop off date not specified", "Drop off date is missing", "Please enter a drop off date");
+                reservationDate.show();
 
             }
+
+            else {
+
+                if (pickupDate.getValue() == null) {
+
+                    stageHandler.displayError("Pick up date not specified", "Pick up data is missing", "Please enter a pick up date");
+                    reservationDate.show();
+
+                }
+            }
+
         }
 
         return motorhomes;
