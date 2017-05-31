@@ -413,20 +413,46 @@ public class SAController implements Initializable
             findMotorhomePane.setDisable(true);
         }
     }
-
+    //Sarb Alisia-Nadia
     private ArrayList<Motorhome> showAvailableMotorhomes(ArrayList<Motorhome> motorhomeList)
     {
         ArrayList<Motorhome> motorhomes = new ArrayList<>();
 
-        for (Motorhome motorhome : motorhomeList)
-        {
-            if (motorhome.getStatus().equals("Available"))
-            {
-                motorhomes.add(motorhome);
+        for (Motorhome motorhome : motorhomeList) {
+            for (Reservation reservation : Reservation.allReservations) {
+
+                if (motorhome.equals(reservation.getMotorhome())) {
+
+                    if ((reservation.getPickupDate().isEqual(pickupDate.getValue())
+                            && reservation.getDropoffDate().isEqual(dropoffDate.getValue())
+                            || (reservation.getPickupDate().isEqual(pickupDate.getValue())
+                            && reservation.getDropoffDate().isBefore(dropoffDate.getValue()))
+                            || (reservation.getPickupDate().isAfter(pickupDate.getValue())
+                            && reservation.getDropoffDate().isEqual(dropoffDate.getValue())))
+                            || (reservation.getPickupDate().isBefore(pickupDate.getValue())
+                            && reservation.getDropoffDate().isEqual(pickupDate.getValue()))
+                            || (reservation.getPickupDate().isEqual(dropoffDate.getValue())
+                            && reservation.getDropoffDate().isAfter(dropoffDate.getValue()))) {
+
+                    } else {
+
+                        if (motorhome.getStatus().equals("Available") && motorhome.getCleanStatus().equals("Clean")) {
+
+
+                            motorhomes.add(motorhome);
+
+                        }
+
+                    }
+
+
+                }
+
             }
         }
 
         return motorhomes;
+
     }
 
     public void onRegisterBtnPressed(ActionEvent actionEvent)
@@ -725,15 +751,15 @@ public class SAController implements Initializable
         float price = 0;
 
         if (!bikeRackBox.getValue().equals(""))
-        price += Accessory.allAccessories.get("Bike Rack").getPrice() * Integer.parseInt(bikeRackBox.getValue());
+            price += Accessory.allAccessories.get("Bike Rack").getPrice() * Integer.parseInt(bikeRackBox.getValue());
         if (!bedLinenBox.getValue().equals(""))
-        price += Accessory.allAccessories.get("Bed Linen").getPrice() * Integer.parseInt(bedLinenBox.getValue());
+            price += Accessory.allAccessories.get("Bed Linen").getPrice() * Integer.parseInt(bedLinenBox.getValue());
         if (!childSeatBox.getValue().equals(""))
-        price += Accessory.allAccessories.get("Child Seat").getPrice() * Integer.parseInt(childSeatBox.getValue());
+            price += Accessory.allAccessories.get("Child Seat").getPrice() * Integer.parseInt(childSeatBox.getValue());
         if (!picnicTableBox.getValue().equals(""))
-        price += Accessory.allAccessories.get("Picnic Table").getPrice() * Integer.parseInt(picnicTableBox.getValue());
+            price += Accessory.allAccessories.get("Picnic Table").getPrice() * Integer.parseInt(picnicTableBox.getValue());
         if (!chairBox.getValue().equals(""))
-        price += Accessory.allAccessories.get("Chair").getPrice() * Integer.parseInt(chairBox.getValue());
+            price += Accessory.allAccessories.get("Chair").getPrice() * Integer.parseInt(chairBox.getValue());
 
         if (selectedMotorhome != null && pickupDate.getValue() != null && dropoffDate.getValue() != null)
         {
