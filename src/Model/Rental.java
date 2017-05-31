@@ -1,4 +1,4 @@
-package Model;//Magnus Svendsen DAT16i
+package Model;//Oliver Christensen DAT16i
 
 import Handler.CalculationHandler;
 

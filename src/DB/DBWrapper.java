@@ -1,4 +1,4 @@
-package DB;//Magnus Svendsen DAT16i
+package DB;//Thi Binh Minh Cao DAT16i
 
 import Handler.SearchHandler;
 import Model.*;

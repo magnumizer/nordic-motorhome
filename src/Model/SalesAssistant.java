@@ -1,4 +1,4 @@
-package Model;//Magnus Svendsen DAT16i
+package Model;//Alisia-Nadia Sarb DAT16i
 
 import java.time.LocalDate;
 

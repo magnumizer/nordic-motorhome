@@ -55,6 +55,7 @@ public abstract class CalculationHandler
         return price;
     }
 
+    //Alisa-Nadia Sarb
     public static float calculateCancellationFee(Reservation reservation)
     {
         int days = CalculationHandler.calculateDaysBetweenDates(LocalDate.now(), reservation.getPickupDate());
