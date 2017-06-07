@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class DBWrapper
 {
 
-    //CUSTOMER
+//CUSTOMER
     //get
     public void getCustomerData()
     {
@@ -81,7 +81,7 @@ public class DBWrapper
 
 
 
-    //EMPLOYEE
+//EMPLOYEE
     //get
     public void getEmployeeData()
     {
@@ -170,10 +170,10 @@ public class DBWrapper
         {
             _position = "Cleaning Staff";
         }
-//        else if (employee instanceof BookKeeper)
-//        {
-//            _position = "Book Keeper";
-//        }
+        else if (employee instanceof BookKeeper)
+        {
+            _position = "Book Keeper";
+        }
         String _username = employee.getUsername();
         String _password = employee.getPassword();
 
@@ -206,7 +206,7 @@ public class DBWrapper
     }
 
 
-    //RESERVATION
+//RESERVATION
     //get
     public void getReservationData()
     {
@@ -271,10 +271,10 @@ public class DBWrapper
         HashMap<Accessory, Integer> accessoriesMap = reservation.getAccessories();
 
         String _accessories = accessoriesMap.get(Accessory.allAccessories.get("Bike Rack")) + ","
-                + accessoriesMap.get(Accessory.allAccessories.get("Bed Linen")) + ","
-                + accessoriesMap.get(Accessory.allAccessories.get("Child Seat")) + ","
-                + accessoriesMap.get(Accessory.allAccessories.get("Picnic Table")) + ","
-                + accessoriesMap.get(Accessory.allAccessories.get("Chair")) + "";
+                            + accessoriesMap.get(Accessory.allAccessories.get("Bed Linen")) + ","
+                            + accessoriesMap.get(Accessory.allAccessories.get("Child Seat")) + ","
+                            + accessoriesMap.get(Accessory.allAccessories.get("Picnic Table")) + ","
+                            + accessoriesMap.get(Accessory.allAccessories.get("Chair")) + "";
 
         Connection con = null;
         try
@@ -330,7 +330,7 @@ public class DBWrapper
 
 
 
-    //MOTORHOME
+//MOTORHOME
     //get
     public void getMotorhomeData()
     {
@@ -414,7 +414,7 @@ public class DBWrapper
     }
 
 
-    //ACCESSORIES
+//ACCESSORIES
     //get
     public void getAccessoryData()
     {
@@ -476,7 +476,7 @@ public class DBWrapper
     }
 
 
-    //RENTALS
+//RENTALS
     //get
     public void getRentalData()
     {
@@ -572,7 +572,7 @@ public class DBWrapper
     }
 
 
-    //SERVICES
+//SERVICES
     //get
     public void getServiceData()
     {
@@ -592,9 +592,9 @@ public class DBWrapper
                 String title = rs.getString("title");
                 float price = rs.getFloat("price");
                 String description = rs.getString("description");
-                String date = rs.getString("date");
+                LocalDate date = rs.getDate("date").toLocalDate();
 
-                Service service = new Service(title, price, description,  LocalDate.parse(date));
+                Service service = new Service(title, price, description, date);
                 service.setServiceID(id);
                 Service.allServices.add(service);
             }
@@ -614,7 +614,7 @@ public class DBWrapper
         String _title = service.getServiceTitle();
         float _price = service.getPrice();
         String _description = service.getDescription();
-        String _date = service.getServiceDate().toString();
+        Date _date = Date.valueOf(service.getServiceDate());
 
         Connection con = null;
         try
@@ -630,7 +630,7 @@ public class DBWrapper
             stmt.setString(2,_title);
             stmt.setFloat(3,_price);
             stmt.setString(4,_description);
-            stmt.setString(5,_date);
+            stmt.setDate(5,_date);
 
             stmt.executeUpdate();
             con.close();
