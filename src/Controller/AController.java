@@ -496,8 +496,7 @@ public class AController implements Initializable
 
                     if (!editStaffPane.isVisible())
                     {
-                        int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
-                        Employee employee = Employee.allEmployees.get(selectedIndex);
+                        Employee employee = staffTable.getSelectionModel().getSelectedItem();
 
                         editStaffNameField.setText(employee.getName());
                         editStaffCPRField.setText(employee.getCpr());
@@ -526,8 +525,7 @@ public class AController implements Initializable
 
                     if (!editCustomerPane.isVisible())
                     {
-                        int selectedIndex = customerTable.getSelectionModel().getSelectedIndex();
-                        Customer customer = Customer.allCustomers.get(selectedIndex);
+                        Customer customer = customerTable.getSelectionModel().getSelectedItem();
 
                         editCustomerNameField.setText(customer.getName());
                         editCustomerCPRField.setText(customer.getCpr());
@@ -553,8 +551,7 @@ public class AController implements Initializable
 
                     if (!editReservationPane.isVisible())
                     {
-                        int selectedIndex = reservationTable.getSelectionModel().getSelectedIndex();
-                        Reservation reservation = Reservation.allReservations.get(selectedIndex);
+                        Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
 
                         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList(Motorhome.allMotorhomes);
                         editReservationMotorhomeBox.setItems(motorhomes);
@@ -613,8 +610,7 @@ public class AController implements Initializable
 
                     if (!editMotorhomePane.isVisible())
                     {
-                        int selectedIndex = motorhomeTable.getSelectionModel().getSelectedIndex();
-                        Motorhome motorhome = Motorhome.allMotorhomes.get(selectedIndex);
+                        Motorhome motorhome = motorhomeTable.getSelectionModel().getSelectedItem();
 
                         editMotorhomeModel.setText(motorhome.getModel());
                         editMotorhomeBrand.setText(motorhome.getBrand());
@@ -648,9 +644,7 @@ public class AController implements Initializable
 
                     if (!editAccessoryPane.isVisible())
                     {
-                        int selectedIndex = accessoryTable.getSelectionModel().getSelectedIndex();
-                        String selectedAccessory = accessoryTable.getItems().get(selectedIndex).getType();
-                        Accessory accessory = Accessory.allAccessories.get(selectedAccessory);
+                        Accessory accessory = accessoryTable.getSelectionModel().getSelectedItem();
 
                         editAccessoryType.setText(accessory.getType());
                         editAccessoryPrice.setText((accessory.getPrice() / 10) + "");
