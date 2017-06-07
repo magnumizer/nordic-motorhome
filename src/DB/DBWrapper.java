@@ -61,11 +61,17 @@ public class DBWrapper
             con = DBConn.getConn();
 
             String sql = "REPLACE INTO `customers` (`name`, `cpr`, `birthday`, `address`, `tlf`, `email`) " +
-                    "VALUES ('" + _name + "', '" + _cpr + "', '" + _birthday + "', '" + _address + "', '" + _tlf + "', '" + _email + "');";
+                    "VALUES (?,?,?,?,?,?);";
 
 
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,_name);
+            stmt.setString(2,_cpr);
+            stmt.setDate(3, Date.valueOf(_birthday));
+            stmt.setString(4,_address);
+            stmt.setString(5,_tlf);
+            stmt.setString(6,_email);
+            stmt.executeUpdate();
             con.close();
         } catch (SQLException e)
         {
@@ -177,11 +183,21 @@ public class DBWrapper
             con = DBConn.getConn();
 
             String sql = "REPLACE INTO `employees` (`name`, `cpr`, `birthday`, `address`, `tlf`, `email`, `position`, `username`, `password`) " +
-                    "VALUES ('" + _name + "', '" + _cpr + "', '" + _birthday + "', '" + _address + "', '" + _tlf + "', '" + _email + "', '" + _position + "', '" + _username + "', '" + _password + "');";
+                    "VALUES (?,?,?,?,?,?,?,?,?);";
 
 
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,_name);
+            stmt.setString(2,_cpr);
+            stmt.setDate(3, Date.valueOf(_birthday));
+            stmt.setString(4,_address);
+            stmt.setString(5,_tlf);
+            stmt.setString(6,_email);
+            stmt.setString(7,_position);
+            stmt.setString(8,_username);
+            stmt.setString(9,_password);
+
+            stmt.executeUpdate();
             con.close();
         } catch (SQLException e)
         {
@@ -266,11 +282,22 @@ public class DBWrapper
             con = DBConn.getConn();
 
             String sql = "REPLACE INTO `reservations` (`id`, `customer`, `motorhome`, `date`, `pickup`, `dropoff`, `address`, `accessories`, `season`) " +
-                    "VALUES ('" + _id + "', '" + _customerCPR + "', '" + _motorhomeID + "', '" + _reservationDate + "', '" + _pickupDate + "', '" + _dropoffDate + "', '" + _address + "', '" + _accessories + "', '" + _season + "');";
+                    "VALUES (?,?,?,?,?,?,?,?,?);";
 
 
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt=con.prepareStatement(sql);
+
+            stmt.setString(1,_id);
+            stmt.setString(2,_customerCPR);
+            stmt.setString(3,_motorhomeID);
+            stmt.setDate(4, Date.valueOf(_reservationDate));
+            stmt.setDate(5, Date.valueOf(_pickupDate));
+            stmt.setDate(6, Date.valueOf(_dropoffDate));
+            stmt.setString(7,_address);
+            stmt.setString(8,_accessories);
+            stmt.setInt(9,_season);
+
+            stmt.executeUpdate();
             con.close();
         } catch (SQLException e)
         {
@@ -365,11 +392,20 @@ public class DBWrapper
             con = DBConn.getConn();
 
             String sql = "REPLACE INTO `motorhomes` (`id`, `model`, `brand`, `size`, `price`, `generalstatus`, `cleanstatus`, `dateofcheck`) " +
-                    "VALUES ('" + _id + "', '" + _model + "', '" + _brand + "', '" + _size + "', '" + _pricePerDay + "', '" + _status + "', '" + _cleanStatus + "', '" + _dateOfCheck + "');";
+                    "VALUES (?,?,?,?,?,?,?,?);";
 
 
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,_id);
+            stmt.setString(2,_model);
+            stmt.setString(3,_brand);
+            stmt.setString(4,_size);
+            stmt.setFloat(5,_pricePerDay);
+            stmt.setString(6,_status);
+            stmt.setString(7,_cleanStatus);
+            stmt.setString(8, _dateOfCheck);
+
+            stmt.executeUpdate();
             con.close();
         } catch (SQLException e)
         {

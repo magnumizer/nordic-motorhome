@@ -5,6 +5,7 @@ Button {
 -fx-font-size: 14;
 -fx-color:  #da8282;
 -fx-text-fill :floralwhite;
+
 }
 AnchorPane {
 -fx-background-image: url("..//Images//background.jpg");
