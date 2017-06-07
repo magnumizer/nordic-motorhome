@@ -126,7 +126,7 @@ public class DBWrapper
                         Employee.allEmployees.add(cleaningStaff);
                         break;
                     case "Book Keeper":
-                        Admin bookkeeper = new Admin(name, cpr, birthday, address, tlf, email, username, password);
+                        BookKeeper bookkeeper = new BookKeeper(name, cpr, birthday, address, tlf, email, username, password);
                         Employee.allEmployees.add(bookkeeper);
                         break;
                     default:
