@@ -208,18 +208,18 @@
                                              </font>
                                           </Label>
                                           <Label layoutX="90.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Motorhome:" textAlignment="CENTER" />
-                                          <Button fx:id="selectMotorhomeBtn" layoutX="257.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectMotorhomeBtnPressed" prefHeight="25.0" prefWidth="149.0" text="Select a motorhome" />
+                                          <Button fx:id="selectMotorhomeBtn" layoutX="260.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectMotorhomeBtnPressed" prefHeight="25.0" prefWidth="149.0" text="Select a motorhome" />
                                           <Label layoutX="449.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="429.0" text="Only available motorhomes are shown in the list." textAlignment="CENTER">
                                              <font>
                                                 <Font name="System Italic" size="12.0" />
                                              </font>
                                           </Label>
                                           <Label layoutX="90.0" layoutY="243.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Reservation date:" textAlignment="CENTER" />
-                                          <DatePicker fx:id="reservationDate" editable="false" layoutX="257.0" layoutY="243.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="25.0" prefWidth="149.0" style="-fx-opacity: 0.6;" />
+                                          <DatePicker fx:id="reservationDate" editable="false" layoutX="260.0" layoutY="243.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="25.0" prefWidth="149.0" style="-fx-opacity: 0.6;" />
                                           <Label layoutX="90.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Pick up date:" textAlignment="CENTER" />
                                           <DatePicker fx:id="pickupDate" layoutX="260.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPickupDateSelected" prefHeight="25.0" prefWidth="149.0" />
                                           <Label layoutX="90.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Drop off date:" textAlignment="CENTER" />
-                                          <DatePicker fx:id="dropoffDate" layoutX="257.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onDropoffDateSelected" prefHeight="25.0" prefWidth="149.0" />
+                                          <DatePicker fx:id="dropoffDate" layoutX="260.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onDropoffDateSelected" prefHeight="25.0" prefWidth="149.0" />
                                           <Label layoutX="90.0" layoutY="343.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" text="Extra accessories:" textAlignment="CENTER" />
                                           <ComboBox fx:id="bikeRackBox" editable="true" layoutX="260.0" layoutY="343.0" prefHeight="25.0" prefWidth="55.0" />
                                           <Label layoutX="321.0" layoutY="343.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" text="Bike rack (100kr)" />
