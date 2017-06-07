@@ -466,6 +466,7 @@ public class SAController implements Initializable
 
 
                             motorhomes.add(motorhome);
+                            break;
 
                         }
                     }
