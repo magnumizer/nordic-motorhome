@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class DBWrapper
 {
 
-//CUSTOMER
+    //CUSTOMER
     //get
     public void getCustomerData()
     {
@@ -81,7 +81,7 @@ public class DBWrapper
 
 
 
-//EMPLOYEE
+    //EMPLOYEE
     //get
     public void getEmployeeData()
     {
@@ -206,7 +206,7 @@ public class DBWrapper
     }
 
 
-//RESERVATION
+    //RESERVATION
     //get
     public void getReservationData()
     {
@@ -271,10 +271,10 @@ public class DBWrapper
         HashMap<Accessory, Integer> accessoriesMap = reservation.getAccessories();
 
         String _accessories = accessoriesMap.get(Accessory.allAccessories.get("Bike Rack")) + ","
-                            + accessoriesMap.get(Accessory.allAccessories.get("Bed Linen")) + ","
-                            + accessoriesMap.get(Accessory.allAccessories.get("Child Seat")) + ","
-                            + accessoriesMap.get(Accessory.allAccessories.get("Picnic Table")) + ","
-                            + accessoriesMap.get(Accessory.allAccessories.get("Chair")) + "";
+                + accessoriesMap.get(Accessory.allAccessories.get("Bed Linen")) + ","
+                + accessoriesMap.get(Accessory.allAccessories.get("Child Seat")) + ","
+                + accessoriesMap.get(Accessory.allAccessories.get("Picnic Table")) + ","
+                + accessoriesMap.get(Accessory.allAccessories.get("Chair")) + "";
 
         Connection con = null;
         try
@@ -330,7 +330,7 @@ public class DBWrapper
 
 
 
-//MOTORHOME
+    //MOTORHOME
     //get
     public void getMotorhomeData()
     {
@@ -414,7 +414,7 @@ public class DBWrapper
     }
 
 
-//ACCESSORIES
+    //ACCESSORIES
     //get
     public void getAccessoryData()
     {
@@ -459,11 +459,15 @@ public class DBWrapper
             con = DBConn.getConn();
 
             String sql = "REPLACE INTO `accessories` (`type`, `price`, `quantity`) " +
-                    "VALUES ('" + _type + "', '" + _price + "', '" + _quantity + "');";
+                    "VALUES (?,?,?);";
 
 
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,_type);
+            stmt.setFloat(2,_price);
+            stmt.setInt(3,_quantity);
+
+            stmt.executeUpdate();
             con.close();
         } catch (SQLException e)
         {
@@ -472,7 +476,7 @@ public class DBWrapper
     }
 
 
-//RENTALS
+    //RENTALS
     //get
     public void getRentalData()
     {
@@ -527,11 +531,16 @@ public class DBWrapper
             con = DBConn.getConn();
 
             String sql = "REPLACE INTO `rentals` (`id`, `reservation`, `service`, `paid`) " +
-                    "VALUES ('" + _id + "', '" + _reservationID + "', '" + _serviceID + "', '" + _paid + "');";
+                    "VALUES (?,?,?,?);";
 
 
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,_id);
+            stmt.setString(2,_reservationID);
+            stmt.setString(3,_serviceID);
+            stmt.setInt(4,_paid);
+
+            stmt.executeUpdate();
             con.close();
         } catch (SQLException e)
         {
@@ -563,7 +572,7 @@ public class DBWrapper
     }
 
 
-//SERVICES
+    //SERVICES
     //get
     public void getServiceData()
     {
@@ -613,11 +622,17 @@ public class DBWrapper
             con = DBConn.getConn();
 
             String sql = "REPLACE INTO `services` (`id`, `title`, `price`, `description`, `date`) " +
-                    "VALUES ('" + _id + "', '" + _title + "', '" + _price + "', '" + _description + "', '" + _date + "');";
+                    "VALUES (?,?,?,?,?);";
 
 
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,_id);
+            stmt.setString(2,_title);
+            stmt.setFloat(3,_price);
+            stmt.setString(4,_description);
+            stmt.setString(5,_date);
+
+            stmt.executeUpdate();
             con.close();
         } catch (SQLException e)
         {
@@ -625,11 +640,3 @@ public class DBWrapper
         }
     }
 }
-
-
-
-
-
-
-
-
