@@ -435,10 +435,16 @@ public class SAController implements Initializable
     {
         ArrayList<Motorhome> motorhomes = new ArrayList<>();
 
-        for (Motorhome motorhome : motorhomeList) {
-            for (Reservation reservation : Reservation.allReservations) {
+        for (Motorhome motorhome : motorhomeList)
+        {
+            boolean isReserved = false;
 
-                if (motorhome.equals(reservation.getMotorhome())) {
+            for (Reservation reservation : Reservation.allReservations)
+            {
+
+                if (motorhome.equals(reservation.getMotorhome()))
+                {
+                    isReserved = true;
 
                     if ((reservation.getPickupDate().isEqual(pickupDate.getValue())
                             && reservation.getDropoffDate().isEqual(dropoffDate.getValue())
@@ -449,9 +455,12 @@ public class SAController implements Initializable
                             || (reservation.getPickupDate().isBefore(pickupDate.getValue())
                             && reservation.getDropoffDate().isEqual(pickupDate.getValue()))
                             || (reservation.getPickupDate().isEqual(dropoffDate.getValue())
-                            && reservation.getDropoffDate().isAfter(dropoffDate.getValue()))) {
+                            && reservation.getDropoffDate().isAfter(dropoffDate.getValue())))
+                    {
 
-                    } else {
+                    }
+                    else
+                    {
 
                         if (motorhome.getStatus().equals("Available") && motorhome.getCleanStatus().equals("Clean")) {
 
@@ -460,6 +469,14 @@ public class SAController implements Initializable
 
                         }
                     }
+                }
+            }
+
+            if (!isReserved)
+            {
+                if (motorhome.getStatus().equals("Available") && motorhome.getCleanStatus().equals("Clean"))
+                {
+                    motorhomes.add(motorhome);
                 }
             }
         }
